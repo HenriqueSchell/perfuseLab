@@ -10,52 +10,54 @@
     href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
     <title>PerfuseLab</title>
 </head>
-<body class="bg-[#262626]">
+<body class="bg-[#262626ea] md:max-w-5xl m-auto">
     
     <!--Header-->
-    <header class="h-[350px] bg-[url('/medias/header-mobile.png')] bg-cover flex flex-col ">
-        <h1 class="text-4xl text-[#F2071B] text-center pt-20">Perfuse<span class="text-[#FFFFFF]">Lab</span></h1>
+    <header class="h-[400px] md:h-[500px] bg-[url('/medias/header-mobile.png')] md:bg-[url('/medias/header-desktop.png')] bg-cover flex flex-col ">
+        <h1 class="text-4xl md:text-5xl text-[#F2071B] text-center pt-20">Perfuse<span class="text-[#FFFFFF]">Lab</span></h1>
         <p class="text-lg font-semibold text-center pt-8 text-[#D9D9D9]">Simulador educacional de circulação extracorpórea (CEC)</p>
-        <img class="pt-8" src="medias/deatails-header-mobile.png" alt="">
+        <img class="pt-8 md:hidden" src="medias/deatails-header-mobile.png" alt="heart detail image">
+        <img class="pt-8 hidden md:flex" src="medias/deatails-header-desktop.png" alt="heart detail image">
     </header>
 
     <!--Main-->
     <main class="bg-[#EEF6FF] pb-10 flex flex-col items-center gap-12">
-        <h1 class="text-[#F2071B] text-xl text-center pt-5 font-semibold">Bem vindo-a Perfusionista!</h1>
+        <h1 class="text-[#F2071B] text-xl md:text-3xl text-center pt-5 font-semibold">Bem vindo-a Perfusionista!</h1>
 
         <!--Cards-->
+
         <!--Card1-->
-        <div class="w-[85%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl">
-            <div class="flex gap-5 justify-center text-xl font-medium">
-                <i class="ri-graduation-cap-fill text-2xl text-[#F2071B]"></i>
-                <h1 class="text-[#0F3D4C]">Ambiente Educacional</h1>
+        <div class="flex flex-col gap-10 items-center justify-center">
+            <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl">
+                <div class="flex gap-5 justify-center text-xl font-medium">
+                    <i class="ri-graduation-cap-fill text-2xl text-[#F2071B]"></i>
+                    <h1 class="text-[#0F3D4C]">Ambiente Educacional</h1>
+                </div>
+                <p class="w-[80%] pt-3 text-[#374151] text-center">Simulador demonstrativo voltado ao estudo da perfusão em CEC.</p>
             </div>
-            <p class="w-[80%] pt-3 text-[#374151] text-center">Simulador demonstrativo voltado ao estudo da perfusão em CEC.</p>
-        </div>
-
-        <!--Card2-->
-        <div class="w-[85%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl">
-            <div class="flex gap-5 justify-center text-xl font-medium">
-                <i class="ri-test-tube-fill text-2xl text-[#03A64A]"></i>
-                <h1 class="text-[#0F3D4C]">Casos simulados</h1>
+            <!--Card2-->
+            <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl">
+                <div class="flex gap-5 justify-center text-xl font-medium">
+                    <i class="ri-test-tube-fill text-2xl text-[#03A64A]"></i>
+                    <h1 class="text-[#0F3D4C]">Casos simulados</h1>
+                </div>
+                <p class="w-[80%]  pt-3 text-[#374151] text-center">Treine com variáveis clínicas realistas em CEC.</p>
             </div>
-            <p class="w-[80%] pt-3 text-[#374151] text-center">Treine com variáveis clínicas realistas em CEC.</p>
-        </div>
-
-        <!--Card3-->
-        <div class="w-[85%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl">
-            <div class="flex gap-5 justify-center text-xl font-medium">
-                <i class="ri-bar-chart-fill text-2xl text-[#FFCC00]"></i>
-                <h1 class="text-[#0F3D4C]">Indicadores e alertas</h1>
+            <!--Card3-->
+            <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl">
+                <div class="flex gap-5 justify-center text-xl font-medium">
+                    <i class="ri-bar-chart-fill text-2xl text-[#FFCC00]"></i>
+                    <h1 class="text-[#0F3D4C]">Indicadores e alertas</h1>
+                </div>
+                <p class="w-[80%] pt-3 text-[#374151] text-center">Acompanhe hemodinâmica, fluxo perfusional e status metabólico com avisos clínicos interpretativos.</p>
             </div>
-            <p class="w-[80%] pt-3 text-[#374151] text-center">Acompanhe hemodinâmica, fluxo perfusional e status metabólico com avisos clínicos interpretativos.</p>
         </div>
 
         <!--Button-->
-        <button class="py-3 px-5 rounded-full bg-[#03A64A] text-white hover:scale-105 transition-all duration-500">Iniciar Análise</button>
+        <button class="py-3 px-5 rounded-full bg-[#03A64A] text-white hover:scale-105 transition-all duration-500 border-none">Iniciar Análise</button>
     </main>
 
-    <footer class="bg-[#262626] w-full h-[200px] flex flex-col items-center mb-12">
+    <footer class="bg-[#262626] w-full h-[200px] flex flex-col items-center pb-12">
         <p class="text-white pt-5 pb-10 w-[80%]">Os dados apresentados são simulados e destinam-se exclusivamente a fins educacionais, não substituindo o julgamento clínico ou a prática profissional.</p>
         <p class="text-white text-center">Desenvolvido por Henrique Schell</p>
         <div class="text-white pt-2 text-3xl">
