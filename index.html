@@ -6,12 +6,11 @@
     <link rel="shortcut icon" href="img/img-header.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
-    <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
     <title>PerfuseLab</title>
 </head>
 <body class="bg-[#262626ea] md:max-w-5xl m-auto">
-    
+    <div class="h-full w-full opacity-50 bg-black absolute z-10 hidden"></div>
     <!--Header-->
     <header class="h-[400px] md:h-[500px] bg-[url('/medias/header-mobile.png')] md:bg-[url('/medias/header-desktop.png')] bg-cover flex flex-col ">
         <h1 class="text-4xl md:text-5xl text-[#F2071B] text-center pt-20">Perfuse<span class="text-[#FFFFFF]">Lab</span></h1>
@@ -54,7 +53,7 @@
         </div>
 
         <!--Button-->
-        <button class="py-3 px-5 rounded-full bg-[#03A64A] text-white hover:scale-105 transition-all duration-500 border-none">Iniciar Análise</button>
+        <button id="btnMain" class="py-3 px-5 rounded-full bg-[#03A64A] text-white hover:scale-105 transition-all duration-500 border-none">Iniciar Análise</button>
     </main>
 
     <footer class="bg-[#262626] w-full h-[200px] flex flex-col items-center pb-12">
@@ -65,6 +64,8 @@
             <a href="https://github.com/HenriqueSchell" target="_blank"><i class="ri-github-fill cursor-pointer hover:text-[#03A64A] transition-all"></i></a>
         </div>
     </footer>
+
+    <script src="script.js"></script>
 
 
 </body>
