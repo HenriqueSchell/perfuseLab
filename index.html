@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="img/img-header.png" type="image/x-icon">
+    <link rel="shortcut icon" href="medias/icon.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
@@ -20,14 +20,14 @@
     </header>
 
     <!--Main-->
-    <main class="bg-[#EEF6FF] pb-10 flex flex-col items-center gap-12">
+    <main id="main" class="bg-[#EEF6FF] pb-10 flex flex-col items-center gap-12">
         <h1 class="text-[#F2071B] text-xl md:text-3xl text-center pt-5 font-semibold">Bem vindo-a Perfusionista!</h1>
 
         <!--Cards-->
 
-        <!--Card1-->
         <div class="flex flex-col gap-10 items-center justify-center">
-            <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl">
+            <!--Card1-->
+            <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl shadow-sm shadow-gray-700">
                 <div class="flex gap-5 justify-center text-xl font-medium">
                     <i class="ri-graduation-cap-fill text-2xl text-[#F2071B]"></i>
                     <h1 class="text-[#0F3D4C]">Ambiente Educacional</h1>
@@ -35,7 +35,7 @@
                 <p class="w-[80%] pt-3 text-[#374151] text-center">Simulador demonstrativo voltado ao estudo da perfusão em CEC.</p>
             </div>
             <!--Card2-->
-            <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl">
+            <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl shadow-sm shadow-gray-700">
                 <div class="flex gap-5 justify-center text-xl font-medium">
                     <i class="ri-test-tube-fill text-2xl text-[#03A64A]"></i>
                     <h1 class="text-[#0F3D4C]">Casos simulados</h1>
@@ -43,7 +43,7 @@
                 <p class="w-[80%]  pt-3 text-[#374151] text-center">Treine com variáveis clínicas realistas em CEC.</p>
             </div>
             <!--Card3-->
-            <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl">
+            <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl shadow-sm shadow-gray-700">
                 <div class="flex gap-5 justify-center text-xl font-medium">
                     <i class="ri-bar-chart-fill text-2xl text-[#FFCC00]"></i>
                     <h1 class="text-[#0F3D4C]">Indicadores e alertas</h1>
@@ -56,13 +56,81 @@
         <button id="btnMain" class="py-3 px-5 rounded-full bg-[#03A64A] text-white hover:scale-105 transition-all duration-500 border-none">Iniciar Análise</button>
     </main>
 
-    <footer class="bg-[#262626] w-full h-[200px] flex flex-col items-center pb-12">
+    <!--Modal-->
+    <aside id="modal" class="bg-white w-full hidden pb-10 m-auto">
+        <h1 class="text-lg text-center text-white p-8 bg-[#F2071B] md:text-2xl">Muito Bem! Vamos começar!</h1>
+        <p class="p-3 text-center md:text-xl text-[#374151]">Para iniciar a simulação informe os dados necessários.</p>
+
+        <!--Card 1-->
+        <div class="flex flex-col m-auto pb-8 pt-3 justify-center items-center mt-5 bg-[#E8E8E8] w-[80%] md:w-[50%] rounded-2xl shadow-sm shadow-gray-700">
+            <div class="flex justify-center items-center gap-2 pb-2">
+                <i class="ri-user-fill text-lg"></i>
+                <h2>Dados do paciente</h2>
+            </div>
+            <div class="flex flex-col gap-2 text-xl">
+                <input class="rounded-2xl pl-2" type="text" name="sexo" id="sexo" placeholder="Sexo...">
+                <p id="errorSex" class="errorSex text-sm text-red-500 font-semibold hidden">Erro! o sexo do paciente deve ser masculino ou feminino!</p>
+                <input class="rounded-2xl pl-2" type="text" name="idade" id="idade" placeholder="Idade...">
+                <input class="rounded-2xl pl-2" type="text" name="peso" id="peso" placeholder="Peso...">
+                <input class="rounded-2xl pl-2" type="text" name="altura" id="altura" placeholder="Altura...">
+            </div>
+        </div>
+
+        <!--Card 2-->
+        <div class="flex flex-col m-auto pb-8 pt-3 justify-center items-center mt-5 bg-[#E8E8E8] w-[80%] rounded-2xl shadow-sm shadow-gray-700 md:w-[50%]">
+            <div class="flex justify-center items-center gap-2 pb-2">
+                <i class="ri-drop-fill"></i>
+                <h2>Dados Hematológicos</h2>
+            </div>
+            <div class="flex flex-col gap-2 text-xl">
+                <input class="rounded-2xl pl-2" type="text" name="hemoglobina" id="hemoglobina" placeholder="Hemoglobina...">
+                <input class="rounded-2xl pl-2" type="text" name="hematocrito" id="hematocrito" placeholder="Hematócrito...">
+            </div>
+        </div>
+
+        <!--Card 3-->
+        <div class="flex flex-col m-auto pb-8 pt-3 justify-center items-center mt-5 bg-[#E8E8E8] w-[80%] rounded-2xl shadow-sm shadow-gray-700 md:w-[50%]">
+            <div class="flex justify-center items-center gap-2 pb-2">
+                <i class="ri-bar-chart-2-fill"></i>
+                <h2>Dados da Perfusão</h2>
+            </div>
+            <div class="flex flex-col gap-2 text-xl">
+                <input class="rounded-2xl pl-2" type="text" name="fluxo" id="fluxo" placeholder="Fluxo...">
+                <input class="rounded-2xl pl-2" type="text" name="temperatura" id="temperatura" placeholder="Temperatura...">
+                <input class="rounded-2xl pl-2" type="text" name="pam" id="pam" placeholder="Pressão Arterial Média...">
+            </div>
+        </div>
+
+        <!--Card 4-->
+        <div class="flex flex-col m-auto pb-8 pt-3 justify-center items-center mt-5 bg-[#E8E8E8] w-[80%] rounded-2xl shadow-sm shadow-gray-700 md:w-[50%]">
+            <div class="flex justify-center items-center gap-2 pb-2">
+                <i class="ri-test-tube-fill"></i>
+                <h2>Dados Metabólicos</h2>
+            </div>
+            <div class="flex flex-col gap-2 text-xl">
+                <input class="rounded-2xl pl-2" type="text" name="lactato" id="lactato" placeholder="Lactato...">
+            </div>
+        </div>
+
+        <!--Button-->
+        <div class="text-center pt-5 flex gap-5 justify-center">
+            <button id="btnClose" class="py-3 px-5 rounded-full bg-[#3C4C59] text-white hover:scale-105 transition-all duration-500 border-none w-[40%] md:w-[20%]">Voltar</button>
+            <button id="btnModal" class="py-3 px-5 rounded-full bg-[#03A64A] text-white hover:scale-105 transition-all duration-500 border-none w-[40%] md:w-[20%]">Iniciar Análise</button>
+        </div>
+    </aside>
+
+
+
+
+    <footer class="bg-[#262626] w-full h-[200px] flex flex-col items-center">
         <p class="text-white pt-5 pb-10 w-[80%]">Os dados apresentados são simulados e destinam-se exclusivamente a fins educacionais, não substituindo o julgamento clínico ou a prática profissional.</p>
         <p class="text-white text-center">Desenvolvido por Henrique Schell</p>
         <div class="text-white pt-2 text-3xl">
             <a href="https://www.instagram.com/_schell01_" target="_blank"><i class="ri-instagram-line cursor-pointer hover:text-[#03A64A] transition-all"></i></a>
             <a href="https://github.com/HenriqueSchell" target="_blank"><i class="ri-github-fill cursor-pointer hover:text-[#03A64A] transition-all"></i></a>
         </div>
+
+
     </footer>
 
     <script src="script.js"></script>
