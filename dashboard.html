@@ -9,18 +9,18 @@
     <title>PerfuseLab - Dashboard</title>
 </head>
 <body class="bg-slate-950">
-    <header>
+    <header class="md:flex justify-between max-w-5xl m-auto px-2">
         <h1 class="text-slate-100 text-3xl text-center mt-5">Perfuse<span class="text-[#F2071B]">Lab</span></h1>
         <!--Dados do paciente-->
-        <div class="text-slate-400 text-lg mt-5 ml-5">
+        <div class="text-slate-400 text-lg mt-5 ml-5 md:flex md:gap-4 md:ml-0 items-center">
             <p id="campoSexo"></p>
             <p id="campoIdade"></p>
             <p id="campoPeso"></p>
             <p id="campoAltura"></p>
             <p id="campoSC"></p>
         </div>
-        <hr class="text-slate-400 mt-5">
     </header>
+    <hr class="text-slate-400 mt-5">
 
 <script src="src/js/dashboard.js"></script>
 </body>

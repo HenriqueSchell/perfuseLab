@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //Resgatar as variáveis
     const idade = Number(paciente.idade)
     const peso = Number(paciente.peso)
-    const altura = Number(paciente.altura)
+    const altura = Number(paciente.alturaNum)
 
     //Resgatar e imprimir os dados
     const campoSexo = document.getElementById('campoSexo')
@@ -22,11 +22,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const campoPeso = document.getElementById('campoPeso')
     const campoSC = document.getElementById('campoSC')
 
-    campoSexo.textContent = `Paciente : ${paciente.sexo}`
+    campoSexo.textContent = `Paciente: ${paciente.sexo}`
     campoIdade.textContent = `${idade} anos`
     campoPeso.textContent = `${peso} Kg`
 
     //Calcular Superfície Corporal
-    const SC = Math.sqrt((peso * altura) / 3600)
+    const SC = Math.sqrt((peso * altura) / 3600).toFixed(2)
+    console.log(paciente)
+    campoSC.textContent = `SC: ${SC} m²`
 
 })
