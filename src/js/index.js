@@ -19,16 +19,17 @@ btnClose.addEventListener('click', () => {
 })
 
 btnModal.addEventListener('click', () => {
-    const sexo = document.getElementById('sexo').value.toLowerCase()
+    const sexo = document.getElementById('sexo').value.toLowerCase().trim()
     const idade = document.getElementById('idade').value
-    const peso = document.getElementById('peso').value
-    const altura = document.getElementById('altura').value
-    const hemoglobina = document.getElementById('hemoglobina').value
-    const hematocrito = document.getElementById('hematocrito').value
-    const fluxo = document.getElementById('fluxo').value
-    const temperatura = document.getElementById('temperatura').value
-    const pam = document.getElementById('pam').value
-    const lactato = document.getElementById('lactato').value
+    const peso = document.getElementById('peso').value.trim()
+    const altura = document.getElementById('altura').value.trim()
+    const hemoglobina = document.getElementById('hemoglobina').value.trim()
+    const hematocrito = document.getElementById('hematocrito').value.trim()
+    const fluxo = document.getElementById('fluxo').value.trim()
+    const temperatura = document.getElementById('temperatura').value.trim()
+    const pam = document.getElementById('pam').value.trim()
+    const lactato = document.getElementById('lactato').value.trim()
+    const sao2 = document.getElementById('sao2').value.trim()
 
     
     //validações
@@ -44,7 +45,7 @@ btnModal.addEventListener('click', () => {
         return
     }
     
-    const campos = [idade, peso, altura, hemoglobina, hematocrito, fluxo, temperatura, pam, lactato]
+    const campos = [idade, peso, altura, hemoglobina, hematocrito, fluxo, temperatura, pam, lactato, sao2]
     if (campos.some(campo => campo === '' || campo === null || isNaN(campo))) {
         alert('Preencha os dados corretamente!')
         return
@@ -60,7 +61,8 @@ btnModal.addEventListener('click', () => {
             fluxo,
             temperatura,
             pam,
-            lactato
+            lactato,
+            sao2
         }
     localStorage.setItem('paciente', JSON.stringify(paciente))
     window.location.href = 'dashboard.html'
