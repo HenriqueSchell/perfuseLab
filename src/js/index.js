@@ -46,7 +46,7 @@ btnModal.addEventListener('click', () => {
     }
     
     const campos = [idade, peso, altura, hemoglobina, hematocrito, fluxo, temperatura, pam, lactato, sao2]
-    if (campos.some(campo => campo === '' || campo === null || isNaN(campo))) {
+    if (campos.some(campo => campo === '' || campo === null)) {
         alert('Preencha os dados corretamente!')
         return
     }

@@ -30,7 +30,7 @@
                 <h2 class="text-2xl text-slate-400">iDO<span class="text-lg">2</span></h2>
                 <p id="campoido2" class="text-3xl text-slate-100 py-2"></p>
                 <p class="text-2xl text-slate-600">mL/min/m²</p>
-                <button class="w-[70%] text-white bg-emerald-600 rounded-lg py-1 px-2 mt-4">Zona Segura</button>
+                <button id="classificacaoido2" class="w-[70%] text-white rounded-lg py-1 px-2 mt-4"></button>
             </div>
 
             <!--Card 2-->
@@ -38,7 +38,7 @@
                 <h2 class="text-2xl text-slate-400">Hemoglobina</h2>
                 <p id="campoHb" class="text-3xl text-slate-100 py-2"></p>
                 <p class="text-2xl text-slate-600">g/dL</p>
-                <button class="w-[70%] text-white bg-amber-600 rounded-lg py-1 px-2 mt-4">Alerta</button>
+                <button id="classificacaoHb" class="w-[70%] text-white rounded-lg py-1 px-2 mt-4"></button>
             </div>
 
             <!--Card 3-->
@@ -48,7 +48,7 @@
                     <p id="campoHct" class="text-3xl text-slate-100 py-2"></p>
                     <p class="text-2xl text-slate-600">%</p>
                 </div>
-                <button class="w-[70%] text-white bg-emerald-600 rounded-lg py-1 px-2 mt-4">Normal</button>
+                <button id="classificacaoHct" class="w-[70%] text-white rounded-lg py-1 px-2 mt-4">Normal</button>
             </div>
 
             <!--Card 4-->
@@ -58,7 +58,7 @@
                     <p id="campoLactato" class="text-3xl text-slate-100 py-2"></p>
                     <p class="text-xl text-slate-600">mmol/L</p>
                 </div>
-                <button class="w-[70%] text-white bg-emerald-600 rounded-lg py-1 px-2 mt-4">Normal</button>
+                <button id="classificacaoLactato" class="w-[70%] text-white bg-emerald-600 rounded-lg py-1 px-2 mt-4"></button>
             </div>
 
             <!--Card 5-->
@@ -69,14 +69,10 @@
             </div>
 
             <!--Card Score-->
-            <div class="border-2 border-slate-800 rounded-3xl flex flex-col items-center justify-center py-5">
+            <div class="border-2 border-slate-800 rounded-3xl flex flex-col items-center justify-center py-5 gap-2.5">
                 <h2 class="text-2xl text-slate-400">Score</h2>
-                <p class="text-slate-100 text-3xl">8,6</p>
-                <p class="text-slate-600 text-xl">Adequado</p>
-                <div class="flex gap-2 items-baseline justify-center mt-2 text-2xl">
-                    <p class="text-slate-400">Score</p>
-                    <div class="w-16 h-[15px] bg-gradient-to-r from-blue-400 to-emerald-400 rounded-2xl"></div>
-                </div>
+                <p id="campoScore" class="text-slate-100 text-3xl"></p>
+                <p id="classificacaoScore" class="text-slate-100 px-2 py-1 rounded-lg"></p>
             </div>
         </div>
 
