@@ -5,7 +5,7 @@ function transformarNumero(valor){
 }
 // Calcular superficie corporal
 function superficieCorporal(peso, altura){
-    return Math.sqrt((peso * altura) / 3600).toFixed(2)
+    return Number(Math.sqrt((peso * altura) / 3600).toFixed(2))
 }
 
 // Calcular oferta de oxigênio
@@ -18,6 +18,17 @@ function ofertaOxigenio(hemoglobina, sao2, fluxo, SC){
 //Calcular Índice cardíaco
 function indiceCardiaco(fluxo, SC){
     return (fluxo / SC).toFixed(2)
+}
+
+//Função para resetar exames
+function resetarExames(camposExames){
+    camposExames.forEach(item => {
+        item.input.value = ''
+        item.input.classList.remove('hidden')
+
+        item.campo.value = ''
+        item.campo.classList.add('hidden')
+    })
 }
 
 
@@ -58,6 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const classificacaoLactato = document.getElementById('classificacaoLactato')
     const campoScore = document.getElementById('campoScore')
     const classificacaoScore = document.getElementById('classificacaoScore')
+    const btnExames = document.getElementById('btnExames')
+    const btnNovosExames = document.getElementById('btnNovosExames')
 
     //Conteúdo Header
     campoSexo.textContent = `Paciente: ${paciente.sexo}`
@@ -200,7 +213,86 @@ document.addEventListener('DOMContentLoaded', () => {
         classificacaoScore.textContent = 'Perfusão Inadequada'
     }
 
+    let historicoExames = []
+    //Resgatar os dados
+        const tempo = document.getElementById('tempo')
+        const ph = document.getElementById('ph')
+        const pao2 = document.getElementById('pao2')
+        const paco2 = document.getElementById('paco2')
+        const hco3 = document.getElementById('hco3')
+        const be = document.getElementById('be')
+        const lactatoAtt = document.getElementById('lactatoAtt')
+        const k = document.getElementById('k')
+        const ca = document.getElementById('ca2')
+        const hb = document.getElementById('hb')
+        const hctAtt = document.getElementById('hctAtt')
+        const svo2 = document.getElementById('svo2')
+        const campoPh = document.getElementById('campoPh')
+        const campoPao2 = document.getElementById('campoPao2')
+        const campoPaco2 = document.getElementById('campoPaco2')
+        const campoHco3 = document.getElementById('campoHco3')
+        const campoBe = document.getElementById('campoBe')
+        const campoLactatoExame = document.getElementById('campoLactatoExame')
+        const campoK = document.getElementById('campoK')
+        const campoCa = document.getElementById('campoCa')
+        const campoHbExame = document.getElementById('campoHbExame')
+        const campoHctExame = document.getElementById('campoHctExame')
+        const campoSvo2 = document.getElementById('campoSvo2')
+        const campoTempo = document.getElementById('campoTempo')
+
+        const camposExames = [
+        {input: tempo, campo: campoTempo, unidade: 'min'},
+        {input: ph, campo: campoPh, unidade: ''},
+        {input: pao2, campo: campoPao2, unidade: 'mmHg'},
+        {input: paco2, campo: campoPaco2, unidade: 'mmHg'},
+        {input: hco3, campo: campoHco3, unidade: 'mEq/L'},
+        {input: be, campo: campoBe, unidade: 'mEq/L'},
+        {input: lactatoAtt, campo: campoLactatoExame, unidade: 'mmol/L'},
+        {input: k, campo: campoK, unidade: 'mEq/L'},
+        {input: ca, campo: campoCa, unidade: 'mmol/L'},
+        {input: hb, campo: campoHbExame, unidade: 'g/dL'},
+        {input: hctAtt, campo: campoHctExame, unidade: '%'},
+        {input: svo2, campo: campoSvo2, unidade: '%'},
+    ]
+
+    //Monitorização Laboratorial
+    btnExames.addEventListener('click', () => {
     
+        camposExames.forEach(item => {
+            if(item.input.value){
+                item.campo.textContent = `${item.input.value} ${item.unidade}`
+                item.input.classList.add('hidden')
+                item.campo.classList.remove('hidden')
+            }
+        })
+        
+        //Adicionar valores ao dicionário
+        const exames = {
+            tempo: Number(tempo.value),
+            ph: Number(ph.value),
+            pao2: Number(pao2.value),
+            paco2: Number(paco2.value),
+            hco3: Number(hco3.value),
+            be: Number(be.value),
+            lactato: Number(lactatoAtt.value),
+            k: Number(k.value),
+            ca: Number(ca.value),
+            hb: Number(hb.value),
+            hct: Number(hctAtt.value),
+            svo2: Number(svo2.value)
+        }
+        historicoExames.push(exames)
+        console.log('Histórico atualizado:', historicoExames)
+        
+
+
+
+
+    })
+    
+    btnNovosExames.addEventListener('click', () =>{
+        resetarExames(camposExames)
+    })
 
 
 })

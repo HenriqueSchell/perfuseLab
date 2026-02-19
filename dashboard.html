@@ -76,110 +76,101 @@
             </div>
         </div>
         <!--Cards Principais-->
-        <div class="m-auto md:grid md:grid-cols-[40%_60%] gap-5 mt-20">
+        <div class="m-auto md:grid md:grid-cols-[30%_70%] gap-2 mt-20">
             <!--Card Monitorização laboratorial-->
             <div class="border-2 md:h-full border-slate-800 rounded-3xl row-span-2 pb-10">
                 <h2 class="text-center text-slate-100 text-xl mt-2">Monitorização Laboratorial</h2>
                 <!--Dados-->
                 <div class="flex flex-col gap-10 mt-10">
+                    <!--Tempo de CEC-->
+                    <div class="flex justify-between px-3">
+                        <p class="text-slate-600  text-2xl">Tempo em CEC</p>
+                        <input class="rounded-lg" type="number" name="tempo" id="tempo">
+                        <p id="campoTempo" class="text-2xl text-slate-100 hidden"></p>
+                    </div>
+
                     <!--pH-->
                     <div class="flex justify-between px-3">
                         <p class="text-2xl text-slate-600">pH</p>
                         <input class="rounded-lg" type="number" name="ph" id="ph">
+                        <p id="campoPh" class="text-2xl text-slate-100 hidden"></p>
                     </div>
 
                     <!--PaO²-->
                     <div class="flex justify-between px-3">
                         <p class="text-slate-600  text-2xl">PaO<span class="text-base">2</p>
-                        <div class="flex gap-2">
-                            <input class="rounded-lg" type="number" name="pao2" id="pao2">
-                            <p class="text-slate-600  text-xl">mmHg</p>
-                        </div>
+                        <input class="rounded-lg" type="number" name="pao2" id="pao2">
+                        <p id="campoPao2" class="text-2xl text-slate-100 hidden"></p>
                     </div>
 
                     <!--PaCO²-->
                     <div class="flex justify-between px-3">
                         <p class="text-slate-600  text-2xl">PaCO<span class="text-base">2</span></p>
-                        <div class="flex gap-2">
-                            <input class="rounded-lg" type="number" name="paco2" id="paco2">
-                            <p class="text-slate-600  text-xl">mmHg</p>
-                        </div>
+                        <input class="rounded-lg" type="number" name="paco2" id="paco2">
+                        <p id="campoPaco2" class="text-2xl text-slate-100 hidden"></p>
                     </div>
 
                     <!--HCO3-->
                     <div class="flex justify-between px-3">
                         <p class="text-slate-600  text-2xl">HCO<span class="text-base">3-</span></p>
-                        <div class="flex gap-2">
-                            <input class="rounded-lg" type="number" name="ph" id="ph">
-                            <p class="text-slate-600  text-xl">mEq/L</p>
-                        </div>
+                        <input class="rounded-lg" type="number" name="hco3" id="hco3">
+                        <p id="campoHco3" class="text-2xl text-slate-100 hidden"></p>
                     </div>
 
                     <!--BE-->
                     <div class="flex justify-between px-3">
                         <p class="text-slate-600  text-2xl">BE</p>
-                        <div class="flex gap-2">
-                            <input class="rounded-lg" type="number" name="be" id="be">
-                            <p class="text-slate-600  text-xl">mEq/L</p>
-                        </div>
+                        <input class="rounded-lg" type="number" name="be" id="be">
+                        <p id="campoBe" class="text-2xl text-slate-100 hidden"></p>
                     </div>
 
                     <!--Lactato-->
                     <div class="flex justify-between px-3">
                         <p class="text-slate-600  text-2xl">Lactato</p>
-                        <div class="flex gap-2">
-                            <input class="rounded-lg" type="number" name="lactato" id="lactato">
-                            <p class="text-slate-600  text-xl">mmol/L</p>
-                        </div>
+                        <input class="rounded-lg" type="number" name="lactatoAtt" id="lactatoAtt">
+                        <p id="campoLactatoExame" class="text-2xl text-slate-100 hidden"></p>
                     </div>
 
                     <!--K+-->
                     <div class="flex justify-between px-3">
                         <p class="text-slate-600  text-2xl">K+</p>
-                        <div class="flex gap-2">
-                            <input class="rounded-lg" type="number" name="lactato" id="lactato">
-                            <p class="text-slate-600  text-xl">mEq/L</p>
-                        </div>
+                        <input class="rounded-lg" type="number" name="k" id="k">
+                        <p id="campoK" class="text-2xl text-slate-100 hidden"></p>
                     </div>
 
                     <!--Ca2+-->
                     <div class="flex justify-between px-3">
                         <p class="text-slate-600  text-2xl">Ca<span class="text-base align-super">2+</span></p>
-                        <div class="flex gap-2">
-                            <input class="rounded-lg" type="number" name="lactato" id="lactato">
-                            <p class="text-slate-600  text-xl">mmol/L</p>
-                        </div>
+                        <input class="rounded-lg" type="number" name="ca2" id="ca2">
+                        <p id="campoCa" class="text-2xl text-slate-100 hidden"></p>
                     </div>
 
                     <!--HB-->
                     <div class="flex justify-between px-3">
                         <p class="text-slate-600  text-2xl">Hb</p>
-                        <div class="flex gap-2">
-                            <input class="rounded-lg" type="number" name="lactato" id="lactato">
-                            <p class="text-slate-600  text-xl">g/dL</p>
-                        </div>
+                        <input class="rounded-lg" type="number" name="hb" id="hb">
+                        <p id="campoHbExame" class="text-2xl text-slate-100 hidden"></p>
                     </div>
 
                     <!--Hct-->
                     <div class="flex justify-between px-3">
                         <p class="text-slate-600  text-2xl">Hct</p>
-                        <div class="flex gap-2">
-                            <input class="rounded-lg" type="number" name="lactato" id="lactato">
-                            <p class="text-slate-600  text-xl">%</p>
-                        </div>
+                        <input class="rounded-lg" type="number" name="hctAtt" id="hctAtt">
+                        <p id="campoHctExame" class="text-2xl text-slate-100 hidden"></p>
                     </div>
 
                     <!--SvO²-->
                     <div class="flex justify-between px-3">
                         <p class="text-slate-600  text-2xl">SvO²</p>
-                        <div class="flex gap-2">
-                            <input class="rounded-lg" type="number" name="lactato" id="lactato">
-                            <p class="text-slate-600  text-xl">%</p>
-                        </div>
+                        <input class="rounded-lg" type="number" name="svo2" id="svo2">  
+                        <p id="campoSvo2" class="text-2xl text-slate-100 hidden"></p>
                     </div>
 
                     <!--Botão-->
-                    <button class="w-[70%] text-2xl text-slate-100 py-2 px-2 m-auto bg-emerald-600 rounded-lg">Inserir Exames</button>
+                    <div class="flex">
+                        <button id="btnExames" class="w-[40%] text-xl text-slate-100 py-2 px-2 m-auto bg-emerald-600 rounded-lg">Inserir Exames</button>
+                        <button id="btnNovosExames" class="w-[40%] text-xl text-slate-100 py-2 px-2 m-auto bg-emerald-600 rounded-lg">Novos Exames</button>
+                    </div>
 
 
                 </div>
