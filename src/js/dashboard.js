@@ -34,7 +34,7 @@ function resetarExames(camposExames){
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const paciente = JSON.parse(localStorage.getItem('paciente'))
+    let paciente = JSON.parse(localStorage.getItem('paciente'))
 
     //Validar se eiste a variável
     if(!paciente){
@@ -44,33 +44,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     //Resgatar as variáveis
-    const idade = transformarNumero(paciente.idade)
-    const peso = transformarNumero(paciente.peso)
-    const altura = transformarNumero(paciente.alturaNum)
-    const sao2 = transformarNumero(paciente.sao2) / 100
-    const hemoglobina = transformarNumero(paciente.hemoglobina)
-    const fluxo = transformarNumero(paciente.fluxo)
-    const hct = transformarNumero(paciente.hematocrito)
-    const lactato = transformarNumero(paciente.lactato)
+    let idade = transformarNumero(paciente.idade)
+    let peso = transformarNumero(paciente.peso)
+    let altura = transformarNumero(paciente.alturaNum)
+    let sao2 = transformarNumero(paciente.sao2) / 100
+    let hemoglobina = transformarNumero(paciente.hemoglobina)
+    let fluxo = transformarNumero(paciente.fluxo)
+    let hct = transformarNumero(paciente.hematocrito)
+    let lactato = transformarNumero(paciente.lactato)
+
+    //Guardar os dados em um array de objetos
+    let historicoExames = []
+
+    let examesIniciais = {
+        tempo: 0,
+        sao2: sao2,
+        hb: hemoglobina,
+        hct: hct,
+        lactato: lactato,
+        fluxo: fluxo
+    }
+
+    historicoExames.push(examesIniciais)
+    console.log('Exames Iniciais: ', historicoExames)
 
     //Resgatar e imprimir os dados
-    const campoSexo = document.getElementById('campoSexo')
-    const campoIdade = document.getElementById('campoIdade')
-    const campoPeso = document.getElementById('campoPeso')
-    const campoSC = document.getElementById('campoSC')
-    const campoido2 = document.getElementById('campoido2')
-    const campoHb = document.getElementById('campoHb')
-    const campoHct = document.getElementById('campoHct')
-    const campoLactato = document.getElementById('campoLactato')
-    const campoIC = document.getElementById('campoIC')
-    const classificacaoido2 = document.getElementById('classificacaoido2')
-    const classificacaoHb = document.getElementById('classificacaoHb')
-    const classificacaoHct = document.getElementById('classificacaoHct')
-    const classificacaoLactato = document.getElementById('classificacaoLactato')
-    const campoScore = document.getElementById('campoScore')
-    const classificacaoScore = document.getElementById('classificacaoScore')
-    const btnExames = document.getElementById('btnExames')
-    const btnNovosExames = document.getElementById('btnNovosExames')
+    let campoSexo = document.getElementById('campoSexo')
+    let campoIdade = document.getElementById('campoIdade')
+    let campoPeso = document.getElementById('campoPeso')
+    let campoSC = document.getElementById('campoSC')
+    let campoido2 = document.getElementById('campoido2')
+    let campoHb = document.getElementById('campoHb')
+    let campoHct = document.getElementById('campoHct')
+    let campoLactato = document.getElementById('campoLactato')
+    let campoIC = document.getElementById('campoIC')
+    let classificacaoido2 = document.getElementById('classificacaoido2')
+    let classificacaoHb = document.getElementById('classificacaoHb')
+    let classificacaoHct = document.getElementById('classificacaoHct')
+    let classificacaoLactato = document.getElementById('classificacaoLactato')
+    let campoScore = document.getElementById('campoScore')
+    let classificacaoScore = document.getElementById('classificacaoScore')
+    let btnExames = document.getElementById('btnExames')
+    let btnNovosExames = document.getElementById('btnNovosExames')
 
     //Conteúdo Header
     campoSexo.textContent = `Paciente: ${paciente.sexo}`
@@ -213,35 +228,38 @@ document.addEventListener('DOMContentLoaded', () => {
         classificacaoScore.textContent = 'Perfusão Inadequada'
     }
 
-    let historicoExames = []
+    
     //Resgatar os dados
-        const tempo = document.getElementById('tempo')
-        const ph = document.getElementById('ph')
-        const pao2 = document.getElementById('pao2')
-        const paco2 = document.getElementById('paco2')
-        const hco3 = document.getElementById('hco3')
-        const be = document.getElementById('be')
-        const lactatoAtt = document.getElementById('lactatoAtt')
-        const k = document.getElementById('k')
-        const ca = document.getElementById('ca2')
-        const hb = document.getElementById('hb')
-        const hctAtt = document.getElementById('hctAtt')
-        const svo2 = document.getElementById('svo2')
-        const campoPh = document.getElementById('campoPh')
-        const campoPao2 = document.getElementById('campoPao2')
-        const campoPaco2 = document.getElementById('campoPaco2')
-        const campoHco3 = document.getElementById('campoHco3')
-        const campoBe = document.getElementById('campoBe')
-        const campoLactatoExame = document.getElementById('campoLactatoExame')
-        const campoK = document.getElementById('campoK')
-        const campoCa = document.getElementById('campoCa')
-        const campoHbExame = document.getElementById('campoHbExame')
-        const campoHctExame = document.getElementById('campoHctExame')
-        const campoSvo2 = document.getElementById('campoSvo2')
-        const campoTempo = document.getElementById('campoTempo')
+        let tempo = document.getElementById('tempo')
+        let ph = document.getElementById('ph')
+        let pao2 = document.getElementById('pao2')
+        let paco2 = document.getElementById('paco2')
+        let hco3 = document.getElementById('hco3')
+        let be = document.getElementById('be')
+        let lactatoAtt = document.getElementById('lactatoAtt')
+        let k = document.getElementById('k')
+        let ca = document.getElementById('ca2')
+        let hb = document.getElementById('hb')
+        let hctAtt = document.getElementById('hctAtt')
+        let svo2 = document.getElementById('svo2')
+        let campoPh = document.getElementById('campoPh')
+        let campoPao2 = document.getElementById('campoPao2')
+        let campoPaco2 = document.getElementById('campoPaco2')
+        let campoHco3 = document.getElementById('campoHco3')
+        let campoBe = document.getElementById('campoBe')
+        let campoLactatoExame = document.getElementById('campoLactatoExame')
+        let campoK = document.getElementById('campoK')
+        let campoCa = document.getElementById('campoCa')
+        let campoHbExame = document.getElementById('campoHbExame')
+        let campoHctExame = document.getElementById('campoHctExame')
+        let campoSvo2 = document.getElementById('campoSvo2')
+        let campoTempo = document.getElementById('campoTempo')
+        let campoFluxo = document.getElementById('campoFluxo')
+        let fluxoInput = document.getElementById('fluxoInput')
 
         const camposExames = [
         {input: tempo, campo: campoTempo, unidade: 'min'},
+        {input: fluxoInput, campo: campoFluxo, unidade: 'L/min'},
         {input: ph, campo: campoPh, unidade: ''},
         {input: pao2, campo: campoPao2, unidade: 'mmHg'},
         {input: paco2, campo: campoPaco2, unidade: 'mmHg'},
@@ -265,10 +283,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 item.campo.classList.remove('hidden')
             }
         })
+
+        if(fluxo){
+            fluxo = fluxoInput
+        }
         
         //Adicionar valores ao dicionário
         const exames = {
             tempo: Number(tempo.value),
+            fluxo: Number(fluxo.value),
             ph: Number(ph.value),
             pao2: Number(pao2.value),
             paco2: Number(paco2.value),
