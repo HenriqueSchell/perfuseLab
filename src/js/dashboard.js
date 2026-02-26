@@ -86,7 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let classificacaoScore = document.getElementById('classificacaoScore')
     let btnExames = document.getElementById('btnExames')
     let btnNovosExames = document.getElementById('btnNovosExames')
-
+    let btnVerMais = document.getElementById('btnVerMais')
+    let btnVerMenos = document.getElementById('btnVerMenos')
+    let maisExames = document.getElementById('maisExames')
+    
     //Conteúdo Header
     campoSexo.textContent = `Paciente: ${paciente.sexo}`
     campoIdade.textContent = `${idade} anos`
@@ -315,6 +318,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
     btnNovosExames.addEventListener('click', () =>{
         resetarExames(camposExames)
+    })
+
+    btnVerMais.addEventListener('click', () => {
+        maisExames.classList.remove('hidden')
+        btnVerMais.classList.add('hidden')
+        btnVerMenos.classList.remove('hidden')
+    })
+
+    btnVerMenos.addEventListener('click', () => {
+        maisExames.classList.add('hidden')
+        btnVerMenos.classList.add('hidden')
+        btnVerMais.classList.remove('hidden')
     })
 
 
