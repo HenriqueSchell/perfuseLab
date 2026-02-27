@@ -14,41 +14,59 @@
     <!--Header-->
     <header class="h-[400px] md:h-[500px] bg-[url('/medias/header-mobile.png')] md:bg-[url('/medias/header-desktop.png')] bg-cover flex flex-col ">
         <h1 class="text-4xl md:text-5xl text-[#F2071B] text-center pt-20">Perfuse<span class="text-[#FFFFFF]">Lab</span></h1>
-        <p class="text-lg font-semibold text-center pt-8 text-[#D9D9D9]">Simulador educacional de circulação extracorpórea (CEC)</p>
+        <p class="text-lg font-semibold text-center pt-8 text-[#D9D9D9]">Plataforma de apoio à decisão em CEC</p>
         <img class="pt-8 md:hidden" src="medias/deatails-header-mobile.png" alt="heart detail image">
         <img class="pt-8 hidden md:flex" src="medias/deatails-header-desktop.png" alt="heart detail image">
     </header>
 
     <!--Main-->
     <main id="main" class="bg-[#EEF6FF] pb-10 flex flex-col items-center gap-12">
-        <h1 class="text-[#F2071B] text-xl md:text-3xl text-center pt-5 font-semibold">Bem vindo-a Perfusionista!</h1>
-
+        <div class="flex flex-col">
+            <h1 class="text-[#F2071B] text-xl md:text-3xl text-center pt-5 font-semibold">Bem vindo-a Perfusionista!</h1>
+            <p class="text-base text-black max-w-[80%] font-semibold text-center m-auto pt-8">Esta é uma Plataforma de análise e apoio à decisão em circulação extracorpórea, com foco em estratégias de proteção renal e monitoramento fisiológico, visando otimizar os desfechos no pós-operatório.</p>
+        </div>
         <!--Cards-->
 
         <div class="flex flex-col gap-10 items-center justify-center">
             <!--Card1-->
             <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl shadow-sm shadow-gray-700">
                 <div class="flex gap-5 justify-center text-xl font-medium">
-                    <i class="ri-graduation-cap-fill text-2xl text-[#F2071B]"></i>
-                    <h1 class="text-[#0F3D4C]">Ambiente Educacional</h1>
+                    <i class="ri-microscope-line text-2xl text-blue-900"></i>
+                    <h1 class="text-[#0F3D4C]">Análise Clínica em Tempo Real</h1>
                 </div>
-                <p class="w-[80%] pt-3 text-[#374151] text-center">Simulador demonstrativo voltado ao estudo da perfusão em CEC.</p>
+                <p class="w-[80%] pt-3 text-[#374151] text-center">Monitoramento de parâmetros críticos durante a CEC com interpretação automatizada baseada em fisiologia.</p>
             </div>
             <!--Card2-->
             <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl shadow-sm shadow-gray-700">
                 <div class="flex gap-5 justify-center text-xl font-medium">
                     <i class="ri-test-tube-fill text-2xl text-[#03A64A]"></i>
-                    <h1 class="text-[#0F3D4C]">Casos simulados</h1>
+                    <h1 class="text-[#0F3D4C]">Apoio à Decisão em CEC</h1>
                 </div>
-                <p class="w-[80%]  pt-3 text-[#374151] text-center">Treine com variáveis clínicas realistas em CEC.</p>
+                <p class="w-[80%]  pt-3 text-[#374151] text-center">Identificação de padrões clínicos e geração de alertas para auxiliar condutas durante a circulação extracorpórea.</p>
             </div>
             <!--Card3-->
             <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl shadow-sm shadow-gray-700">
                 <div class="flex gap-5 justify-center text-xl font-medium">
-                    <i class="ri-bar-chart-fill text-2xl text-[#FFCC00]"></i>
-                    <h1 class="text-[#0F3D4C]">Indicadores e alertas</h1>
+                    <i class="ri-lungs-line text-2xl text-orange-600"></i>
+                    <h1 class="text-[#0F3D4C]">Proteção Renal Baseada em DO₂</h1>
                 </div>
-                <p class="w-[80%] pt-3 text-[#374151] text-center">Acompanhe hemodinâmica, fluxo perfusional e status metabólico com avisos clínicos interpretativos.</p>
+                <p class="w-[80%] pt-3 text-[#374151] text-center">Avaliação contínua da oferta de oxigênio e risco de lesão renal com base em parâmetros hemodinâmicos e laboratoriais.</p>
+            </div>
+            <!--Card4-->
+            <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl shadow-sm shadow-gray-700">
+                <div class="flex gap-5 justify-center text-xl font-medium">
+                    <i class="ri-bar-chart-fill text-2xl text-[#FFCC00]"></i>
+                    <h1 class="text-[#0F3D4C]">Análise de Tendência</h1>
+                </div>
+                <p class="w-[80%] pt-3 text-[#374151] text-center">Visualização da evolução dos parâmetros ao longo do tempo para identificação precoce de deterioração clínica.</p>
+            </div>
+            <!--Card5-->
+            <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl shadow-sm shadow-gray-700">
+                <div class="flex gap-5 justify-center text-xl font-medium">
+                    <i class="ri-file-warning-line text-2xl text-red-500"></i>
+                    <h1 class="text-[#0F3D4C]">Alertas Clínicos Automatizados</h1>
+                </div>
+                <p class="w-[80%] pt-3 text-[#374151] text-center">Geração de alertas baseados em regras fisiológicas e limites críticos definidos para suporte à tomada de decisão.</p>
             </div>
         </div>
 
