@@ -12,12 +12,12 @@ function superficieCorporal(peso, altura){
 function ofertaOxigenio(hemoglobina, sao2, fluxo, SC){
     const cao2 = hemoglobina * 1.34 * sao2
     const do2 = fluxo * cao2 * 10
-    return (do2 / SC).toFixed(2)
+    return Number((do2 / SC).toFixed(2))
 }
 
 //Calcular Índice cardíaco
 function indiceCardiaco(fluxo, SC){
-    return (fluxo / SC).toFixed(2)
+    return Number((fluxo / SC).toFixed(2))
 }
 
 //Função para resetar exames
@@ -29,6 +29,48 @@ function resetarExames(camposExames){
         item.campo.value = ''
         item.campo.classList.add('hidden')
     })
+}
+
+function classificarHemoglobina(valor, elemento){
+    elemento.classList.remove('bg-red-500','bg-amber-400','bg-emerald-600')
+    if(valor < 8){
+        elemento.classList.add('bg-red-500')
+        elemento.textContent = 'Zona Crítica'
+    }else if(valor >= 8 && valor < 10){
+        elemento.classList.add('bg-amber-400')
+        elemento.textContent = 'Zona Limítrofe'
+    }else if(valor >= 10){
+        elemento.classList.add('bg-emerald-600')
+        elemento.textContent = 'Zona Segura'
+    }
+}
+
+function classificarHematocrito(valor, elemento){
+    elemento.classList.remove('bg-red-500','bg-amber-400','bg-emerald-600')
+    if(valor < 22){
+        elemento.classList.add('bg-red-500')
+        elemento.textContent = 'Zona Crítica'
+    }else if(valor >= 22 && valor < 24){
+        elemento.classList.add('bg-amber-400')
+        elemento.textContent = 'Zona Limítrofe'
+    }else if(valor >=24){
+        elemento.classList.add('bg-emerald-600')
+        elemento.textContent = 'Zona Segura'
+    }
+}
+
+function classificarLactato(valor, elemento){
+    elemento.classList.remove('bg-red-500','bg-amber-400','bg-emerald-600')
+    if(valor >= 3){
+        elemento.classList.add('bg-red-500')
+        elemento.textContent = 'Zona Crítica'
+    }else if(valor < 3 && valor > 2){
+        elemento.classList.add('bg-amber-400')
+        elemento.textContent = 'Zona Limítrofe'
+    }else if(valor <= 2){
+        elemento.classList.add('bg-emerald-600')
+        elemento.textContent = 'Zona Segura'
+    }
 }
 
 
@@ -99,42 +141,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Hemoglobina
     campoHb.textContent = hemoglobina
-    if(hemoglobina < 8){
-        classificacaoHb.classList.add('bg-red-500')
-        classificacaoHb.textContent = 'Zona Crítica'
-    }else if(hemoglobina >= 8 && hemoglobina < 10){
-        classificacaoHb.classList.add('bg-amber-400')
-        classificacaoHb.textContent = 'Zona Limítrofe'
-    }else if(hemoglobina >= 10){
-        classificacaoHb.classList.add('bg-emerald-600')
-        classificacaoHb.textContent = 'Zona Segura'
-    }
-
+    classificarHemoglobina(hemoglobina, classificacaoHb)
+    
     //Hematócrito
     campoHct.textContent = hct
-    if(hct < 22){
-        classificacaoHct.classList.add('bg-red-500')
-        classificacaoHct.textContent = 'Zona Crítica'
-    }else if(hct >= 22 && hct < 24){
-        classificacaoHct.classList.add('bg-amber-400')
-        classificacaoHct.textContent = 'Zona Limítrofe'
-    }else if(hct >=24){
-        classificacaoHct.classList.add('bg-emerald-600')
-        classificacaoHct.textContent = 'Zona Segura'
-    }
+    classificarHematocrito(hct, classificacaoHct)
 
     //Lactato
     campoLactato.textContent = lactato
-    if(lactato >= 3){
-        classificacaoLactato.classList.add('bg-red-500')
-        classificacaoLactato.textContent = 'Zona Crítica'
-    }else if(lactato < 3 && lactato > 2){
-        classificacaoLactato.classList.add('bg-amber-400')
-        classificacaoLactato.textContent = 'Zona Limítrofe'
-    }else if(lactato <= 2){
-        classificacaoLactato.classList.add('bg-emerald-600')
-        classificacaoLactato.textContent = 'Zona Segura'
-    }
+    classificarLactato(lactato, classificacaoLactato)
 
     //Superfície Corporal
     const SC = superficieCorporal(peso,altura)
@@ -287,14 +302,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
 
-        if(fluxo){
-            fluxo = fluxoInput
+        if(fluxoInput.value){
+            fluxo = Number(fluxoInput.value)
         }
         
         //Adicionar valores ao dicionário
         const exames = {
             tempo: Number(tempo.value),
-            fluxo: Number(fluxo.value),
+            fluxo: Number(fluxo),
             ph: Number(ph.value),
             pao2: Number(pao2.value),
             paco2: Number(paco2.value),
@@ -310,9 +325,22 @@ document.addEventListener('DOMContentLoaded', () => {
         historicoExames.push(exames)
         console.log('Histórico atualizado:', historicoExames)
         
+        //Atualizar os dados
 
+        //hemoglobina
+        hemoglobina = Number(hb.value)
+        campoHb.textContent = hemoglobina
+        classificarHemoglobina(hemoglobina, classificacaoHb)
 
+        //Hematócrito
+        hct = Number(hctAtt.value)
+        campoHct.textContent = hct
+        classificarHematocrito(hct, classificacaoHct)
 
+        //Lactato
+        lactato = Number(lactatoAtt.value)
+        campoLactato.textContent = lactato
+        classificarLactato(lactato, classificacaoLactato)
 
     })
     
