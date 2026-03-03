@@ -73,6 +73,40 @@ function classificarLactato(valor, elemento){
     }
 }
 
+function classificarIC(valor, elemento){
+    elemento.classList.remove('bg-red-500', 'bg-amber-400', 'bg-emerald-600', 'bg-blue-600')
+    if(valor < 2){
+        elemento.classList.add('bg-red-500')
+        elemento.textContent = 'Zona Crítica'
+    }else if(valor >= 2 && valor < 2.4){
+        elemento.classList.add('bg-amber-400')
+        elemento.textContent = 'Zona Limítrofe'
+    }else if(valor >= 2.4 && valor < 2.8){
+        elemento.classList.add('bg-emerald-600')
+        elemento.textContent = 'Zona Adequada'
+    }else if(valor >= 2.8 && valor <= 3.2){
+        elemento.classList.add('bg-blue-600')
+        elemento.textContent = 'Zona Ideal'
+    }else if(valor > 3.2){
+        elemento.classList.add('bg-red-500')
+        elemento.textContent = 'Zona de Risco'
+    }
+}
+
+function classificarOfertaOxigenio(valor, elemento){
+    elemento.classList.remove('bg-red-500', 'bg-amber-400', 'bg-emerald-600')
+    if(valor < 260){
+        elemento.classList.add('bg-red-500')
+        elemento.textContent = 'Zona Crítica'
+    }else if(valor >= 260 && valor < 300){
+        elemento.classList.add('bg-amber-400')
+        elemento.textContent = 'Zona Limítrofe'
+    }else if(valor >= 300){
+        elemento.classList.add('bg-emerald-600')
+        elemento.textContent = 'Zona Segura'
+    }
+}
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -124,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let classificacaoHb = document.getElementById('classificacaoHb')
     let classificacaoHct = document.getElementById('classificacaoHct')
     let classificacaoLactato = document.getElementById('classificacaoLactato')
+    let classificacaoIC = document.getElementById('classificacaoIC')
     let campoScore = document.getElementById('campoScore')
     let classificacaoScore = document.getElementById('classificacaoScore')
     let btnExames = document.getElementById('btnExames')
@@ -152,26 +187,20 @@ document.addEventListener('DOMContentLoaded', () => {
     classificarLactato(lactato, classificacaoLactato)
 
     //Superfície Corporal
-    const SC = superficieCorporal(peso,altura)
+    let SC = superficieCorporal(peso,altura)
     campoSC.textContent = `SC: ${SC} m²`
 
     //Oferta de oxigênio iDO²
-    const ido2 = ofertaOxigenio(hemoglobina, sao2, fluxo, SC)
+    let ido2 = ofertaOxigenio(hemoglobina, sao2, fluxo, SC)
     campoido2.textContent = ido2
-    if(ido2 < 260){
-        classificacaoido2.classList.add('bg-red-500')
-        classificacaoido2.textContent = 'Zona Crítica'
-    }else if(ido2 >= 260 && ido2 < 300){
-        classificacaoido2.classList.add('bg-amber-400')
-        classificacaoido2.textContent = 'Zona Limítrofe'
-    }else if(ido2 >= 300){
-        classificacaoido2.classList.add('bg-emerald-600')
-        classificacaoido2.textContent = 'Zona Segura'
-    }
+    classificarOfertaOxigenio(ido2, classificacaoido2)
+    
 
     //Índice cardíaco
-    const IC = indiceCardiaco(fluxo, SC)
+    let IC = indiceCardiaco(fluxo, SC)
     campoIC.textContent = IC
+    classificarIC(IC, classificacaoIC)
+    
 
     //Score
     let scoreIdo2 = 0
@@ -260,9 +289,11 @@ document.addEventListener('DOMContentLoaded', () => {
         let hb = document.getElementById('hb')
         let hctAtt = document.getElementById('hctAtt')
         let svo2 = document.getElementById('svo2')
+        let sao2Att = document.getElementById('sao2Att')
         let campoPh = document.getElementById('campoPh')
         let campoPao2 = document.getElementById('campoPao2')
         let campoPaco2 = document.getElementById('campoPaco2')
+        let campoSao2 = document.getElementById('campoSao2')
         let campoHco3 = document.getElementById('campoHco3')
         let campoBe = document.getElementById('campoBe')
         let campoLactatoExame = document.getElementById('campoLactatoExame')
@@ -289,6 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {input: hb, campo: campoHbExame, unidade: 'g/dL'},
         {input: hctAtt, campo: campoHctExame, unidade: '%'},
         {input: svo2, campo: campoSvo2, unidade: '%'},
+        {input: sao2Att, campo: campoSao2, unidade: '%'},
     ]
 
     //Monitorização Laboratorial
@@ -320,7 +352,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ca: Number(ca.value),
             hb: Number(hb.value),
             hct: Number(hctAtt.value),
-            svo2: Number(svo2.value)
+            svo2: Number(svo2.value),
+            sao2: Number(sao2Att.value)
         }
         historicoExames.push(exames)
         console.log('Histórico atualizado:', historicoExames)
@@ -341,6 +374,19 @@ document.addEventListener('DOMContentLoaded', () => {
         lactato = Number(lactatoAtt.value)
         campoLactato.textContent = lactato
         classificarLactato(lactato, classificacaoLactato)
+
+        //IC
+        fluxo = Number(fluxoInput.value)
+        IC = indiceCardiaco(fluxo, SC)
+        campoIC.textContent = IC
+        classificarIC(IC, classificacaoIC)
+
+        //iDO²
+        sao2 = Number(sao2Att.value) / 100
+        ido2 = ofertaOxigenio(hemoglobina, sao2, fluxo, SC)
+        campoido2.textContent = ido2
+        classificarOfertaOxigenio(ido2, classificacaoido2)
+
 
     })
     
