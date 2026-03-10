@@ -115,6 +115,81 @@ function calcularHct(hb){
     return Number((hb * 3).toFixed(2))
 }
 
+function score(ido2, hct, lactato, IC){
+    //Score
+    let scoreIdo2 = 0
+    let scoreHct = 0
+    let scoreLactato = 0
+    let scoreIC = 0
+
+    //Score iDO²
+    if(ido2 >= 320){
+        scoreIdo2 = 4
+    }else if(ido2 >= 300 && ido2 < 320){
+        scoreIdo2 = 3
+    }else if(ido2 >= 260 && ido2 < 300){
+        scoreIdo2 = 2
+    }else if(ido2 < 260){
+        scoreIdo2 = 0
+    }
+    
+    //Score HCT
+    if(hct >= 25){
+        scoreHct = 2
+    }else if(hct >= 22 && hct < 25){
+        scoreHct = 1
+    }else if(hct < 22){
+        scoreHct = 0
+    }
+    //Score Lactato
+    if(lactato < 2){
+        scoreLactato = 2
+    }else if(lactato > 2 && lactato <= 3){
+        scoreLactato = 1
+    }else if(lactato > 3){
+        scoreLactato = 0
+    }
+    
+    //Score IC
+    if(IC >= 2.4){
+        scoreIC = 2
+    }else if(IC > 2.2 && IC < 2.4){
+        scoreIC = 1
+    }else if(IC < 2.2){
+        scoreIC = 0
+    }
+    
+    //Somatória
+    let scoreTotal = scoreIdo2 + scoreHct + scoreLactato + scoreIC
+
+    //Regras de corte fisiológica
+    if(ido2 < 260 && lactato > 3){
+        classificacaoScore.classList.add('bg-red-500')
+        classificacaoScore.textContent = 'Perfusão Inadequada'
+    }
+    if(hct < 22 && IC < 2.2){
+        scoreTotal -= 1
+    }
+    return scoreTotal
+}
+
+function classificarScore(valor, elemento){
+    elemento.classList.remove('bg-red-500','bg-amber-400','bg-emerald-600')
+    if(valor >= 9){
+        elemento.classList.add('bg-emerald-600')
+        elemento.textContent = 'Perfusão ótima'
+    }if(valor >= 7 && valor < 9){
+        elemento.classList.add('bg-emerald-600')
+        elemento.textContent = 'Perfusão Adequada'
+    }if(valor >= 5 && valor < 7){
+        elemento.classList.add('bg-amber-400')
+        elemento.textContent = 'Perfusão Limítrofe'
+    }if(valor <= 4){
+        elemento.classList.add('bg-red-500')
+        elemento.textContent = 'Perfusão Inadequada'
+    }
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
     let paciente = JSON.parse(localStorage.getItem('paciente'))
@@ -210,77 +285,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
     //Score
-    let scoreIdo2 = 0
-    let scoreHct = 0
-    let scoreLactato = 0
-    let scoreIC = 0
-
-    //Score iDO²
-    if(ido2 >= 320){
-        scoreIdo2 = 4
-    }else if(ido2 >= 300 && ido2 < 320){
-        scoreIdo2 = 3
-    }else if(ido2 >= 260 && ido2 < 300){
-        scoreIdo2 = 2
-    }else if(ido2 < 260){
-        scoreIdo2 = 0
-    }
-    
-    //Score HCT
-    if(hct >= 25){
-        scoreHct = 2
-    }else if(hct >= 22 && hct < 25){
-        scoreHct = 1
-    }else if(hct < 22){
-        scoreHct = 0
-    }
-    //Score Lactato
-    if(lactato < 2){
-        scoreLactato = 2
-    }else if(lactato > 2 && lactato <= 3){
-        scoreLactato = 1
-    }else if(lactato > 3){
-        scoreLactato = 0
-    }
-    
-    //Score IC
-    if(IC >= 2.4){
-        scoreIC = 2
-    }else if(IC > 2.2 && IC < 2.4){
-        scoreIC = 1
-    }else if(IC < 2.2){
-        scoreIC = 0
-    }
-    
-    //Somatória
-    let scoreTotal = scoreIdo2 + scoreHct + scoreLactato + scoreIC
-
-    //Regras de corte fisiológica
-    if(ido2 < 260 && lactato > 3){
-        classificacaoScore.classList.add('bg-red-500')
-        classificacaoScore.textContent = 'Perfusão Inadequada'
-    }
-    if(hct < 22 && IC < 2.2){
-        scoreTotal -= 1
-    }
-
+    let scoreTotal = score(ido2, hct, lactato, IC)
     campoScore.textContent = scoreTotal
-
-
-    //Classificação do Score
-    if(scoreTotal >= 9){
-        classificacaoScore.classList.add('bg-emerald-600')
-        classificacaoScore.textContent = 'Perfusão ótima'
-    }if(scoreTotal >= 7 && scoreTotal < 9){
-        classificacaoScore.classList.add('bg-emerald-600')
-        classificacaoScore.textContent = 'Perfusão Adequada'
-    }if(scoreTotal >= 5 && scoreTotal < 7){
-        classificacaoScore.classList.add('bg-amber-400')
-        classificacaoScore.textContent = 'Perfusão Limítrofe'
-    }if(scoreTotal <= 4){
-        classificacaoScore.classList.add('bg-red-500')
-        classificacaoScore.textContent = 'Perfusão Inadequada'
-    }
+    classificarScore(scoreTotal, classificacaoScore)
+    console.log(scoreTotal)
 
     
     //Resgatar os dados
@@ -400,16 +408,20 @@ document.addEventListener('DOMContentLoaded', () => {
         campoido2.textContent = ido2
         classificarOfertaOxigenio(ido2, classificacaoido2)
 
-        const examesObrigatorios = [tempo, fluxo, sao2Att]
+        const examesObrigatorios = [tempo, fluxoInput, sao2Att]
         if(examesObrigatorios.some(exame => exame.value === '' || exame.value === null)){
             alert('Preencha os exames Obrigatórios! Tempo de CEC, fluxo, hemoglobina ou hematócrito e SaO2')
-        }else{
-            return
         }
 
         if(!hb.value && !hctAtt.value){
             alert('Informe a Hemoglobina ou Hematócrito, se informar apenas um o sistema calcula automaticamente!')
         }
+
+        //Score
+        scoreTotal = score(ido2, hct, lactato, IC)
+        campoScore.textContent = scoreTotal
+        classificarScore(scoreTotal, classificacaoScore)
+        console.log(scoreTotal)
 
 
     })
