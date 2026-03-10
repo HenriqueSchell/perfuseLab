@@ -26,7 +26,7 @@ function resetarExames(camposExames){
         item.input.value = ''
         item.input.classList.remove('hidden')
 
-        item.campo.value = ''
+        item.campo.textContent = ''
         item.campo.classList.add('hidden')
     })
 }
@@ -107,6 +107,13 @@ function classificarOfertaOxigenio(valor, elemento){
     }
 }
 
+function calcularHb(hct){
+   return Number((hct / 3).toFixed(2))
+}
+
+function calcularHct(hb){
+    return Number((hb * 3).toFixed(2))
+}
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -360,13 +367,19 @@ document.addEventListener('DOMContentLoaded', () => {
         
         //Atualizar os dados
 
-        //hemoglobina
-        hemoglobina = Number(hb.value)
+        //hemoglobina e hematócrito
+        if(hb.value && hctAtt.value){
+            hemoglobina = Number(hb.value)
+            hct = Number(hctAtt.value)
+        }else if(hb.value && !hctAtt.value){
+            hemoglobina = Number(hb.value)
+            hct = calcularHct(hemoglobina)
+        }else if(!hb.value && hctAtt.value){
+            hct = Number(hctAtt.value)
+            hemoglobina = calcularHb(hct)
+        }
         campoHb.textContent = hemoglobina
         classificarHemoglobina(hemoglobina, classificacaoHb)
-
-        //Hematócrito
-        hct = Number(hctAtt.value)
         campoHct.textContent = hct
         classificarHematocrito(hct, classificacaoHct)
 
@@ -386,6 +399,17 @@ document.addEventListener('DOMContentLoaded', () => {
         ido2 = ofertaOxigenio(hemoglobina, sao2, fluxo, SC)
         campoido2.textContent = ido2
         classificarOfertaOxigenio(ido2, classificacaoido2)
+
+        const examesObrigatorios = [tempo, fluxo, sao2Att]
+        if(examesObrigatorios.some(exame => exame.value === '' || exame.value === null)){
+            alert('Preencha os exames Obrigatórios! Tempo de CEC, fluxo, hemoglobina ou hematócrito e SaO2')
+        }else{
+            return
+        }
+
+        if(!hb.value && !hctAtt.value){
+            alert('Informe a Hemoglobina ou Hematócrito, se informar apenas um o sistema calcula automaticamente!')
+        }
 
 
     })
