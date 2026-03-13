@@ -78,9 +78,9 @@
         </div>
         <!--Cards Principais-->
         <div class="m-auto md:grid md:grid-cols-[30%_70%] gap-2 mt-20">
-            <!--Card Monitorização laboratorial-->
+            <!--Card Monitorização da CEC-->
             <div class="border-2 md:h-full border-slate-800 rounded-3xl row-span-2 pb-10">
-                <h2 class="text-center text-slate-100 text-xl mt-2">Monitorização Laboratorial</h2>
+                <h2 class="text-center text-slate-100 text-xl mt-2">Monitorização da CEC</h2>
                 <!--Dados-->
                 <div class="flex flex-col gap-10 mt-10">
                     <!--Tempo de CEC-->
@@ -90,7 +90,7 @@
                         <p id="campoTempo" class="text-2xl text-slate-100 hidden"></p>
                     </div>
 
-                    <!--Tempo de CEC-->
+                    <!--Fluxo-->
                     <div class="flex justify-between px-3">
                         <p class="text-slate-600  text-2xl">Fluxo da bomba</p>
                         <input class="rounded-lg w-[30%]" type="number" name="fluxoInput" id="fluxoInput">
@@ -100,6 +100,21 @@
                    
 
                     
+                    
+                    <!--HB-->
+                    <div class="flex justify-between px-3">
+                        <p class="text-slate-600  text-2xl">Hemoglobina</p>
+                        <input class="rounded-lg w-[30%]" type="number" name="hb" id="hb">
+                        <p id="campoHbExame" class="text-2xl text-slate-100 hidden"></p>
+                    </div>
+                    
+                    <!--Hct-->
+                    <div class="flex justify-between px-3">
+                        <p class="text-slate-600  text-2xl">Hematócrito</p>
+                        <input class="rounded-lg w-[30%]" type="number" name="hctAtt" id="hctAtt">
+                        <p id="campoHctExame" class="text-2xl text-slate-100 hidden"></p>
+                    </div>
+                    
                     <!--Lactato-->
                     <div class="flex justify-between px-3">
                         <p class="text-slate-600  text-2xl">Lactato</p>
@@ -107,26 +122,12 @@
                         <p id="campoLactatoExame" class="text-2xl text-slate-100 hidden"></p>
                     </div>
 
-                    <!--HB-->
-                    <div class="flex justify-between px-3">
-                        <p class="text-slate-600  text-2xl">Hemoglobina</p>
-                        <input class="rounded-lg w-[30%]" type="number" name="hb" id="hb">
-                        <p id="campoHbExame" class="text-2xl text-slate-100 hidden"></p>
-                    </div>
-
-                    <!--Hct-->
-                    <div class="flex justify-between px-3">
-                        <p class="text-slate-600  text-2xl">Hematócrito</p>
-                        <input class="rounded-lg w-[30%]" type="number" name="hctAtt" id="hctAtt">
-                        <p id="campoHctExame" class="text-2xl text-slate-100 hidden"></p>
-                    </div>
-
                     <!--SaO²-->
-                            <div class="flex justify-between px-3">
-                                <p class="text-slate-600  text-2xl">SaO²</p>
-                                <input class="rounded-lg w-[30%]" type="number" name="sao2Att" id="sao2Att">
-                                <p id="campoSao2" class="text-2xl text-slate-100 hidden"></p>
-                            </div>
+                        <div class="flex justify-between px-3">
+                            <p class="text-slate-600  text-2xl">SaO²</p>
+                            <input class="rounded-lg w-[30%]" type="number" name="sao2Att" id="sao2Att">
+                            <p id="campoSao2" class="text-2xl text-slate-100 hidden"></p>
+                        </div>
 
                     <button id="btnVerMais" class="text-lg text-slate-100">Ver Mais</button>
 
@@ -201,8 +202,24 @@
                 </div>
             </div>
 
-            <!--Card gráfico-->
-            <div class="border-2 h-56 mt-5 mb-5 md:mt-0 md:mb-0 border-slate-800 rounded-3xl"></div>
+            <!--Card Tabela-->
+            <div class="mt-5 mb-5 md:mt-0 md:mb-0 p-5">
+                <table id="tabelaExames" class="text-slate-600 w-full border-2 border-slate-800 m-auto text-lg">
+                    <caption class="caption-top border-2 border-slate-800">Histórico de Monitorização da CEC</caption>
+                    <thead>
+                        <tr>
+                            <th class="border-2 border-slate-800">Tempo</th>
+                            <th class="border-2 border-slate-800">Fluxo</th>
+                            <th class="border-2 border-slate-800">Hemoglobina</th>
+                            <th class="border-2 border-slate-800">Hematócrito</th>
+                            <th class="border-2 border-slate-800">Lactato</th>
+                            <th class="border-2 border-slate-800">SaO²</th>
+                            <th class="border-2 border-slate-800">iDO²</th>
+                            <th class="border-2 border-slate-800">Índice Cardíaco</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
 
             <!--Card avisos-->
             <div class="border-2 h-56 border-slate-800 rounded-3xl"></div>

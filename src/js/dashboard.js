@@ -190,6 +190,52 @@ function classificarScore(valor, elemento){
     }
 }
 
+function AtualizarTabela(exame, tabela, ido2, IC){
+    let linha = document.createElement('tr')
+    linha.classList.add('text-center', 'text-slate-100', 'border-2', 'border-slate-800')
+    
+    let tempo = document.createElement('td')
+    tempo.textContent = `${exame.tempo} min`
+
+    let hb = document.createElement('td')
+    hb.textContent = `${exame.hb} g/dL`
+
+    let hct = document.createElement('td')
+    hct.textContent = `${exame.hct} %`
+
+    let sao2 = document.createElement('td')
+    sao2.textContent = `${exame.sao2 * 100} %`
+
+    let lactato = document.createElement('td')
+    lactato.textContent = `${exame.lactato} mmol/L`
+
+    let fluxo = document.createElement('td')
+    fluxo.textContent = `${exame.fluxo} L/min`
+
+    let ofertaO2 = document.createElement('td')
+    ofertaO2.textContent = `${ido2} mL/min/m²`
+
+    let indiceC = document.createElement('td')
+    indiceC.textContent = `${IC} L/min/m²`
+
+    let exames = [tempo, hb, hct, sao2, lactato, fluxo, ofertaO2, indiceC]
+    exames.forEach(exame => {
+        exame.classList.add('border-2', 'border-slate-800')
+    })
+
+
+    linha.appendChild(tempo)
+    linha.appendChild(fluxo)
+    linha.appendChild(hb)
+    linha.appendChild(hct)
+    linha.appendChild(lactato)
+    linha.appendChild(sao2)
+    linha.appendChild(ofertaO2)
+    linha.appendChild(indiceC)
+
+    tabela.appendChild(linha)
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
     let paciente = JSON.parse(localStorage.getItem('paciente'))
@@ -248,6 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let btnVerMais = document.getElementById('btnVerMais')
     let btnVerMenos = document.getElementById('btnVerMenos')
     let maisExames = document.getElementById('maisExames')
+    let tabelaExames = document.getElementById('tabelaExames')
     
     //Conteúdo Header
     campoSexo.textContent = `Paciente: ${paciente.sexo}`
@@ -288,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let scoreTotal = score(ido2, hct, lactato, IC)
     campoScore.textContent = scoreTotal
     classificarScore(scoreTotal, classificacaoScore)
-    console.log(scoreTotal)
+
 
     
     //Resgatar os dados
@@ -337,6 +384,10 @@ document.addEventListener('DOMContentLoaded', () => {
         {input: svo2, campo: campoSvo2, unidade: '%'},
         {input: sao2Att, campo: campoSao2, unidade: '%'},
     ]
+
+    //Tabela Monitorização
+    AtualizarTabela(examesIniciais, tabelaExames, ido2, IC)
+
 
     //Monitorização Laboratorial
     btnExames.addEventListener('click', () => {
@@ -421,7 +472,14 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreTotal = score(ido2, hct, lactato, IC)
         campoScore.textContent = scoreTotal
         classificarScore(scoreTotal, classificacaoScore)
-        console.log(scoreTotal)
+
+        //Atualizar tabela exames
+        AtualizarTabela(exames, tabelaExames, ido2, IC)
+
+        
+
+        
+        
 
 
     })
@@ -441,6 +499,8 @@ document.addEventListener('DOMContentLoaded', () => {
         btnVerMenos.classList.add('hidden')
         btnVerMais.classList.remove('hidden')
     })
+
+
 
 
 })
