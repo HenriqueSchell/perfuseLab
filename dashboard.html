@@ -204,20 +204,36 @@
 
             <!--Card Tabela-->
             <div class="mt-5 mb-5 md:mt-0 md:mb-0 p-5">
-                <table id="tabelaExames" class="text-slate-600 w-full border-2 border-slate-800 m-auto text-lg">
-                    <caption class="caption-top border-2 border-slate-800">Histórico de Monitorização da CEC</caption>
+                <table id="tabelaExames" class="text-slate-600 w-full md:w-[60%] m-auto border-2 border-slate-800 text-lg">
                     <thead>
-                        <tr>
-                            <th class="border-2 border-slate-800">Tempo</th>
-                            <th class="border-2 border-slate-800">Fluxo</th>
-                            <th class="border-2 border-slate-800">Hemoglobina</th>
-                            <th class="border-2 border-slate-800">Hematócrito</th>
-                            <th class="border-2 border-slate-800">Lactato</th>
-                            <th class="border-2 border-slate-800">SaO²</th>
-                            <th class="border-2 border-slate-800">iDO²</th>
-                            <th class="border-2 border-slate-800">Índice Cardíaco</th>
-                        </tr>
+                        <caption class="caption-top border-2 border-slate-800">Histórico de Monitorização da CEC</caption>
                     </thead>
+                        <tbody class="text-left">
+                            <tr id="linhaTempo">
+                                <th class="border-2 border-slate-800">Tempo</th>
+                            </tr>
+                            <tr id="linhaFluxo">
+                                <th class="border-2 border-slate-800">Fluxo</th>
+                            </tr>
+                            <tr id="linhaHb">
+                                <th class="border-2 border-slate-800">Hemoglobina</th>
+                            </tr>
+                            <tr id="linhaHct">
+                                <th class="border-2 border-slate-800">Hematócrito</th>
+                            </tr>
+                            <tr id="linhaLactato">
+                                <th class="border-2 border-slate-800">Lactato</th>
+                            </tr>
+                            <tr id="linhaSao2">
+                                <th class="border-2 border-slate-800">SaO²</th>
+                            </tr>
+                            <tr id="linhaIdo2">
+                                <th class="border-2 border-slate-800">iDO²</th>
+                            </tr>
+                            <tr id="linhaIC">
+                                <th class="border-2 border-slate-800">Índice Cardíaco</th>
+                            </tr>
+                        </tbody>
                 </table>
             </div>
 

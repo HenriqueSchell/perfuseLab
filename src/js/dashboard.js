@@ -10,7 +10,7 @@ function superficieCorporal(peso, altura){
 
 // Calcular oferta de oxigênio
 function ofertaOxigenio(hemoglobina, sao2, fluxo, SC){
-    const cao2 = hemoglobina * 1.34 * sao2
+    const cao2 = hemoglobina * 1.34 * (sao2 / 100)
     const do2 = fluxo * cao2 * 10
     return Number((do2 / SC).toFixed(2))
 }
@@ -191,49 +191,64 @@ function classificarScore(valor, elemento){
 }
 
 function AtualizarTabela(exame, tabela, ido2, IC){
-    let linha = document.createElement('tr')
-    linha.classList.add('text-center', 'text-slate-100', 'border-2', 'border-slate-800')
+    let linhaTempo = document.getElementById('linhaTempo')
+    let dadoTempo = document.createElement('td')
+    dadoTempo.textContent = exame.tempo
+
+    let linhaFluxo = document.getElementById('linhaFluxo')
+    let dadoFluxo = document.createElement('td')
+    dadoFluxo.textContent = exame.fluxo
+
+    let linhaHb = document.getElementById('linhaHb')
+    let dadoHb = document.createElement('td')
+    dadoHb.textContent = exame.hb
+
+    let linhaHct = document.getElementById('linhaHct')
+    let dadoHct = document.createElement('td')
+    dadoHct.textContent = exame.hct
+
+    let linhaLactato = document.getElementById('linhaLactato')
+    let dadoLactato = document.createElement('td')
+    dadoLactato.textContent = exame.lactato
+
     
-    let tempo = document.createElement('td')
-    tempo.textContent = `${exame.tempo} min`
+    let linhaSao2 = document.getElementById('linhaSao2')
+    let dadoSao2 = document.createElement('td')
+    dadoSao2.textContent = exame.sao2
 
-    let hb = document.createElement('td')
-    hb.textContent = `${exame.hb} g/dL`
+    let linhaIdo2 = document.getElementById('linhaIdo2')
+    let dadoIdo2 = document.createElement('td')
+    dadoIdo2.textContent = ido2
 
-    let hct = document.createElement('td')
-    hct.textContent = `${exame.hct} %`
+    let linhaIC = document.getElementById('linhaIC')
+    let dadoIC = document.createElement('td')
+    dadoIC.textContent = IC
 
-    let sao2 = document.createElement('td')
-    sao2.textContent = `${exame.sao2 * 100} %`
+    let linhasEdados = [linhaTempo, dadoTempo, linhaFluxo, dadoFluxo, linhaHb, dadoHb, linhaHct, dadoHct, linhaLactato, dadoLactato, linhaSao2, dadoSao2, linhaIdo2, dadoIdo2, linhaIC, dadoIC]
 
-    let lactato = document.createElement('td')
-    lactato.textContent = `${exame.lactato} mmol/L`
-
-    let fluxo = document.createElement('td')
-    fluxo.textContent = `${exame.fluxo} L/min`
-
-    let ofertaO2 = document.createElement('td')
-    ofertaO2.textContent = `${ido2} mL/min/m²`
-
-    let indiceC = document.createElement('td')
-    indiceC.textContent = `${IC} L/min/m²`
-
-    let exames = [tempo, hb, hct, sao2, lactato, fluxo, ofertaO2, indiceC]
-    exames.forEach(exame => {
-        exame.classList.add('border-2', 'border-slate-800')
-    })
+    linhasEdados.forEach(elemento => elemento.classList.add('border-2', 'border-slate-800', 'text-center'))
 
 
-    linha.appendChild(tempo)
-    linha.appendChild(fluxo)
-    linha.appendChild(hb)
-    linha.appendChild(hct)
-    linha.appendChild(lactato)
-    linha.appendChild(sao2)
-    linha.appendChild(ofertaO2)
-    linha.appendChild(indiceC)
 
-    tabela.appendChild(linha)
+
+    linhaTempo.appendChild(dadoTempo)
+    linhaFluxo.appendChild(dadoFluxo)
+    linhaHb.appendChild(dadoHb)
+    linhaHct.appendChild(dadoHct)
+    linhaLactato.appendChild(dadoLactato)
+    linhaSao2.appendChild(dadoSao2)
+    linhaIdo2.appendChild(dadoIdo2)
+    linhaIC.appendChild(dadoIC)
+
+
+    tabela.appendChild(linhaTempo)
+    tabela.appendChild(linhaFluxo)
+    tabela.appendChild(linhaHb)
+    tabela.appendChild(linhaHct)
+    tabela.appendChild(linhaLactato)
+    tabela.appendChild(linhaSao2)
+    tabela.appendChild(linhaIdo2)
+    tabela.appendChild(linhaIC)
 }
 
 
@@ -251,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let idade = transformarNumero(paciente.idade)
     let peso = transformarNumero(paciente.peso)
     let altura = transformarNumero(paciente.alturaNum)
-    let sao2 = transformarNumero(paciente.sao2) / 100
+    let sao2 = transformarNumero(paciente.sao2)
     let hemoglobina = transformarNumero(paciente.hemoglobina)
     let fluxo = transformarNumero(paciente.fluxo)
     let hct = transformarNumero(paciente.hematocrito)
