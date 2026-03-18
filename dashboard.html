@@ -24,7 +24,7 @@
 
     <main class="justify-center max-w-7xl m-auto">
         <!--Cards Iniciais-->
-        <div class="w-[90%] m-auto mt-5 grid grid-cols-2 md:grid-cols-6 gap-5">
+        <div id="cards-iniciais" class="w-[90%] m-auto mt-5 grid grid-cols-2 md:grid-cols-6 gap-5">
             <!--Card 1-->
             <div class="border-2 border-slate-800 rounded-3xl flex flex-col items-center py-5">
                 <h2 class="text-2xl text-slate-400">iDO<span class="text-lg">2</span></h2>
@@ -77,9 +77,9 @@
             </div>
         </div>
         <!--Cards Principais-->
-        <div class="m-auto md:grid md:grid-cols-[30%_70%] gap-2 mt-20">
+        <div id="cards-principais" class="m-auto md:grid md:grid-cols-[30%_70%] gap-2 mt-20">
             <!--Card Monitorização da CEC-->
-            <div class="border-2 md:h-full border-slate-800 rounded-3xl row-span-2 pb-10">
+            <div id="card-monitorizacao" class="border-2 md:h-full border-slate-800 rounded-3xl row-span-2 pb-10">
                 <h2 class="text-center text-slate-100 text-xl mt-2">Monitorização da CEC</h2>
                 <!--Dados-->
                 <div class="flex flex-col gap-10 mt-10">
@@ -97,10 +97,6 @@
                         <p id="campoFluxo" class="text-2xl text-slate-100 hidden"></p>
                     </div>
 
-                   
-
-                    
-                    
                     <!--HB-->
                     <div class="flex justify-between px-3">
                         <p class="text-slate-600  text-2xl">Hemoglobina</p>
@@ -130,8 +126,6 @@
                         </div>
 
                     <button id="btnVerMais" class="text-lg text-slate-100">Ver Mais</button>
-
-                    
                     
                     <div id="maisExames" class="hidden">
                         
@@ -184,61 +178,63 @@
                                 <p class="text-slate-600  text-2xl">Ca<span class="text-base align-super">2+</span></p>
                                 <input class="rounded-lg w-[30%]" type="number" name="ca2" id="ca2">
                                 <p id="campoCa" class="text-2xl text-slate-100 hidden"></p>
-                            </div>
-                           
-                            
+                            </div> 
+
                         </div>
                     </div>
 
                     <button id="btnVerMenos" class="text-lg text-slate-100 hidden">Ver Menos</button>
 
-                    <!--Botão-->
+                    <!--Botões-->
                     <div class="flex">
                         <button id="btnExames" class="w-[40%] text-xl text-slate-100 py-2 px-2 m-auto bg-emerald-600 rounded-lg">Inserir Exames</button>
                         <button id="btnNovosExames" class="w-[40%] text-xl text-slate-100 py-2 px-2 m-auto bg-emerald-600 rounded-lg">Novos Exames</button>
                     </div>
-
 
                 </div>
             </div>
 
             <!--Card Tabela-->
             <div class="mt-5 mb-5 md:mt-0 md:mb-0 p-5">
-                <table id="tabelaExames" class="text-slate-600 w-full md:w-[60%] m-auto border-2 border-slate-800 text-lg">
+                <table id="tabelaExames" class="text-slate-600 w-full md:w-[80%] m-auto border-2 border-slate-800 text-lg">
                     <thead>
                         <caption class="caption-top border-2 border-slate-800">Histórico de Monitorização da CEC</caption>
                     </thead>
                         <tbody class="text-left">
                             <tr id="linhaTempo">
-                                <th class="border-2 border-slate-800">Tempo</th>
+                                <th class="border-2 border-slate-800">Tempo (min)</th>
                             </tr>
                             <tr id="linhaFluxo">
-                                <th class="border-2 border-slate-800">Fluxo</th>
+                                <th class="border-2 border-slate-800">Fluxo (L/min)</th>
                             </tr>
                             <tr id="linhaHb">
-                                <th class="border-2 border-slate-800">Hemoglobina</th>
+                                <th class="border-2 border-slate-800">Hemoglobina (g/dL)</th>
                             </tr>
                             <tr id="linhaHct">
-                                <th class="border-2 border-slate-800">Hematócrito</th>
+                                <th class="border-2 border-slate-800">Hematócrito (%)</th>
                             </tr>
                             <tr id="linhaLactato">
-                                <th class="border-2 border-slate-800">Lactato</th>
+                                <th class="border-2 border-slate-800">Lactato (mmol/L)</th>
                             </tr>
                             <tr id="linhaSao2">
-                                <th class="border-2 border-slate-800">SaO²</th>
+                                <th class="border-2 border-slate-800">SaO² (%)</th>
                             </tr>
                             <tr id="linhaIdo2">
-                                <th class="border-2 border-slate-800">iDO²</th>
+                                <th class="border-2 border-slate-800">iDO² (ml/min/m²)</th>
                             </tr>
                             <tr id="linhaIC">
-                                <th class="border-2 border-slate-800">Índice Cardíaco</th>
+                                <th class="border-2 border-slate-800">Índice Cardíaco (L/min/m²)</th>
                             </tr>
                         </tbody>
                 </table>
             </div>
 
-            <!--Card avisos-->
-            <div class="border-2 h-56 border-slate-800 rounded-3xl"></div>
+            <!--Card gráficos-->
+            <div class="border-2 border-slate-800 rounded-3xl max-w-[90%] m-auto">
+                <div class="flex">
+                    <img class="md:max-w-[500px] md:max-h-[300px] w-full items-center rounded-2xl m-auto" src="medias/Captura de tela 2026-03-18 160016.png" alt="gráfico">
+                </div>
+            </div>
         </div>
 
 

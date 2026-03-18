@@ -272,20 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let hct = transformarNumero(paciente.hematocrito)
     let lactato = transformarNumero(paciente.lactato)
 
-    //Guardar os dados em um array de objetos
-    let historicoExames = []
 
-    let examesIniciais = {
-        tempo: 0,
-        sao2: sao2,
-        hb: hemoglobina,
-        hct: hct,
-        lactato: lactato,
-        fluxo: fluxo
-    }
-
-    historicoExames.push(examesIniciais)
-    console.log('Exames Iniciais: ', historicoExames)
 
     //Resgatar e imprimir os dados
     let campoSexo = document.getElementById('campoSexo')
@@ -339,6 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
     campoido2.textContent = ido2
     classificarOfertaOxigenio(ido2, classificacaoido2)
     
+    
 
     //Índice cardíaco
     let IC = indiceCardiaco(fluxo, SC)
@@ -352,6 +340,23 @@ document.addEventListener('DOMContentLoaded', () => {
     classificarScore(scoreTotal, classificacaoScore)
 
 
+    //Guardar os dados em um array de objetos
+    let historicoExames = []
+
+    let examesIniciais = {
+        tempo: 0,
+        sao2: sao2,
+        hb: hemoglobina,
+        hct: hct,
+        lactato: lactato,
+        fluxo: fluxo,
+        ido2: ofertaOxigenio(hemoglobina, sao2, fluxo, SC),
+        IC: indiceCardiaco(fluxo, SC),
+        score: score(ido2, hct, lactato, IC)
+    }
+
+    historicoExames.push(examesIniciais)
+    console.log('Exames Iniciais: ', historicoExames)
     
     //Resgatar os dados
         let tempo = document.getElementById('tempo')
@@ -419,25 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
             fluxo = Number(fluxoInput.value)
         }
         
-        //Adicionar valores ao dicionário
-        const exames = {
-            tempo: Number(tempo.value),
-            fluxo: Number(fluxo),
-            ph: Number(ph.value),
-            pao2: Number(pao2.value),
-            paco2: Number(paco2.value),
-            hco3: Number(hco3.value),
-            be: Number(be.value),
-            lactato: Number(lactatoAtt.value),
-            k: Number(k.value),
-            ca: Number(ca.value),
-            hb: Number(hb.value),
-            hct: Number(hctAtt.value),
-            svo2: Number(svo2.value),
-            sao2: Number(sao2Att.value)
-        }
-        historicoExames.push(exames)
-        console.log('Histórico atualizado:', historicoExames)
+       
         
         //Atualizar os dados
 
@@ -469,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
         classificarIC(IC, classificacaoIC)
 
         //iDO²
-        sao2 = Number(sao2Att.value) / 100
+        sao2 = Number(sao2Att.value)
         ido2 = ofertaOxigenio(hemoglobina, sao2, fluxo, SC)
         campoido2.textContent = ido2
         classificarOfertaOxigenio(ido2, classificacaoido2)
@@ -477,10 +464,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const examesObrigatorios = [tempo, fluxoInput, sao2Att]
         if(examesObrigatorios.some(exame => exame.value === '' || exame.value === null)){
             alert('Preencha os exames Obrigatórios! Tempo de CEC, fluxo, hemoglobina ou hematócrito e SaO2')
+            return
         }
 
         if(!hb.value && !hctAtt.value){
             alert('Informe a Hemoglobina ou Hematócrito, se informar apenas um o sistema calcula automaticamente!')
+            return
         }
 
         //Score
@@ -488,8 +477,33 @@ document.addEventListener('DOMContentLoaded', () => {
         campoScore.textContent = scoreTotal
         classificarScore(scoreTotal, classificacaoScore)
 
+        //Adicionar valores ao dicionário
+        const exames = {
+            tempo: Number(tempo.value),
+            fluxo: Number(fluxo),
+            ph: Number(ph.value),
+            pao2: Number(pao2.value),
+            paco2: Number(paco2.value),
+            hco3: Number(hco3.value),
+            be: Number(be.value),
+            lactato: Number(lactatoAtt.value),
+            k: Number(k.value),
+            ca: Number(ca.value),
+            hb: Number(hb.value),
+            hct: Number(hctAtt.value),
+            svo2: Number(svo2.value),
+            sao2: Number(sao2Att.value),
+            ido2: ofertaOxigenio(hemoglobina, Number(sao2Att.value), fluxo, SC),
+            IC: indiceCardiaco(fluxo, SC),
+            score: score(ido2, hct, lactato, IC)
+        }
+        historicoExames.push(exames)
+        console.log('Histórico atualizado:', historicoExames)
+
         //Atualizar tabela exames
         AtualizarTabela(exames, tabelaExames, ido2, IC)
+
+        
 
         
 
