@@ -1,3 +1,6 @@
+
+let graficoAtual = null
+
 // Transformar número
 function transformarNumero(valor){
     if(!valor) return 0
@@ -251,6 +254,50 @@ function AtualizarTabela(exame, tabela, ido2, IC){
     tabela.appendChild(linhaIC)
 }
 
+function criarGrafico(campo, dados, valorCritico = null){
+    let local = document.getElementById('local')
+    if (graficoAtual) {
+        graficoAtual.destroy();
+    }
+
+    local.innerHTML = ''
+
+    let canvas = document.createElement('canvas')
+    local.appendChild(canvas)
+
+    let labels = dados.map(d => d.tempo)
+    let valores = dados.map(d => d[campo] ?? null)
+
+    let linhaCritica = valorCritico !== null ? labels.map(() => valorCritico) : null
+
+    let config = {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: `${campo.toUpperCase()} x TEMPO`,
+                data: valores,
+                borderWidth: 2,
+                fill: false,
+
+            },
+            ...(linhaCritica ? [{
+                label: 'Linha Crítica',
+                data: linhaCritica,
+                borderWidth: 2,
+                borderDash: [6,6],
+            }] : []),
+            
+            
+                
+        ]}
+    }
+
+    Chart.defaults.font.size = 16
+
+    graficoAtual = new Chart(canvas, config)
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
     let paciente = JSON.parse(localStorage.getItem('paciente'))
@@ -271,8 +318,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let fluxo = transformarNumero(paciente.fluxo)
     let hct = transformarNumero(paciente.hematocrito)
     let lactato = transformarNumero(paciente.lactato)
-
-
 
     //Resgatar e imprimir os dados
     let campoSexo = document.getElementById('campoSexo')
@@ -297,6 +342,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let btnVerMenos = document.getElementById('btnVerMenos')
     let maisExames = document.getElementById('maisExames')
     let tabelaExames = document.getElementById('tabelaExames')
+    let buttonsGrafico = document.getElementById('buttonsGrafico')
+    let btnGraficoLactato = document.getElementById('btnGraficoLactato')
+    let btnGraficoido2 = document.getElementById('btnGraficoido2')
+    let btnGraficoHCT = document.getElementById('btnGraficoHCT')
+    let btnGraficoHB = document.getElementById('btnGraficoHB')
+    let btnGraficoIC = document.getElementById('btnGraficoIC')
     
     //Conteúdo Header
     campoSexo.textContent = `Paciente: ${paciente.sexo}`
@@ -387,6 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let campoTempo = document.getElementById('campoTempo')
         let campoFluxo = document.getElementById('campoFluxo')
         let fluxoInput = document.getElementById('fluxoInput')
+    
 
         const camposExames = [
         {input: tempo, campo: campoTempo, unidade: 'min'},
@@ -405,8 +457,13 @@ document.addEventListener('DOMContentLoaded', () => {
         {input: sao2Att, campo: campoSao2, unidade: '%'},
     ]
 
+    const limites = {'lactato': 3, 'ido2': 270, 'HbAdulto': 7, 'HbPediatrico': 9, 'HctAdulto': 22, 'HctPediatrico':25, 'IC': 3.5}
+
+
     //Tabela Monitorização
     AtualizarTabela(examesIniciais, tabelaExames, ido2, IC)
+
+    
 
 
     //Monitorização Laboratorial
@@ -503,14 +560,9 @@ document.addEventListener('DOMContentLoaded', () => {
         //Atualizar tabela exames
         AtualizarTabela(exames, tabelaExames, ido2, IC)
 
-        
-
-        
-
-        
-        
-
-
+        //Criar  gráfico
+        criarGrafico('ido2', historicoExames, limites.ido2)
+        buttonsGrafico.classList.remove('hidden')
     })
     
     btnNovosExames.addEventListener('click', () =>{
@@ -529,6 +581,26 @@ document.addEventListener('DOMContentLoaded', () => {
         btnVerMais.classList.remove('hidden')
     })
 
+    btnGraficoido2.addEventListener('click', () => {
+        criarGrafico('ido2', historicoExames, limites.ido2)
+    })
+
+    btnGraficoLactato.addEventListener('click', () => {
+        criarGrafico('lactato', historicoExames, limites.lactato)
+    })
+
+    btnGraficoHB.addEventListener('click', () => {
+        criarGrafico('hb', historicoExames, limites.HbAdulto)
+    })
+
+    btnGraficoHCT.addEventListener('click', () => {
+        criarGrafico('hct', historicoExames, limites.HctAdulto)
+    })
+
+    btnGraficoIC.addEventListener('click', () => {
+        criarGrafico('IC', historicoExames, limites.IC)
+    })
+    
 
 
 

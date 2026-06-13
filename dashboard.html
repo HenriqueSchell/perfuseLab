@@ -230,9 +230,16 @@
             </div>
 
             <!--Card gráficos-->
-            <div class="border-2 border-slate-800 rounded-3xl max-w-[90%] m-auto">
-                <div class="flex">
-                    <img class="md:max-w-[500px] md:max-h-[300px] w-full items-center rounded-2xl m-auto" src="medias/Captura de tela 2026-03-18 160023.png" alt="gráfico">
+            <div id="buttonsGrafico" class="border-2 border-slate-800 rounded-3xl max-w-[90%] m-auto">
+                <div class="flex ">
+                    <div class="text-white grid grid-cols-3 md:flex md:gap-8">
+                        <button id="btnGraficoido2" class="p-2 border-2 rounded-2xl border-slate-800 hover:bg-slate-700">iDO²</button>
+                        <button id="btnGraficoLactato" class="p-2 border-2 rounded-2xl border-slate-800 hover:bg-slate-700">Lactato</button>
+                        <button id="btnGraficoIC" class="p-2 border-2 rounded-2xl border-slate-800 hover:bg-slate-700">Índice Cardíaco</button>
+                        <button id="btnGraficoHB" class="p-2 border-2 rounded-2xl border-slate-800 hover:bg-slate-700">Hemoglobina</button>
+                        <button id="btnGraficoHCT" class="p-2 border-2 rounded-2xl border-slate-800 hover:bg-slate-700">Hematócrito</button>
+                    </div>
+                    <div id="local"></div>
                 </div>
             </div>
         </div>
