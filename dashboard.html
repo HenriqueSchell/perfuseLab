@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="shortcut icon" href="medias/icon.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>PerfuseLab - Dashboard</title>
 </head>
 <body class="bg-slate-950">
@@ -22,7 +23,7 @@
     </header>
     <hr class="text-slate-400 mt-5">
 
-    <main class="justify-center max-w-7xl m-auto">
+    <main class="justify-center max-w-7xl m-auto mb-10">
         <!--Cards Iniciais-->
         <div id="cards-iniciais" class="w-[90%] m-auto mt-5 grid grid-cols-2 md:grid-cols-6 gap-5">
             <!--Card 1-->
@@ -230,7 +231,7 @@
             </div>
 
             <!--Card gráficos-->
-            <div id="buttonsGrafico" class="border-2 border-slate-800 rounded-3xl max-w-[90%] m-auto">
+            <div id="buttonsGrafico" class="border-2 border-slate-800 rounded-3xl max-w-[90%] m-auto p-5">
                 <div class="flex ">
                     <div class="text-white grid grid-cols-3 md:flex md:gap-8">
                         <button id="btnGraficoido2" class="p-2 border-2 rounded-2xl border-slate-800 hover:bg-slate-700">iDO²</button>
@@ -239,8 +240,8 @@
                         <button id="btnGraficoHB" class="p-2 border-2 rounded-2xl border-slate-800 hover:bg-slate-700">Hemoglobina</button>
                         <button id="btnGraficoHCT" class="p-2 border-2 rounded-2xl border-slate-800 hover:bg-slate-700">Hematócrito</button>
                     </div>
-                    <div id="local"></div>
                 </div>
+                <div id="local"></div>
             </div>
         </div>
 
@@ -248,6 +249,8 @@
     </main>
 
 
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="src/js/dashboard.js"></script>
 </body>
 </html>
