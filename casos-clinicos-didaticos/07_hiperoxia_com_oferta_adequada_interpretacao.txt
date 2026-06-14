@@ -1,0 +1,35 @@
+CASO 07 - HIPERÓXIA COM OFERTA ADEQUADA
+
+OBJETIVO DIDÁTICO
+Entender que PaO2 muito elevada tem contribuição pequena para o conteúdo arterial quando comparada ao oxigênio ligado à hemoglobina.
+
+RESUMO DOS RESULTADOS
+- BSA: 1,95 m2.
+- PaO2: 350 -> 280 -> 190 -> 145 mmHg.
+- FiO2: 100% -> 80% -> 60% -> 50%.
+- iDO2: 328,26 -> 319,72 -> 315,96 -> 309,54 mL/min/m2.
+- O2ER: 18,9% -> 20,0%.
+- Lactato: 1,2 -> 1,5 mmol/L.
+- Tempo abaixo de 280: 0 minuto.
+- Risco exibido: MODERADO.
+
+INTERPRETAÇÃO
+1. A oferta permanece adequada apesar da redução progressiva da PaO2.
+2. O componente dissolvido é PaO2 x 0,003. Mesmo uma PaO2 de 350 contribui aproximadamente 1,05 mL O2/dL.
+3. O componente ligado à Hb é muito maior: Hb x 1,36 x saturação.
+4. Por isso, elevar excessivamente a PaO2 não compensa de forma eficiente uma queda importante da Hb ou do fluxo.
+5. O framework gera alertas de PaO2 acima de 150 e apresenta a correção de Hamilton como métrica de desempenho, não como prescrição automática.
+
+PONTO DE APRENDIZAGEM
+Não confundir oxigenação arterial elevada com oferta tecidual necessariamente elevada. Oferta depende principalmente de Hb, saturação e fluxo.
+
+POR QUE O RISCO É MODERADO?
+O tempo de 60 minutos e a elevação relativa discreta do lactato geram alertas moderados, embora o lactato final permaneça baixo e a oferta esteja preservada.
+
+PERGUNTAS PARA ESTUDO
+- Quanto do CaO2 é dissolvido e quanto está ligado à Hb?
+- O que aconteceria se a Hb caísse pela metade mantendo a mesma PaO2?
+- Por que a correção de Hamilton não deve ser tratada como uma ordem automática?
+
+Material simulado para estudo.
+

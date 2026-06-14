@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
     <title>PerfuseLab</title>
 </head>
-<body class="bg-[#262626ea] md:max-w-5xl m-auto">
+<body class="landing-page bg-[#262626ea]">
     <div class="h-full w-full opacity-50 bg-black absolute z-10 hidden"></div>
     <!--Header-->
     <header class="h-[400px] md:h-[500px] bg-[url('/medias/header-mobile.png')] md:bg-[url('/medias/header-desktop.png')] bg-cover flex flex-col ">
@@ -79,7 +79,16 @@
         </div>
 
         <!--Button-->
-        <button id="btnMain" class="py-3 px-5 rounded-full bg-[#03A64A] text-white hover:scale-105 transition-all duration-500 border-none">Iniciar Análise</button>
+        <div class="flex flex-col md:flex-row gap-4 items-center">
+            <button id="btnMain" class="py-3 px-5 rounded-full bg-[#03A64A] text-white hover:scale-105 transition-all duration-500 border-none">Iniciar Análise Manual</button>
+            <label for="arquivoDados" class="py-3 px-5 rounded-full bg-blue-700 text-white hover:scale-105 transition-all duration-500 cursor-pointer">Entrar com arquivo</label>
+            <input id="arquivoDados" type="file" accept=".csv,.json,text/csv,application/json" class="hidden">
+        </div>
+        <div class="w-[85%] md:w-[65%] bg-white border border-blue-200 rounded-2xl p-4 text-center">
+            <p class="text-[#374151]">Importe um arquivo CSV ou JSON com os dados do paciente e a monitorização.</p>
+            <button id="btnModeloArquivo" class="mt-2 text-blue-700 underline font-semibold">Baixar modelo CSV</button>
+            <p id="statusArquivo" class="mt-2 text-sm font-semibold hidden"></p>
+        </div>
     </main>
 
     <!--Modal-->
@@ -134,7 +143,14 @@
                 <h2>Dados Metabólicos</h2>
             </div>
             <div class="flex flex-col gap-2 text-xl">
-                <input class="rounded-2xl pl-2" type="text" name="lactato" id="lactato" placeholder="Lactato...">
+                <div class="flex">
+                    <input class="rounded-l-2xl pl-2 w-[62%]" type="text" name="lactato" id="lactato" placeholder="Lactato...">
+                    <select id="unidadeLactatoInicial" class="rounded-r-2xl w-[38%] bg-white text-base">
+                        <option value="mmol/L">mmol/L</option>
+                        <option value="mg/dL">mg/dL</option>
+                    </select>
+                </div>
+                <p class="text-xs text-gray-500">Os cálculos e gráficos utilizam mmol/L.</p>
                 <input class="rounded-2xl pl-2" type="text" name="sao2" id="sao2" placeholder="Saturação de oxigênio...">
             </div>
         </div>

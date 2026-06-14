@@ -1,0 +1,36 @@
+CASO 02 - HEMODILUIÇÃO E BAIXO iDO2
+
+OBJETIVO DIDÁTICO
+Observar como a combinação entre queda da hemoglobina e índice de fluxo reduzido compromete a oferta de oxigênio.
+
+RESUMO DOS RESULTADOS
+- BSA: 1,51 m2.
+- iDO2: 339,82 -> 244,95 -> 200,72 -> 227,90 mL/min/m2.
+- Tempo estimado abaixo de 280: 47,4 minutos.
+- AUC abaixo de 280: 2586,6 (mL/min/m2) x min.
+- Hb: 10,5 -> 7,2 g/dL, com nadir de 6,8 g/dL.
+- Hct: 31,5% -> 21,6%, com nadir de 20,4%.
+- Lactato: 1,2 -> 3,1 mmol/L.
+- SvO2 mínima: 66%.
+- Risco exibido: ALTO.
+
+INTERPRETAÇÃO
+1. A queda do iDO2 começa antes do nadir de Hb porque o fluxo também diminui. Oferta é resultado da interação entre conteúdo arterial e fluxo indexado.
+2. Aos 40 minutos há o pior conjunto: Hb 6,8 g/dL, IC 2,12, iDO2 200,72, Hct 20,4%, lactato 2,5 e gap PCO2 de 7.
+3. A O2ER sobe de 17,7% para 27,4%. Ainda não ultrapassa 30%, mas a tendência mostra maior utilização da reserva de extração.
+4. A SvO2 cai para faixa limítrofe e o lactato aumenta. Esses dados tornam a baixa oferta mais coerente fisiologicamente.
+5. A relação DO2/VO2 permanece acima de 3,3, mas isso não anula a exposição prolongada a baixo iDO2.
+
+PONTO DE APRENDIZAGEM
+Hemoglobina isolada não determina adequação. O mesmo valor de Hb pode produzir ofertas diferentes conforme fluxo, saturação, PaO2 e superfície corporal.
+
+LEITURA DA AUC
+A AUC combina intensidade e duração do déficit. Um iDO2 pouco abaixo do alvo por muito tempo e um iDO2 muito baixo por pouco tempo podem gerar cargas diferentes.
+
+PERGUNTAS PARA ESTUDO
+- Qual parcela do CaO2 mais caiu neste caso?
+- Por que aumentar apenas a PaO2 teria efeito pequeno sobre o iDO2?
+- Quais dados apoiam que o baixo iDO2 não é somente um número isolado?
+
+Material simulado para estudo. Condutas reais dependem do contexto completo.
+

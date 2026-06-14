@@ -1,0 +1,36 @@
+CASO 03 - RECUPERAÇÃO APÓS AJUSTE SIMULADO DE FLUXO
+
+OBJETIVO DIDÁTICO
+Visualizar como a elevação do fluxo pode aumentar o iDO2 mesmo sem grande mudança na hemoglobina.
+
+RESUMO DOS RESULTADOS
+- BSA: 1,88 m2.
+- Fluxo: 4,0 -> 4,2 -> 4,9 -> 5,2 L/min.
+- IC: 2,13 -> 2,23 -> 2,60 -> 2,76 L/min/m2.
+- iDO2: 236,69 -> 241,53 -> 295,25 -> 324,16 mL/min/m2.
+- O2ER: 27,5% -> 19,1%.
+- DO2/VO2: 3,64 -> 5,23.
+- SvO2: 69% -> 77%.
+- Lactato: 1,5 -> 2,1 -> 1,9 mmol/L.
+- Risco exibido: ALTO.
+
+INTERPRETAÇÃO
+1. Nos dois primeiros pontos, a Hb está próxima de 8 g/dL e o IC é baixo. O resultado é iDO2 abaixo de 280.
+2. Entre 20 e 40 minutos, a Hb muda pouco, mas o fluxo sobe de 4,2 para 4,9 L/min. O iDO2 ultrapassa 280.
+3. Com o aumento da oferta, a O2ER cai e a SvO2 melhora. A relação DO2/VO2 aumenta, mostrando maior margem entre oferta e consumo.
+4. O lactato apresenta pequena elevação transitória antes de recuar. Marcadores metabólicos podem responder com atraso.
+5. A classificação ALTO reflete os pontos iniciais com iDO2 muito baixo, não o estado final recuperado.
+
+PONTO DE APRENDIZAGEM
+O risco final do framework resume toda a exposição. Um valor final adequado não apaga automaticamente o período anterior de déficit.
+
+LIMITAÇÃO
+O caso foi construído para demonstrar relações matemáticas. Ele não estabelece que aumentar fluxo seja sempre a resposta correta em um paciente real.
+
+PERGUNTAS PARA ESTUDO
+- Qual variável explica a maior parte do aumento do iDO2?
+- Por que a O2ER diminui quando a oferta aumenta e o consumo permanece semelhante?
+- O que a AUC abaixo de 280 acrescenta à análise do último valor?
+
+Material simulado para estudo.
+

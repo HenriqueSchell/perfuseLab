@@ -1,0 +1,39 @@
+CASO 05 - EXTRAÇÃO ELEVADA E SvO2 BAIXA
+
+OBJETIVO DIDÁTICO
+Reconhecer um padrão coerente de oferta limitada com aumento da extração de oxigênio.
+
+RESUMO DOS RESULTADOS
+- BSA: 2,12 m2.
+- IC: 2,03 -> 2,26 L/min/m2.
+- iDO2: 252,64 -> 251,79 -> 249,10 -> 274,56 mL/min/m2.
+- Tempo abaixo de 280: 75 minutos.
+- O2ER: 37,6% -> 38,9% -> 40,1% -> 35,0%.
+- DO2/VO2 mínima: 2,49.
+- SvO2: 64% -> 62% -> 60% -> 66%.
+- Lactato: 1,4 -> 2,8 mmol/L.
+- Gap PCO2: 7 a 8 mmHg nos três primeiros pontos.
+- Risco exibido: ALTO.
+
+INTERPRETAÇÃO
+1. O iDO2 permanece abaixo de 280 durante toda a série.
+2. A O2ER se aproxima ou ultrapassa 40%, indicando maior dependência da extração para sustentar o consumo informado.
+3. A relação DO2/VO2 chega a 2,49, matematicamente coerente com O2ER ao redor de 40%.
+4. SvO2 baixa, gap PCO2 aumentado e lactato crescente reforçam a coerência do padrão de oferta limitada.
+5. No último ponto há melhora parcial do fluxo, iDO2, SvO2 e extração, mas o lactato ainda está elevado.
+
+RELAÇÃO ENTRE O2ER E DO2/VO2
+- O2ER = VO2 / DO2.
+- DO2/VO2 é o inverso dessa fração.
+- O2ER de 40% corresponde aproximadamente a DO2/VO2 de 2,5.
+
+PONTO DE APRENDIZAGEM
+Quando diferentes marcadores independentes apontam na mesma direção, a interpretação é mais robusta do que quando apenas um número está alterado.
+
+PERGUNTAS PARA ESTUDO
+- Qual ponto apresenta a menor reserva de oferta?
+- Por que a melhora final não elimina a exposição acumulada?
+- Como superfície corporal elevada influencia o IC para um mesmo fluxo absoluto?
+
+Material simulado para estudo.
+

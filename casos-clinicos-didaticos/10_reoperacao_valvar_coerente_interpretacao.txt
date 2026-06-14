@@ -1,0 +1,41 @@
+CASO 10 - REOPERAÇÃO VALVAR COM DADOS COERENTES
+
+OBJETIVO DIDÁTICO
+Apresentar uma versão matematicamente coerente do caso valvar utilizado anteriormente, agora com SaO2 medida e séries temporais alinhadas.
+
+RESUMO DOS RESULTADOS
+- BSA: 1,52 m2.
+- iDO2 calculado: 406,77 -> 294,01 -> 281,91 -> 328,34 mL/min/m2.
+- Tempo abaixo de 280: 0 minuto.
+- Hb: 12,0 -> 8,2 -> 7,8 -> 8,7 g/dL.
+- O2ER: 13,8% -> 17,0% -> 18,4% -> 17,7%.
+- DO2/VO2: 7,26 -> 5,88 -> 5,42 -> 5,66.
+- Lactato: 1,44 -> 2,55 mmol/L.
+- Potássio final: 3,1 mmol/L.
+- Glicose final: 199 mg/dL.
+- Risco exibido: MODERADO.
+
+INTERPRETAÇÃO
+1. O iDO2 é calculado a partir dos componentes medidos e fecha matematicamente em todos os pontos.
+2. A grande queda da Hb reduz o conteúdo arterial, mas o fluxo indexado crescente mantém o iDO2 próximo ou acima de 280.
+3. O ponto de 60 minutos é o mais próximo do alvo fixo: 281,91 mL/min/m2.
+4. O2ER e SvO2 permanecem favoráveis, sem padrão de extração elevada.
+5. O lactato cresce para faixa de atenção, enquanto potássio e glicose finais geram alertas adicionais.
+6. O pH final de 7,42 com PaCO2 de 29 e HCO3 de 22,1 sugere padrão respiratório alcalótico compensado ou em evolução, conforme o contexto alfa-stat.
+
+COMPARAÇÃO COM O ARQUIVO ORIGINAL
+No arquivo anterior, faltava SaO2 e havia cinco valores de IC para quatro tempos. Isso impedia recálculo independente e produzia SaO2 implícitas impossíveis. Aqui:
+- Existem quatro tempos e quatro conjuntos completos.
+- SaO2 está informada.
+- Fluxo, Hb, SaO2 e PaO2 produzem os iDO2 exibidos.
+- A relação DO2/VO2 é recalculada pelo sistema.
+
+PONTO DE APRENDIZAGEM
+Antes de interpretar fisiologia, verifique qualidade, unidade e alinhamento temporal. Dados inconsistentes podem produzir uma narrativa clínica convincente, porém matematicamente impossível.
+
+PERGUNTAS PARA ESTUDO
+- Qual mecanismo preservou o iDO2 durante a queda da Hb?
+- Por que o lactato ainda merece acompanhamento mesmo com oferta global adequada?
+- Quais diferenças entre este arquivo e o original permitem auditoria independente?
+
+Material simulado para estudo.

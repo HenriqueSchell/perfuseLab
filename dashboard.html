@@ -9,9 +9,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>PerfuseLab - Dashboard</title>
 </head>
-<body class="bg-slate-950">
+<body class="dashboard-page bg-slate-950">
     <header class="md:flex justify-between max-w-5xl m-auto px-2">
-        <h1 class="text-slate-100 text-3xl text-center mt-5">Perfuse<span class="text-[#F2071B]">Lab</span></h1>
+        <h1 class="text-slate-100 text-3xl text-center mt-5"><a href="index.html">Perfuse<span class="text-[#F2071B]">Lab</span></a></h1>
         <!--Dados do paciente-->
         <div class="text-slate-400 text-lg mt-5 ml-5 md:flex md:gap-4 md:ml-0 items-center">
             <p id="campoSexo"></p>
@@ -20,6 +20,7 @@
             <p id="campoAltura"></p>
             <p id="campoSC"></p>
         </div>
+        <button id="btnRelatorio" class="mt-5 bg-blue-700 text-white rounded-lg px-4 py-2">Gerar relatório</button>
     </header>
     <hr class="text-slate-400 mt-5">
 
@@ -31,6 +32,7 @@
                 <h2 class="text-2xl text-slate-400">iDO<span class="text-lg">2</span></h2>
                 <p id="campoido2" class="text-3xl text-slate-100 py-2"></p>
                 <p class="text-2xl text-slate-600">mL/min/m²</p>
+                <p id="origemIdo2" class="text-xs text-slate-500 mt-1"></p>
                 <button id="classificacaoido2" class="w-[70%] text-white rounded-lg py-1 px-2 mt-4"></button>
             </div>
 
@@ -72,7 +74,7 @@
 
             <!--Card Score-->
             <div class="border-2 border-slate-800 rounded-3xl flex flex-col items-center justify-center py-5 gap-2.5">
-                <h2 class="text-2xl text-slate-400">Score</h2>
+                <h2 class="text-2xl text-slate-400">Risco integrado</h2>
                 <p id="campoScore" class="text-slate-100 text-3xl"></p>
                 <button id="classificacaoScore" class="w-[70%] text-white bg-emerald-600 rounded-lg py-1 px-2 mt-4"></button>
             </div>
@@ -113,11 +115,18 @@
                     </div>
                     
                     <!--Lactato-->
-                    <div class="flex justify-between px-3">
+                    <div class="lactate-row flex justify-between items-center gap-2 px-3">
                         <p class="text-slate-600  text-2xl">Lactato</p>
-                        <input class="rounded-lg w-[30%]" type="number" name="lactatoAtt" id="lactatoAtt">
+                        <div class="flex w-[48%]">
+                            <input class="rounded-l-lg w-[55%] min-w-0" type="number" step="0.01" name="lactatoAtt" id="lactatoAtt">
+                            <select id="unidadeLactato" class="rounded-r-lg w-[45%] bg-white text-slate-900 text-sm">
+                                <option value="mmol/L">mmol/L</option>
+                                <option value="mg/dL">mg/dL</option>
+                            </select>
+                        </div>
                         <p id="campoLactatoExame" class="text-2xl text-slate-100 hidden"></p>
                     </div>
+                    <p class="lactate-help px-3 -mt-8 text-right text-xs text-slate-500">Os cálculos e gráficos usam mmol/L.</p>
 
                     <!--SaO²-->
                         <div class="flex justify-between px-3">
@@ -146,7 +155,7 @@
 
                             <!--PaO²-->
                             <div class="flex justify-between px-3">
-                                <p class="text-slate-600  text-2xl">PaO<span class="text-base">2</p>
+                                <p class="text-slate-600 text-2xl">PaO<span class="text-base">2</span></p>
                                 <input class="rounded-lg w-[30%]" type="number" name="pao2" id="pao2">
                                 <p id="campoPao2" class="text-2xl text-slate-100 hidden"></p>
                             </div>
@@ -180,6 +189,46 @@
                                 <input class="rounded-lg w-[30%]" type="number" name="ca2" id="ca2">
                                 <p id="campoCa" class="text-2xl text-slate-100 hidden"></p>
                             </div> 
+                            <div class="flex justify-between px-3">
+                                <p class="text-slate-600 text-2xl">Temperatura</p>
+                                <input class="rounded-lg w-[30%]" type="number" step="0.1" name="temperaturaAtt" id="temperaturaAtt">
+                                <p id="campoTemperaturaAtt" class="text-2xl text-slate-100 hidden"></p>
+                            </div>
+                            <div class="flex justify-between px-3">
+                                <p class="text-slate-600 text-2xl">PAM</p>
+                                <input class="rounded-lg w-[30%]" type="number" name="pamAtt" id="pamAtt">
+                                <p id="campoPamAtt" class="text-2xl text-slate-100 hidden"></p>
+                            </div>
+                            <div class="flex justify-between px-3">
+                                <p class="text-slate-600 text-2xl">FiO²</p>
+                                <input class="rounded-lg w-[30%]" type="number" name="fio2" id="fio2">
+                                <p id="campoFio2" class="text-2xl text-slate-100 hidden"></p>
+                            </div>
+                            <div class="flex justify-between px-3">
+                                <p class="text-slate-600 text-2xl">iVO²</p>
+                                <input class="rounded-lg w-[30%]" type="number" step="0.1" name="ivo2" id="ivo2">
+                                <p id="campoIvo2" class="text-2xl text-slate-100 hidden"></p>
+                            </div>
+                            <div class="flex justify-between px-3">
+                                <p class="text-slate-600 text-2xl">Gap PCO²</p>
+                                <input class="rounded-lg w-[30%]" type="number" step="0.1" name="gapPco2" id="gapPco2">
+                                <p id="campoGapPco2" class="text-2xl text-slate-100 hidden"></p>
+                            </div>
+                            <div class="flex justify-between px-3">
+                                <p class="text-slate-600 text-2xl">Na+</p>
+                                <input class="rounded-lg w-[30%]" type="number" step="0.1" name="na" id="na">
+                                <p id="campoNa" class="text-2xl text-slate-100 hidden"></p>
+                            </div>
+                            <div class="flex justify-between px-3">
+                                <p class="text-slate-600 text-2xl">Cl-</p>
+                                <input class="rounded-lg w-[30%]" type="number" step="0.1" name="cl" id="cl">
+                                <p id="campoCl" class="text-2xl text-slate-100 hidden"></p>
+                            </div>
+                            <div class="flex justify-between px-3">
+                                <p class="text-slate-600 text-2xl">Glicose</p>
+                                <input class="rounded-lg w-[30%]" type="number" name="glicose" id="glicose">
+                                <p id="campoGlicose" class="text-2xl text-slate-100 hidden"></p>
+                            </div>
 
                         </div>
                     </div>
@@ -187,7 +236,7 @@
                     <button id="btnVerMenos" class="text-lg text-slate-100 hidden">Ver Menos</button>
 
                     <!--Botões-->
-                    <div class="flex">
+                    <div class="monitor-actions flex">
                         <button id="btnExames" class="w-[40%] text-xl text-slate-100 py-2 px-2 m-auto bg-emerald-600 rounded-lg">Inserir Exames</button>
                         <button id="btnNovosExames" class="w-[40%] text-xl text-slate-100 py-2 px-2 m-auto bg-emerald-600 rounded-lg">Novos Exames</button>
                     </div>
@@ -196,11 +245,9 @@
             </div>
 
             <!--Card Tabela-->
-            <div class="mt-5 mb-5 md:mt-0 md:mb-0 p-5">
+            <div class="monitor-table-wrapper mt-5 mb-5 md:mt-0 md:mb-0 p-5">
                 <table id="tabelaExames" class="text-slate-600 w-full md:w-[80%] m-auto border-2 border-slate-800 text-lg">
-                    <thead>
-                        <caption class="caption-top border-2 border-slate-800 text-white">Histórico de Monitorização da CEC</caption>
-                    </thead>
+                    <caption class="caption-top border-2 border-slate-800 text-white">Histórico de Monitorização da CEC</caption>
                         <tbody class="text-left">
                             <tr id="linhaTempo">
                                 <th class="border-2 border-slate-800">Tempo (min)</th>
@@ -226,6 +273,39 @@
                             <tr id="linhaIC">
                                 <th class="border-2 border-slate-800">Índice Cardíaco (L/min/m²)</th>
                             </tr>
+                            <tr id="linhaFonteIdo2">
+                                <th class="border-2 border-slate-800">Origem/checagem do iDO²</th>
+                            </tr>
+                            <tr id="linhaIvo2">
+                                <th class="border-2 border-slate-800">iVO² (mL/min/m²)</th>
+                            </tr>
+                            <tr id="linhaO2er">
+                                <th class="border-2 border-slate-800">Extração de O² (%)</th>
+                            </tr>
+                            <tr id="linhaRelacaoDo2Vo2">
+                                <th class="border-2 border-slate-800">DO²/VO²</th>
+                            </tr>
+                            <tr id="linhaSvo2">
+                                <th class="border-2 border-slate-800">SvO² (%)</th>
+                            </tr>
+                            <tr id="linhaPh">
+                                <th class="border-2 border-slate-800">pH</th>
+                            </tr>
+                            <tr id="linhaPaco2">
+                                <th class="border-2 border-slate-800">PaCO² (mmHg)</th>
+                            </tr>
+                            <tr id="linhaHco3">
+                                <th class="border-2 border-slate-800">HCO³⁻ (mEq/L)</th>
+                            </tr>
+                            <tr id="linhaGapPco2">
+                                <th class="border-2 border-slate-800">Gap PCO² (mmHg)</th>
+                            </tr>
+                            <tr id="linhaPam">
+                                <th class="border-2 border-slate-800">PAM (mmHg)</th>
+                            </tr>
+                            <tr id="linhaTemperatura">
+                                <th class="border-2 border-slate-800">Temperatura (°C)</th>
+                            </tr>
                         </tbody>
                 </table>
             </div>
@@ -240,18 +320,61 @@
                         <button id="btnGraficoIC" class="p-2 border-2 rounded-2xl border-slate-800 hover:bg-slate-700">Índice Cardíaco</button>
                         <button id="btnGraficoHB" class="p-2 border-2 rounded-2xl border-slate-800 hover:bg-slate-700">Hemoglobina</button>
                         <button id="btnGraficoHCT" class="p-2 border-2 rounded-2xl border-slate-800 hover:bg-slate-700">Hematócrito</button>
+                        <button id="btnGraficoSvo2" class="p-2 border-2 rounded-2xl border-slate-800 hover:bg-slate-700">SvO²</button>
+                        <button id="btnGraficoO2er" class="p-2 border-2 rounded-2xl border-slate-800 hover:bg-slate-700">Extração O²</button>
                     </div>
                 </div>
                 <div id="local"></div>
             </div>
         </div>
 
+        <section id="analisePerfusional" class="w-[95%] m-auto mt-12 border-2 border-slate-800 rounded-3xl p-5">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                <div>
+                    <h2 class="text-2xl text-slate-100">Análise Perfusional Estruturada</h2>
+                    <p class="text-slate-400">Cálculos derivados do histórico, com rastreabilidade de unidades e limitações.</p>
+                </div>
+                <span id="riscoGlobal" class="self-start rounded-lg px-4 py-2 text-white font-semibold"></span>
+            </div>
+            <div id="resumoPerfusional" class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6"></div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-6">
+                <div class="border border-slate-700 rounded-2xl p-4">
+                    <h3 class="text-xl text-slate-100 mb-3">Métricas calculadas</h3>
+                    <div id="metricasPerfusionais" class="space-y-2 text-slate-300"></div>
+                </div>
+                <div class="border border-slate-700 rounded-2xl p-4">
+                    <h3 class="text-xl text-slate-100 mb-3">Desvios e alertas</h3>
+                    <div id="alertasPerfusionais" class="space-y-3"></div>
+                </div>
+            </div>
+            <div class="border border-slate-700 rounded-2xl p-4 mt-5">
+                <h3 class="text-xl text-slate-100 mb-3">Qualidade e limitações dos dados</h3>
+                <ul id="qualidadeDados" class="list-disc pl-5 space-y-2 text-slate-400"></ul>
+            </div>
+            <div class="border border-slate-700 rounded-2xl p-4 mt-5 text-slate-400">
+                <h3 class="text-xl text-slate-100 mb-3">Base técnica</h3>
+                <p>Equação de iDO²: 10 × IC × [Hb × 1,36 × SaO² + PaO² × 0,003], conforme literatura contemporânea de CEC. Alvo GDP de 280: Ranucci et al., 2018. Conduta da CEC: diretriz EACTS/EACTAIC/EBCP 2024, publicada em 2025. Anticoagulação: STS/SCA/AmSECT, 2018. Correção FiO²/PaO²: Hamilton et al., 2017.</p>
+                <p class="mt-2">A tabela térmica de taDO²i e o índice exploratório são componentes locais do protocolo e não devem ser apresentados como escores validados.</p>
+            </div>
+        </section>
 
     </main>
 
+    <section id="relatorio" class="hidden bg-white text-slate-900 p-8">
+        <header class="border-b-2 border-slate-800 pb-4 mb-6">
+            <h1 class="text-3xl font-bold">PerfuseLab - Relatório de Monitorização</h1>
+            <p id="relatorioGeradoEm"></p>
+            <div id="relatorioPaciente" class="mt-3 grid grid-cols-2 gap-2"></div>
+        </header>
+        <div id="relatorioTabela" class="overflow-x-auto"></div>
+        <div id="relatorioAnalise" class="mt-8"></div>
+        <h2 class="text-2xl font-bold mt-8 mb-4">Gráficos de tendência</h2>
+        <div id="relatorioGraficos" class="grid grid-cols-1 gap-8"></div>
+        <p class="mt-8 text-sm border-t pt-3">Relatório de apoio educacional. Não substitui julgamento clínico ou prática profissional.</p>
+    </section>
 
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script src="src/js/dashboard.js"></script>
 </body>
 </html>

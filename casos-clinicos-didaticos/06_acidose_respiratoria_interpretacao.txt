@@ -1,0 +1,37 @@
+CASO 06 - ACIDOSE RESPIRATÓRIA COM OFERTA PRESERVADA
+
+OBJETIVO DIDÁTICO
+Separar distúrbio de ventilação do oxigenador de insuficiência de oferta global de oxigênio.
+
+RESUMO DOS RESULTADOS
+- BSA: 1,63 m2.
+- iDO2: 341,06 -> 329,91 -> 326,91 -> 333,67 mL/min/m2.
+- Tempo abaixo de 280: 0 minuto.
+- O2ER: aproximadamente 18% em toda a série.
+- DO2/VO2 final: 5,56.
+- Lactato: 1,3 -> 1,7 mmol/L.
+- pH: 7,28 -> 7,23 -> 7,25 -> 7,32.
+- PaCO2: 55 -> 60 -> 58 -> 48 mmHg.
+- HCO3: 24 a 25 mEq/L.
+- Risco exibido: MODERADO.
+
+INTERPRETAÇÃO
+1. pH baixo associado a PaCO2 elevada caracteriza padrão primariamente respiratório.
+2. O HCO3 não está suficientemente reduzido para explicar a acidemia como distúrbio metabólico primário.
+3. iDO2, O2ER, SvO2, relação DO2/VO2 e lactato permanecem relativamente preservados.
+4. Portanto, o caso ensina que acidemia não equivale automaticamente a baixo fluxo ou baixa oferta.
+5. Há melhora parcial da PaCO2 no último ponto, embora ainda permaneça elevada.
+
+ALFA-STAT E TEMPERATURA
+A interpretação de gasometria em hipotermia depende da estratégia de manejo e da forma como o equipamento apresenta os valores. O framework faz uma leitura simplificada e não substitui essa contextualização.
+
+POR QUE O RISCO É MODERADO?
+O aplicativo considera o tempo de 60 minutos e a razão de lactato final/inicial. O padrão principal do caso, porém, é respiratório.
+
+PERGUNTAS PARA ESTUDO
+- Qual combinação define a acidose respiratória?
+- Que dados afastam baixa oferta global persistente?
+- Quais parâmetros do oxigenador e do sweep gas seriam úteis para investigação?
+
+Material simulado para estudo.
+

@@ -1,0 +1,37 @@
+CASO 04 - LACTATO CRESCENTE COM iDO2 PRESERVADO
+
+OBJETIVO DIDÁTICO
+Evitar a conclusão de que todo aumento de lactato durante a CEC é causado por oferta global insuficiente de oxigênio.
+
+RESUMO DOS RESULTADOS
+- BSA: 1,77 m2.
+- iDO2: 347,15 -> 341,86 -> 333,90 -> 317,08 mL/min/m2.
+- Tempo abaixo de 280: 0 minuto.
+- O2ER: 15,8% -> 18,3%.
+- DO2/VO2: 6,31 -> 5,47.
+- SvO2: 82% -> 78%.
+- Lactato: 1,2 -> 4,5 mmol/L.
+- Glicose: 130 -> 240 mg/dL.
+- pH: 7,40 -> 7,31.
+- Risco exibido: ALTO.
+
+INTERPRETAÇÃO
+1. A oferta calculada permanece acima do alvo GDP em todos os pontos.
+2. O2ER e SvO2 não mostram padrão de extração global elevada.
+3. Apesar disso, o lactato sobe de forma progressiva e termina acima de 4 mmol/L.
+4. A hiperglicemia também progride. Estresse metabólico, catecolaminas, depuração, microcirculação e outras fontes de lactato devem ser lembradas conceitualmente.
+5. O ânion gap final calculado é 14 mEq/L. O framework também identifica acidemia e lactato crítico.
+
+PONTO DE APRENDIZAGEM
+iDO2 é uma medida global. Ele não comprova perfusão microcirculatória adequada em todos os tecidos e não explica sozinho todos os mecanismos de hiperlactatemia.
+
+POR QUE O ALERTA É "MARCADORES METABÓLICOS DISCORDANTES"?
+SvO2 e oferta permanecem preservadas enquanto lactato e glicose pioram. Essa associação deve motivar investigação, mas não prova "hipóxia oculta" isoladamente.
+
+PERGUNTAS PARA ESTUDO
+- Quais dados tornam improvável uma falha global persistente de oferta?
+- Por que a tendência do lactato é mais informativa que uma medida única?
+- Quais variáveis adicionais ajudariam a investigar a origem do lactato?
+
+Material simulado para estudo. Não constitui diagnóstico.
+

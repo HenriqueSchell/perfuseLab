@@ -1,0 +1,35 @@
+CASO 01 - CEC ESTÁVEL
+
+OBJETIVO DIDÁTICO
+Reconhecer uma série perfusional globalmente estável e aprender a não interpretar o rótulo final do framework sem verificar os dados que o produziram.
+
+RESUMO DOS RESULTADOS
+- BSA: 2,01 m2.
+- iDO2: 380,69 -> 359,60 -> 334,71 -> 355,43 mL/min/m2.
+- Tempo abaixo de 280: 0 minuto.
+- O2ER: 18,4% -> 18,9%.
+- DO2/VO2: 5,44 -> 5,30.
+- Lactato: 1,1 -> 1,4 mmol/L.
+- SvO2: 77% a 79%.
+- Risco exibido pelo framework: MODERADO.
+
+INTERPRETAÇÃO
+1. O iDO2 permanece acima de 280 durante toda a série. Não há dívida acumulada pelo critério GDP configurado.
+2. A O2ER permanece abaixo de 30%, indicando baixa necessidade de aumentar a extração global para sustentar o consumo informado.
+3. A relação DO2/VO2 fica próxima de 5, o inverso aproximado de uma extração ao redor de 20%.
+4. Lactato, SvO2, pH, potássio e glicose permanecem em faixas sem desvios importantes nas regras do aplicativo.
+5. A discreta queda da Hb é acompanhada por fluxo suficiente para preservar a oferta calculada.
+
+POR QUE O FRAMEWORK MOSTRA RISCO MODERADO?
+O aplicativo soma alertas configurados. Neste caso, a duração de 90 minutos e a razão de lactato final/inicial de 1,27 geram dois alertas moderados. Isso não significa necessariamente hipoperfusão. O aumento absoluto foi somente 0,3 mmol/L e o lactato final continuou abaixo de 2 mmol/L.
+
+PONTO DE APRENDIZAGEM
+O rótulo integrado deve ser lido junto com magnitude, tendência e coerência fisiológica. Um aumento relativo pode parecer grande quando o valor inicial é baixo.
+
+PERGUNTAS PARA ESTUDO
+- Qual parâmetro melhor demonstra que a oferta permaneceu preservada?
+- Por que o lactato final isolado é mais tranquilizador que a razão relativa?
+- O que aconteceria com o iDO2 se o fluxo permanecesse igual e a Hb caísse para 7 g/dL?
+
+Material simulado para estudo. Não constitui recomendação clínica.
+

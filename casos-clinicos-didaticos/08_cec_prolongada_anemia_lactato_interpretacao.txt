@@ -1,0 +1,39 @@
+CASO 08 - CEC PROLONGADA, ANEMIA E LACTATO CRESCENTE
+
+OBJETIVO DIDÁTICO
+Integrar duração da CEC, exposição acumulada a baixo iDO2, anemia, metabolismo e eletrólitos.
+
+RESUMO DOS RESULTADOS
+- BSA: 1,62 m2.
+- Tempo final: 180 minutos.
+- iDO2: 328,04 -> 282,68 -> 260,66 -> 251,33 -> 244,35 mL/min/m2.
+- Tempo estimado abaixo de 280: 129,5 minutos.
+- AUC abaixo de 280: 2909,6 (mL/min/m2) x min.
+- Hb: 10,0 -> 7,1 g/dL.
+- Hct: 30,0% -> 21,3%.
+- Lactato: 1,3 -> 3,8 mmol/L.
+- SvO2: 77% -> 65%.
+- Potássio final: 3,2 mmol/L.
+- Glicose final: 210 mg/dL.
+- Risco exibido: ALTO.
+
+INTERPRETAÇÃO
+1. A série começa adequada, aproxima-se do alvo aos 45 minutos e permanece abaixo dele a partir de 90 minutos.
+2. A Hb cai progressivamente, enquanto o aumento discreto do fluxo não é suficiente para manter a oferta.
+3. Lactato, gap PCO2 e SvO2 pioram em paralelo com o déficit acumulado.
+4. O tempo prolongado aumenta a importância da AUC, pois o problema não é somente o nadir, mas a duração da exposição.
+5. No final também aparecem hipocalemia, hiperglicemia e acidemia, ampliando a complexidade.
+
+ALVO GDP E ALVO TÉRMICO
+O caso pode parecer menos grave pelo alvo térmico durante a hipotermia, mas volta a ficar limítrofe durante o reaquecimento. O framework mantém as duas leituras separadas.
+
+PONTO DE APRENDIZAGEM
+Casos prolongados exigem leitura de tendência. Pequenas alterações repetidas podem adquirir significado quando persistem por muitas dezenas de minutos.
+
+PERGUNTAS PARA ESTUDO
+- Em qual momento começa a exposição contínua abaixo de 280?
+- Por que a AUC é mais informativa que o valor final isolado?
+- Quais alterações são provavelmente consequências, associações ou agravantes?
+
+Material simulado para estudo. Não define limiar transfusional.
+

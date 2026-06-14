@@ -1,0 +1,171 @@
+{
+  "paciente": {
+    "sexo": "Feminino",
+    "idade": 46,
+    "peso": 54,
+    "altura": 155,
+    "temperatura": 31.8,
+    "pam": 65,
+    "comorbidades": [
+      "Febre reumática",
+      "Estenose aórtica",
+      "Insuficiência mitral grave",
+      "Prótese mitral",
+      "Reoperação cardíaca",
+      "Euroscore 3"
+    ],
+    "procedimento": "Troca valvar aórtica + retroca de prótese mitral"
+  },
+  "monitorizacao": [
+    {
+      "tempo": 0,
+      "hb": 12.0,
+      "hct": 36.0,
+      "lactato": 1.44,
+      "ph": 7.30,
+      "svo2": 84,
+      "pao2": 264,
+      "paco2": 49,
+      "hco3": 24.1,
+      "k": 4.7,
+      "ca": 3.7,
+      "ic_informado": 2.4,
+      "ido2_informado": 272,
+      "ivo2": 56,
+      "do2_vo2": 4.8,
+      "fio2": 80,
+      "lactato_mg_dl": 13,
+      "gap_pco2": 4,
+      "na": 133,
+      "glicose": 103,
+      "pam": 65,
+      "temperatura": 31.8
+    },
+    {
+      "tempo": 35,
+      "hb": 7.4,
+      "hct": 22.2,
+      "lactato": 1.55,
+      "ph": 7.25,
+      "svo2": 93,
+      "pao2": 240,
+      "paco2": 59,
+      "hco3": 25.9,
+      "k": 4.1,
+      "ca": 3.4,
+      "ic_informado": 2.5,
+      "ido2_informado": 281,
+      "ivo2": 33,
+      "do2_vo2": 8.5,
+      "fio2": 60,
+      "lactato_mg_dl": 14,
+      "gap_pco2": 5,
+      "na": 134,
+      "glicose": 161,
+      "pam": 75,
+      "temperatura": 30.0
+    },
+    {
+      "tempo": 60,
+      "hb": 7.45,
+      "hct": 22.35,
+      "lactato": 2.11,
+      "ph": 7.33,
+      "svo2": 85,
+      "pao2": 149,
+      "paco2": 42,
+      "hco3": 24.3,
+      "k": 3.8,
+      "ca": 3.5,
+      "ic_informado": 2.5,
+      "ido2_informado": 292,
+      "ivo2": 52,
+      "do2_vo2": 5.7,
+      "fio2": 50,
+      "lactato_mg_dl": 19,
+      "gap_pco2": 4,
+      "na": 135,
+      "glicose": 173,
+      "pam": 80,
+      "temperatura": 33.0
+    },
+    {
+      "tempo": 90,
+      "hb": 8.7,
+      "hct": 26.1,
+      "lactato": 2.55,
+      "ph": 7.42,
+      "svo2": 86,
+      "pao2": 149,
+      "paco2": 29,
+      "hco3": 22.1,
+      "k": 3.1,
+      "ca": 3.4,
+      "ic_informado": 2.7,
+      "ido2_informado": 327,
+      "ivo2": 58,
+      "do2_vo2": 5.7,
+      "fio2": 50,
+      "lactato_mg_dl": 23,
+      "gap_pco2": 4,
+      "na": 137,
+      "glicose": 199,
+      "pam": 85,
+      "temperatura": 33.0
+    }
+  ],
+  "cec": {
+    "configuracao": "Circuito reduzido",
+    "oxigenador": "Affinity NT",
+    "prime_ml": 500,
+    "rap_ml": 200,
+    "cardioplegia": "Del Nido concentrada",
+    "cardioplegia_ml": 1000,
+    "canula_arterial_fr": 20,
+    "canulas_venosas_fr": [
+      28,
+      26
+    ]
+  },
+  "anticoagulacao": {
+    "heparina_mg": 270,
+    "tca_basal_s": 111,
+    "tca_cec_s": 987
+  },
+  "operacional": {
+    "temperatura_c": [
+      31.8,
+      30.0,
+      33.0
+    ],
+    "pam_mmhg": [
+      65,
+      75,
+      80,
+      85,
+      64
+    ],
+    "estrategia_ph": "Alfa-stat",
+    "delta_vav_mmhg": -30,
+    "pressao_pre_membrana_mmhg": 214,
+    "pressao_pos_membrana_mmhg": 184
+  },
+  "debito_urinario": {
+    "volume_ml": 2500,
+    "tempo_min": 90
+  },
+  "metadados_conversao": {
+    "superficie_corporal_m2": 1.5247950681976907,
+    "fluxo": "Não duplicado no arquivo; o PerfuseLab calcula fluxo = IC informado × superfície corporal, mantendo precisão interna.",
+    "hematocrito": "Estimado como hemoglobina multiplicada por 3.",
+    "lactato": "Convertido de mg/dL para mmol/L usando divisor 9.009.",
+    "sao2": "Não informada no prompt e não estimada a partir da PaO2. Sem SaO2 arterial medida, o iDO2 informado não pode ser recalculado independentemente.",
+    "observacao_ido2": "Os valores originais foram preservados em ido2_informado. A consistência é auditada pela SaO2 implícita necessária para fechar Hb, IC e PaO2.",
+    "avisos": [
+      "O prompt original contém 5 valores de IC para 4 valores de iDO2/iVO2 e 4 tempos de monitorização; o pareamento temporal adotado no arquivo precisa ser confirmado.",
+      "As séries originais também têm comprimentos diferentes para temperatura, PAM, Hb e glicose; valores sem correspondência temporal inequívoca não foram inventados.",
+      "O hematócrito não foi medido no prompt; foi estimado como Hb × 3 e deve ser substituído pelo resultado laboratorial quando disponível.",
+      "iVO2 foi informado, mas não pode ser recalculado pelo princípio de Fick sem conteúdo venoso completo, incluindo PvO2 ou uma medida metabólica documentada."
+    ]
+  }
+}

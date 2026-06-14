@@ -1,10 +1,614 @@
-@import "tailwindcss";
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
 
-@media screen and (min-width: 769px) and (max-width: 1100px) {
+html {
+    min-width: 320px;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+button,
+label,
+select,
+input {
+    touch-action: manipulation;
+}
+
+input,
+select,
+button {
+    min-height: 44px;
+}
+
+input,
+select {
+    max-width: 100%;
+    padding: 0.55rem 0.75rem;
+    font-size: 1rem;
+}
+
+button:focus-visible,
+label:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible {
+    outline: 3px solid #38bdf8;
+    outline-offset: 2px;
+}
+
+/* Página inicial */
+
+.landing-page {
+    width: min(100%, 1440px);
+    margin-inline: auto;
+}
+
+.landing-page > header {
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.landing-page > header img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+#main {
+    width: 100%;
+    padding-inline: clamp(1rem, 4vw, 3rem);
+}
+
+#main > div:first-child {
+    width: min(100%, 900px);
+}
+
+#main > div:nth-of-type(2) {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+    gap: clamp(1rem, 2vw, 1.75rem) !important;
+    width: min(100%, 1120px);
+    align-items: stretch !important;
+}
+
+#main > div:nth-of-type(2) > div {
+    width: 100% !important;
+    min-width: 0;
+    height: 100%;
+    padding: clamp(1rem, 2vw, 1.5rem);
+}
+
+#main > div:nth-of-type(2) > div > div {
+    align-items: flex-start;
+    gap: 0.75rem !important;
+    width: 100%;
+}
+
+#main > div:nth-of-type(2) h1 {
+    min-width: 0;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+#main > div:nth-of-type(2) p {
+    width: 100% !important;
+    line-height: 1.6;
+}
+
+#main > div:nth-of-type(3) {
+    width: min(100%, 620px);
+    justify-content: center;
+}
+
+#main > div:nth-of-type(3) > button,
+#main > div:nth-of-type(3) > label {
+    min-width: min(100%, 230px);
+}
+
+#main > div:nth-of-type(4) {
+    width: min(100%, 720px) !important;
+}
+
+#modal {
+    padding-inline: clamp(0.75rem, 4vw, 2rem);
+}
+
+#modal > h1 {
+    margin-inline: calc(clamp(0.75rem, 4vw, 2rem) * -1);
+}
+
+#modal > div:not(:last-of-type) {
+    width: min(100%, 640px) !important;
+    padding-inline: clamp(1rem, 4vw, 2rem);
+}
+
+#modal > div:not(:last-of-type) > div:last-child {
+    width: min(100%, 440px);
+}
+
+#modal input,
+#modal select {
+    width: 100%;
+}
+
+#modal > div:last-of-type {
+    flex-wrap: wrap;
+    width: min(100%, 640px);
+    margin-inline: auto;
+}
+
+#modal > div:last-of-type button {
+    width: min(100%, 220px) !important;
+    flex: 1 1 180px;
+}
+
+.landing-page footer {
+    height: auto !important;
+    min-height: 200px;
+    padding: 1rem;
+}
+
+.landing-page footer > p {
+    width: min(100%, 900px) !important;
+    text-align: center;
+}
+
+/* Dashboard */
+
+.dashboard-page {
+    width: 100%;
+}
+
+.dashboard-page > header {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+    width: min(100%, 1280px);
+    padding: 0 1rem 0.75rem;
+}
+
+.dashboard-page > header h1,
+.dashboard-page > header > div,
+.dashboard-page > header > button {
+    margin-top: 1rem !important;
+}
+
+.dashboard-page > header > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.35rem 1rem;
+    min-width: 0;
+    margin-left: 0 !important;
+    text-align: center;
+}
+
+.dashboard-page > header > div p {
+    white-space: nowrap;
+}
+
+#btnRelatorio {
+    white-space: nowrap;
+}
+
+.dashboard-page > main {
+    width: min(100%, 1440px);
+    padding-inline: clamp(0.75rem, 2vw, 1.5rem);
+}
+
+#cards-iniciais {
+    width: 100% !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+#cards-iniciais > div {
+    min-width: 0;
+    min-height: 220px;
+    padding: 1.25rem 0.75rem !important;
+    text-align: center;
+}
+
+#cards-iniciais h2 {
+    max-width: 100%;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+}
+
+#cards-iniciais p {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+#cards-iniciais > div > button {
+    width: min(100%, 180px) !important;
+    height: auto;
+    min-height: 36px;
+    margin-top: auto;
+    font-size: 0.85rem;
+    line-height: 1.25;
+}
+
+#origemIdo2 {
+    padding-inline: 0.25rem;
+    overflow-wrap: anywhere;
+}
+
+#cards-principais {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem !important;
+    width: 100%;
+    margin-top: clamp(2rem, 5vw, 5rem) !important;
+}
+
+#cards-principais > * {
+    min-width: 0;
+}
+
+#card-monitorizacao {
+    height: auto !important;
+    min-width: 0;
+}
+
+#card-monitorizacao > div {
+    gap: 1.5rem !important;
+    margin-top: 2rem !important;
+}
+
+#card-monitorizacao .flex.justify-between {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(120px, 42%);
+    align-items: center;
+    gap: 0.75rem;
+}
+
+#card-monitorizacao .flex.justify-between > p:first-child {
+    min-width: 0;
+    font-size: clamp(1rem, 2vw, 1.35rem) !important;
+    line-height: 1.3;
+}
+
+#card-monitorizacao .flex.justify-between > input,
+#card-monitorizacao .flex.justify-between > .flex {
+    width: 100% !important;
+    min-width: 0;
+}
+
+#unidadeLactato {
+    font-size: 1rem !important;
+}
+
+#card-monitorizacao .flex.justify-between > p:last-child {
+    min-width: 0;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+#card-monitorizacao .lactate-help {
+    margin-top: -0.75rem !important;
+}
+
+#card-monitorizacao .monitor-actions {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    padding-inline: 0.75rem;
+}
+
+#btnExames,
+#btnNovosExames {
+    width: 100% !important;
+    margin: 0 !important;
+    font-size: 1rem !important;
+}
+
+#btnVerMais,
+#btnVerMenos {
+    width: fit-content;
+    margin-inline: auto;
+    padding: 0.5rem 1rem;
+}
+
+#cards-principais > .monitor-table-wrapper {
+    width: 100%;
+    padding: clamp(0.5rem, 2vw, 1.25rem) !important;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-gutter: stable;
+}
+
+#tabelaExames {
+    width: max-content !important;
+    min-width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: clamp(0.8rem, 1.5vw, 1rem) !important;
+}
+
+#tabelaExames caption {
+    min-width: max-content;
+    padding: 0.75rem;
+    font-weight: 600;
+    text-align: left;
+}
+
+#tabelaExames th,
+#tabelaExames td {
+    min-width: 88px;
+    padding: 0.6rem;
+    white-space: normal;
+    vertical-align: middle;
+}
+
+#tabelaExames th {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    min-width: 220px;
+    max-width: 260px;
+    background: #020617;
+    color: #94a3b8;
+}
+
+#buttonsGrafico {
+    width: 100%;
+    max-width: none !important;
+}
+
+#buttonsGrafico > div:first-of-type {
+    display: block !important;
+}
+
+#buttonsGrafico > div:first-of-type > div {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 0.75rem !important;
+    width: 100%;
+}
+
+#buttonsGrafico button {
+    width: 100%;
+    min-width: 0;
+    line-height: 1.25;
+}
+
+#local {
+    position: relative;
+    width: 100%;
+    min-height: 280px;
+    margin-top: 1rem;
+}
+
+#local canvas {
+    max-width: 100% !important;
+    max-height: 440px;
+}
+
+#analisePerfusional {
+    width: 100% !important;
+    min-width: 0;
+}
+
+#analisePerfusional h2,
+#analisePerfusional h3,
+#analisePerfusional p,
+#analisePerfusional li,
+#analisePerfusional strong,
+#analisePerfusional span {
+    overflow-wrap: anywhere;
+}
+
+#analisePerfusional .grid > div {
+    min-width: 0;
+}
+
+.metric-row {
+    align-items: flex-start;
+}
+
+.metric-row > * {
+    min-width: 0;
+}
+
+#relatorio {
+    max-width: 100%;
+}
+
+#relatorioTabela {
+    max-width: 100%;
+}
+
+@media (min-width: 700px) {
     #cards-iniciais {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
     }
-    #card-monitorizacao{
-        grid-template-columns: 50% 50%;
+}
+
+@media (min-width: 1100px) {
+    #cards-principais {
+        grid-template-columns: minmax(320px, 360px) minmax(0, 1fr);
+    }
+
+    #card-monitorizacao {
+        grid-row: span 2;
+    }
+}
+
+@media (min-width: 1200px) {
+    #cards-iniciais {
+        grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .landing-page > header {
+        min-height: 390px;
+        height: auto !important;
+        padding-bottom: 1.5rem;
+    }
+
+    #main {
+        gap: 2rem !important;
+    }
+
+    #main > div:nth-of-type(3) > button,
+    #main > div:nth-of-type(3) > label {
+        width: min(100%, 320px);
+    }
+
+    #cards-iniciais > div {
+        min-height: 205px;
+    }
+
+    #cards-iniciais .text-3xl {
+        font-size: 1.65rem;
+    }
+
+    #analisePerfusional {
+        padding: 1rem !important;
+        border-radius: 1.25rem !important;
+    }
+
+    .metric-row {
+        flex-direction: column;
+        gap: 0.25rem !important;
+    }
+
+    .metric-row strong {
+        text-align: left !important;
+    }
+
+    #relatorioPaciente {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .dashboard-page > header {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+
+    .dashboard-page > header > div {
+        margin-top: 0.25rem !important;
+    }
+
+    #btnRelatorio {
+        width: min(100%, 320px);
+        margin-top: 0.5rem !important;
+    }
+}
+
+@media (max-width: 479px) {
+    #cards-iniciais {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    #cards-iniciais > div {
+        min-height: 190px;
+    }
+
+    #card-monitorizacao .flex.justify-between {
+        grid-template-columns: minmax(0, 1fr);
+        align-items: stretch;
+    }
+
+    #card-monitorizacao .flex.justify-between > p:last-child {
+        text-align: left;
+    }
+
+    #card-monitorizacao .lactate-help {
+        margin-top: -0.5rem !important;
+        text-align: left !important;
+    }
+
+    #card-monitorizacao .monitor-actions {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #buttonsGrafico > div:first-of-type > div {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #tabelaExames th {
+        min-width: 175px;
+        max-width: 190px;
+    }
+
+    #tabelaExames th,
+    #tabelaExames td {
+        padding: 0.45rem;
+    }
+}
+
+@media print {
+    @page {
+        size: A4 landscape;
+        margin: 10mm;
+    }
+
+    body {
+        min-width: 0;
+        overflow: visible;
+    }
+
+    body > *:not(#relatorio) {
+        display: none !important;
+    }
+
+    #relatorio {
+        display: block !important;
+        position: static !important;
+        left: auto !important;
+        width: auto !important;
+        max-width: none !important;
+        padding: 0;
+    }
+
+    #relatorio table {
+        width: 100% !important;
+        min-width: 0;
+        border-collapse: collapse;
+        font-size: 8px !important;
+    }
+
+    #relatorio,
+    #relatorio * {
+        color: #0f172a !important;
+    }
+
+    #relatorioAnalise .border-l-4 {
+        border-left-color: #475569 !important;
+        background: #f8fafc !important;
+    }
+
+    #relatorio th,
+    #relatorio td {
+        position: static !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        border: 1px solid #334155;
+        padding: 3px;
+        text-align: center;
+        white-space: normal;
+    }
+
+    #relatorioGraficos > div {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    #relatorio canvas {
+        max-height: 250px;
     }
 }

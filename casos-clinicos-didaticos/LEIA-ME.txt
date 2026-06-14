@@ -1,0 +1,48 @@
+PERFUSELAB - 10 CASOS CLÍNICOS DIDÁTICOS
+
+Esta pasta contém 10 arquivos CSV e um texto explicativo correspondente a cada caso.
+
+COMO UTILIZAR
+1. Abra o PerfuseLab.
+2. Clique em "Entrar com arquivo".
+3. Selecione um dos arquivos CSV desta pasta.
+4. Compare a tabela, os gráficos, os alertas e o risco integrado com o arquivo TXT do mesmo número.
+5. Tente interpretar primeiro sem consultar o gabarito. Depois leia o texto explicativo.
+
+ORDEM SUGERIDA
+01 - CEC estável.
+02 - Hemodiluição com queda importante de iDO2.
+03 - Recuperação da oferta após aumento simulado do fluxo.
+04 - Lactato crescente apesar de iDO2 preservado.
+05 - Extração de oxigênio elevada e SvO2 baixa.
+06 - Acidose respiratória com oferta de oxigênio preservada.
+07 - Hiperóxia com iDO2 adequado.
+08 - CEC prolongada, anemia e lactato crescente.
+09 - Hipotermia e reaquecimento.
+10 - Reoperação valvar com dados coerentes.
+
+FÓRMULAS CENTRAIS
+- BSA: raiz quadrada de (peso x altura / 3600).
+- CaO2: Hb x 1,36 x SaO2 + PaO2 x 0,003.
+- iDO2: 10 x índice de fluxo x CaO2.
+- O2ER: iVO2 / iDO2 x 100.
+- DO2/VO2: iDO2 / iVO2.
+
+OBSERVAÇÕES IMPORTANTES
+- Os casos são simulados e foram produzidos para estudo do comportamento do framework.
+- O risco integrado é uma regra do aplicativo, não um escore clínico validado.
+- Uma classificação isolada não substitui a tendência temporal nem a avaliação do contexto.
+- O alvo GDP de 280 mL/min/m2 é apresentado como referência operacional, não como limite biológico universal.
+- O alvo térmico é uma regra local configurada no framework e deve ser interpretado separadamente.
+- Os textos não indicam tratamento para pacientes reais.
+
+REFERÊNCIAS DE APOIO
+- Mosteller RD. Simplified calculation of body-surface area.
+  https://pubmed.ncbi.nlm.nih.gov/3657876/
+- Ranucci et al. Goal-directed perfusion com alvo de iDO2 igual ou superior a 280 mL/min/m2.
+  https://pubmed.ncbi.nlm.nih.gov/29778331/
+- Diretriz EACTS/EACTAIC/EBCP 2024, publicada em 2025.
+  https://pmc.ncbi.nlm.nih.gov/articles/PMC11826095/
+- Fórmula operacional contemporânea de iDO2 em CEC.
+  https://pmc.ncbi.nlm.nih.gov/articles/PMC12039435/
+
