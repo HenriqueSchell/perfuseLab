@@ -1,0 +1,284 @@
+{
+  "metadados": {
+    "id_caso": "CC-008",
+    "categoria": "adulto",
+    "finalidade": "Treino de CRM de urgencia com instabilidade inicial"
+  },
+  "identificacao": {
+    "data_cirurgia": "2026-08-18",
+    "sala": "Centro Cirurgico 03",
+    "prontuario_simulado": "SIM-CC-008"
+  },
+  "paciente": {
+    "sexo": "masculino",
+    "idade": 58,
+    "peso": 76,
+    "altura": 172,
+    "comorbidades": [
+      "Infarto agudo do miocardio recente",
+      "Lesao de tronco de coronaria esquerda",
+      "Uso de balao intra-aortico"
+    ],
+    "risco_pre_operatorio": {
+      "euroscore_ii": 12.4,
+      "creatinina_mg_dl": 1.35,
+      "hematocrito_preop": 37
+    },
+    "procedimento": "CRM de emergencia por lesao de tronco",
+    "temperatura": 35.5,
+    "pam": 56
+  },
+  "procedimento": {
+    "tipo_cirurgia": "CRM de emergencia por lesao de tronco",
+    "descricao": "Revascularizacao miocardica em contexto de IAM e instabilidade hemodinamica",
+    "carater": "emergencia"
+  },
+  "equipe_perfusao": {
+    "responsavel_montagem": "Perfusionista O",
+    "responsavel_cec": "Perfusionista P",
+    "perfusionista_check": "Perfusionista O"
+  },
+  "tempos_cirurgicos": {
+    "entrada_sala": "18:20",
+    "inducao": "18:38",
+    "incisao": "19:08",
+    "heparinizacao": "19:23",
+    "inicio_cec": "19:35",
+    "inicio_clampeamento": "19:42",
+    "primeira_cardioplegia": "19:44",
+    "fim_clampeamento": "20:38",
+    "inicio_reaquecimento": "20:22",
+    "fim_cec": "20:55",
+    "protamina": "21:02",
+    "fechamento": "22:05",
+    "tempo_cec_min": 80,
+    "tempo_clampeamento_min": 56
+  },
+  "cec": {
+    "configuracao": "Circuito adulto convencional",
+    "oxigenador": "Adulto com reservatorio venoso",
+    "filtro_arterial": true,
+    "prime_ml": 1350,
+    "rap_ml": 250,
+    "ultrafiltracao_ml": 400,
+    "hemoconcentrador": true,
+    "cardioplegia": "Sanguinea fria 4:1 anterograda",
+    "cardioplegia_ml": 1500,
+    "canula_arterial_fr": 22,
+    "canulas_venosas_fr": [
+      36,
+      32
+    ],
+    "drenagem_venosa": "gravidade",
+    "alvo_ic_l_min_m2": 2.4
+  },
+  "anticoagulacao": {
+    "heparina_mg": 300,
+    "tca_basal_s": 118,
+    "tca_pos_heparina_s": 566,
+    "tca_cec_s": 622,
+    "protamina_mg": 280,
+    "tca_pos_neutralizacao_s": 132
+  },
+  "operacional": {
+    "estrategia_ph": "Alfa-stat",
+    "pressao_barometrica_mmhg": 760,
+    "delta_vav_mmhg": 0,
+    "pressao_pre_membrana_mmhg": 218,
+    "pressao_pos_membrana_mmhg": 184,
+    "fluxo_gas_l_min": [
+      2.6,
+      2.5,
+      2.6,
+      2.4,
+      2.3
+    ],
+    "sweep_fio2_percentual": [
+      80,
+      70,
+      60,
+      55,
+      50
+    ],
+    "temperatura_c": [
+      35.5,
+      33.8,
+      33.2,
+      35.2,
+      36
+    ],
+    "pam_mmhg": [
+      56,
+      58,
+      62,
+      68,
+      72
+    ]
+  },
+  "balanco_hidrico": {
+    "entrada_cristaloide_ml": 1250,
+    "hemocomponentes": {
+      "concentrado_hemacias_ml": 300,
+      "plasma_ml": 0,
+      "plaquetas_ml": 0
+    },
+    "ultrafiltracao_ml": 400,
+    "debito_urinario_ml": 240,
+    "balanco_estimado_ml": 980
+  },
+  "eventos": [
+    "Balao intra-aortico mantido em standby durante CEC",
+    "PAM baixa no inicio com resposta a ajuste de fluxo e vasopressor",
+    "Saida de CEC com suporte inotropico"
+  ],
+  "monitorizacao": [
+    {
+      "tempo": 0,
+      "fluxo": 4.5,
+      "hb": 10.4,
+      "hct": 31.2,
+      "lactato": 2.4,
+      "sao2": 99,
+      "ph": 7.33,
+      "svo2": 70,
+      "pao2": 264,
+      "paco2": 44,
+      "hco3": 22.6,
+      "be": -3,
+      "k": 4.4,
+      "ca": 1.12,
+      "na": 137,
+      "cl": 104,
+      "glicose": 172,
+      "fio2": 80,
+      "ivo2": 80,
+      "gap_pco2": 6,
+      "pam": 56,
+      "temperatura": 35.5,
+      "ic": 2.36,
+      "ido2_informado": 349,
+      "do2_vo2": 4.37,
+      "lactato_mg_dl": 21.6
+    },
+    {
+      "tempo": 20,
+      "fluxo": 4.8,
+      "hb": 9,
+      "hct": 27,
+      "lactato": 2.8,
+      "sao2": 98,
+      "ph": 7.31,
+      "svo2": 66,
+      "pao2": 210,
+      "paco2": 46,
+      "hco3": 21.8,
+      "be": -5,
+      "k": 4.7,
+      "ca": 1.07,
+      "na": 136,
+      "cl": 105,
+      "glicose": 192,
+      "fio2": 70,
+      "ivo2": 86,
+      "gap_pco2": 7,
+      "pam": 58,
+      "temperatura": 33.8,
+      "ic": 2.52,
+      "ido2_informado": 318,
+      "do2_vo2": 3.7,
+      "lactato_mg_dl": 25.2
+    },
+    {
+      "tempo": 40,
+      "fluxo": 4.9,
+      "hb": 8.6,
+      "hct": 25.8,
+      "lactato": 3.1,
+      "sao2": 98,
+      "ph": 7.32,
+      "svo2": 68,
+      "pao2": 182,
+      "paco2": 43,
+      "hco3": 21.5,
+      "be": -5,
+      "k": 4.2,
+      "ca": 1.1,
+      "na": 137,
+      "cl": 106,
+      "glicose": 204,
+      "fio2": 60,
+      "ivo2": 84,
+      "gap_pco2": 7,
+      "pam": 62,
+      "temperatura": 33.2,
+      "ic": 2.57,
+      "ido2_informado": 309,
+      "do2_vo2": 3.68,
+      "lactato_mg_dl": 27.9
+    },
+    {
+      "tempo": 60,
+      "fluxo": 4.9,
+      "hb": 8.9,
+      "hct": 26.7,
+      "lactato": 3.3,
+      "sao2": 99,
+      "ph": 7.36,
+      "svo2": 71,
+      "pao2": 160,
+      "paco2": 39,
+      "hco3": 21.9,
+      "be": -4,
+      "k": 3.9,
+      "ca": 1.16,
+      "na": 138,
+      "cl": 106,
+      "glicose": 196,
+      "fio2": 55,
+      "ivo2": 80,
+      "gap_pco2": 6,
+      "pam": 68,
+      "temperatura": 35.2,
+      "ic": 2.57,
+      "ido2_informado": 320,
+      "do2_vo2": 4.01,
+      "lactato_mg_dl": 29.7
+    },
+    {
+      "tempo": 80,
+      "fluxo": 4.4,
+      "hb": 9.5,
+      "hct": 28.5,
+      "lactato": 3.2,
+      "sao2": 99,
+      "ph": 7.38,
+      "svo2": 72,
+      "pao2": 150,
+      "paco2": 37,
+      "hco3": 22.1,
+      "be": -3,
+      "k": 3.8,
+      "ca": 1.18,
+      "na": 139,
+      "cl": 106,
+      "glicose": 184,
+      "fio2": 50,
+      "ivo2": 78,
+      "gap_pco2": 5,
+      "pam": 72,
+      "temperatura": 36,
+      "ic": 2.31,
+      "ido2_informado": 306,
+      "do2_vo2": 3.92,
+      "lactato_mg_dl": 28.8
+    }
+  ],
+  "debito_urinario": {
+    "volume_ml": 240,
+    "tempo_min": 80
+  },
+  "metadados_conversao": {
+    "superficie_corporal_m2": 1.906,
+    "observacao": "Caso sintetico realista para treino. Nao representa paciente real."
+  }
+}

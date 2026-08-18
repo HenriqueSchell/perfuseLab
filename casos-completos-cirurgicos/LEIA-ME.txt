@@ -1,0 +1,24 @@
+Casos completos cirurgicos PerfuseLab
+
+Esta pasta contem 10 casos sinteticos realistas para treino no PerfuseLab.
+Eles nao representam pacientes reais e nao devem ser usados como protocolo assistencial.
+
+Formato:
+- Cada arquivo JSON pode ser importado diretamente na landing page pelo botao "Entrar com arquivo".
+- O campo paciente.procedimento tambem e preenchido para organizar o titulo no banco de dados.
+- Alem da monitorizacao, os arquivos trazem tempos cirurgicos, dados de CEC, anticoagulacao, circuito, cardioplegia, balanco hidrico, eventos e equipe de perfusao.
+
+Campos cirurgicos incluidos:
+- tipo de cirurgia/procedimento;
+- data, sala e identificacao simulada;
+- horarios de entrada, inducao, incisao, heparinizacao, inicio/fim da CEC, clampeamento, reaquecimento, protamina e fechamento;
+- tempo total de CEC e tempo de clampeamento;
+- configuracao do circuito, oxigenador, prime, RAP, hemoconcentrador, ultrafiltracao, cardioplegia e canulas;
+- heparina, TCA basal, TCA pos-heparina, TCA em CEC, protamina e TCA pos-neutralizacao;
+- monitorizacao seriada com fluxo, IC, iDO2, Hb, Hct, lactato, gasometria, eletrolitos, glicose, PAM, temperatura, FiO2, iVO2 e gap PCO2.
+
+Referencias usadas como guia de campos, nao como prescricao:
+- AmSECT Pump Templates: https://amsect.org/policy-practice/pump-templates
+- AmSECT Standards and Guidelines for Perfusion Practice: https://amsect.org/Policy-Practice/Perfusion-Safety/AmSECT-Standards-and-Guidelines-For-Perfusion-Practice-2017
+- STS/SCA/AmSECT Anticoagulation During Cardiopulmonary Bypass: https://pmc.ncbi.nlm.nih.gov/articles/PMC5850589/
+- Ranucci et al. Goal-directed perfusion trial: https://pubmed.ncbi.nlm.nih.gov/29778331/

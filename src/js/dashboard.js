@@ -1231,8 +1231,18 @@ function fecharModuloDashboard(id){
     document.body.classList.remove('modal-open')
 }
 
+function obterProcedimentoCaso(paciente = {}, casoClinico = {}, dadosChecklist = {}){
+    return dadosChecklist?.procedimento
+        || paciente?.procedimento
+        || casoClinico?.paciente?.procedimento
+        || casoClinico?.procedimento?.tipo_cirurgia
+        || casoClinico?.procedimento?.nome
+        || casoClinico?.procedimento
+        || ''
+}
+
 function criarChaveCaso(paciente, casoClinico = {}){
-    const origem = casoClinico?.paciente?.procedimento || casoClinico?.metadados?.arquivo || 'caso-local'
+    const origem = obterProcedimentoCaso(paciente, casoClinico) || casoClinico?.metadados?.arquivo || 'caso-local'
     const partes = [
         'perfuselab-checklist',
         paciente?.sexo || 'sem-sexo',
@@ -1272,19 +1282,22 @@ function salvarEstadoChecklist(chave, estado){
     localStorage.setItem(chave, JSON.stringify(estado))
 }
 
-function criarDadosChecklistPadrao(casoClinico = {}){
+function criarDadosChecklistPadrao(casoClinico = {}, paciente = {}){
+    const identificacao = casoClinico?.identificacao || {}
+    const equipe = casoClinico?.equipe_perfusao || casoClinico?.equipePerfusao || {}
+    const tempos = casoClinico?.tempos_cirurgicos || casoClinico?.temposCirurgicos || {}
     return {
-        data: new Date().toISOString().slice(0, 10),
-        salaCirurgica: '',
-        horarioInicioCec: '',
-        horarioFimCec: '',
-        tempoClampeamento: '',
-        responsavelMontagem: '',
-        responsavelCec: '',
-        perfusionistaCheck: '',
+        data: identificacao.data_cirurgia || identificacao.data || new Date().toISOString().slice(0, 10),
+        salaCirurgica: identificacao.sala || identificacao.sala_cirurgica || '',
+        horarioInicioCec: tempos.inicio_cec || tempos.horario_inicio_cec || '',
+        horarioFimCec: tempos.fim_cec || tempos.horario_fim_cec || '',
+        tempoClampeamento: tempos.tempo_clampeamento_min || tempos.tempoClampeamento || '',
+        responsavelMontagem: equipe.responsavel_montagem || equipe.responsavelMontagem || '',
+        responsavelCec: equipe.responsavel_cec || equipe.responsavelCec || '',
+        perfusionistaCheck: equipe.perfusionista_check || equipe.perfusionistaCheck || '',
         responsavelFinal: '',
-        procedimento: casoClinico?.paciente?.procedimento || '',
-        intercorrenciasTecnicas: ''
+        procedimento: obterProcedimentoCaso(paciente, casoClinico),
+        intercorrenciasTecnicas: Array.isArray(casoClinico?.eventos) ? casoClinico.eventos.join('; ') : ''
     }
 }
 
@@ -1292,8 +1305,8 @@ function chaveDadosChecklist(chave){
     return `${chave}:dados-perfusionista`
 }
 
-function carregarDadosChecklist(chave, casoClinico = {}){
-    const padrao = criarDadosChecklistPadrao(casoClinico)
+function carregarDadosChecklist(chave, casoClinico = {}, paciente = {}){
+    const padrao = criarDadosChecklistPadrao(casoClinico, paciente)
     try {
         const salvo = JSON.parse(localStorage.getItem(chaveDadosChecklist(chave)) || '{}')
         return { ...padrao, ...salvo }
@@ -1527,12 +1540,17 @@ function salvarHistoricoCaso(historico){
 
 function montarSnapshotBanco(paciente, casoClinico, historico, analise, estadoChecklist, chaveChecklist, dadosChecklist = {}){
     const resumoChecklist = calcularResumoChecklist(estadoChecklist)
+    const procedimento = obterProcedimentoCaso(paciente, casoClinico, dadosChecklist)
+    const pacienteSnapshot = {
+        ...paciente,
+        procedimento
+    }
     return {
         clientCaseKey: chaveChecklist,
-        title: dadosChecklist.procedimento
-            ? `${dadosChecklist.procedimento} · ${paciente?.sexo || 'sexo não informado'} · ${paciente?.idade || 'idade não informada'} anos`
+        title: procedimento
+            ? `${procedimento} · ${paciente?.sexo || 'sexo não informado'} · ${paciente?.idade || 'idade não informada'} anos`
             : undefined,
-        patient: paciente,
+        patient: pacienteSnapshot,
         perfusionist: dadosChecklist,
         clinicalCase: casoClinico || {},
         monitoring: historico,
@@ -1610,6 +1628,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let lactato = transformarNumero(paciente.lactato)
 
     //Resgatar e imprimir os dados
+    let campoProcedimento = document.getElementById('campoProcedimento')
     let campoSexo = document.getElementById('campoSexo')
     let campoIdade = document.getElementById('campoIdade')
     let campoPeso = document.getElementById('campoPeso')
@@ -1654,6 +1673,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let abaFormulasReferencia = document.getElementById('abaFormulasReferencia')
     
     //Conteúdo Header
+    const procedimento = obterProcedimentoCaso(paciente, casoClinico)
+    if(campoProcedimento){
+        campoProcedimento.textContent = procedimento ? `Cirurgia: ${procedimento}` : ''
+    }
     campoSexo.textContent = `Paciente: ${paciente.sexo}`
     campoIdade.textContent = `${idade} anos`
     campoPeso.textContent = `${peso} Kg`
@@ -1832,7 +1855,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const chaveChecklist = criarChaveCaso(paciente, casoClinico)
     const estadoChecklist = carregarEstadoChecklist(chaveChecklist)
-    const dadosChecklist = carregarDadosChecklist(chaveChecklist, casoClinico)
+    const dadosChecklist = carregarDadosChecklist(chaveChecklist, casoClinico, paciente)
     renderizarChecklist(estadoChecklist, chaveChecklist)
     sincronizarCamposDadosChecklist(chaveChecklist, dadosChecklist)
     renderizarReferencias()

@@ -70,7 +70,12 @@ function obterPerfusionista(caso){
 function montarResumoCaso(caso){
     const paciente = caso.patient || {}
     const perfusionista = obterPerfusionista(caso)
-    const procedimento = perfusionista.procedimento || paciente.procedimento || caso.clinicalCase?.paciente?.procedimento
+    const procedimento = perfusionista.procedimento
+        || paciente.procedimento
+        || caso.clinicalCase?.paciente?.procedimento
+        || caso.clinicalCase?.procedimento?.tipo_cirurgia
+        || caso.clinicalCase?.procedimento?.nome
+        || caso.clinicalCase?.procedimento
     return {
         paciente,
         perfusionista,

@@ -1,0 +1,284 @@
+{
+  "metadados": {
+    "id_caso": "CC-001",
+    "categoria": "adulto",
+    "finalidade": "Treino de CEC adulta estavel"
+  },
+  "identificacao": {
+    "data_cirurgia": "2026-08-18",
+    "sala": "Centro Cirurgico 03",
+    "prontuario_simulado": "SIM-CC-001"
+  },
+  "paciente": {
+    "sexo": "masculino",
+    "idade": 64,
+    "peso": 88,
+    "altura": 174,
+    "comorbidades": [
+      "Doenca arterial coronariana triarterial",
+      "Hipertensao arterial",
+      "Diabetes mellitus tipo 2"
+    ],
+    "risco_pre_operatorio": {
+      "euroscore_ii": 1.8,
+      "creatinina_mg_dl": 1,
+      "hematocrito_preop": 39
+    },
+    "procedimento": "Revascularizacao do miocardio eletiva",
+    "temperatura": 35.8,
+    "pam": 68
+  },
+  "procedimento": {
+    "tipo_cirurgia": "Revascularizacao do miocardio eletiva",
+    "descricao": "CRM com enxertos mamaria esquerda e safena",
+    "carater": "eletiva"
+  },
+  "equipe_perfusao": {
+    "responsavel_montagem": "Perfusionista A",
+    "responsavel_cec": "Perfusionista A",
+    "perfusionista_check": "Perfusionista B"
+  },
+  "tempos_cirurgicos": {
+    "entrada_sala": "07:00",
+    "inducao": "07:18",
+    "incisao": "08:02",
+    "heparinizacao": "08:18",
+    "inicio_cec": "08:31",
+    "inicio_clampeamento": "08:39",
+    "primeira_cardioplegia": "08:41",
+    "fim_clampeamento": "09:33",
+    "inicio_reaquecimento": "09:38",
+    "fim_cec": "09:53",
+    "protamina": "09:58",
+    "fechamento": "10:42",
+    "tempo_cec_min": 82,
+    "tempo_clampeamento_min": 54
+  },
+  "cec": {
+    "configuracao": "Circuito adulto convencional",
+    "oxigenador": "Adulto de fibra oca com reservatorio venoso",
+    "filtro_arterial": true,
+    "prime_ml": 1400,
+    "rap_ml": 350,
+    "ultrafiltracao_ml": 0,
+    "hemoconcentrador": false,
+    "cardioplegia": "Sanguinea fria 4:1 anterograda",
+    "cardioplegia_ml": 1450,
+    "canula_arterial_fr": 22,
+    "canulas_venosas_fr": [
+      36,
+      32
+    ],
+    "drenagem_venosa": "gravidade",
+    "alvo_ic_l_min_m2": 2.4
+  },
+  "anticoagulacao": {
+    "heparina_mg": 300,
+    "tca_basal_s": 128,
+    "tca_pos_heparina_s": 612,
+    "tca_cec_s": 698,
+    "protamina_mg": 280,
+    "tca_pos_neutralizacao_s": 136
+  },
+  "operacional": {
+    "estrategia_ph": "Alfa-stat",
+    "pressao_barometrica_mmhg": 760,
+    "delta_vav_mmhg": 0,
+    "pressao_pre_membrana_mmhg": 210,
+    "pressao_pos_membrana_mmhg": 178,
+    "fluxo_gas_l_min": [
+      2.8,
+      2.6,
+      2.5,
+      2.4,
+      2.4
+    ],
+    "sweep_fio2_percentual": [
+      70,
+      60,
+      55,
+      50,
+      50
+    ],
+    "temperatura_c": [
+      35.8,
+      34.2,
+      33.8,
+      35.5,
+      36.2
+    ],
+    "pam_mmhg": [
+      68,
+      72,
+      70,
+      74,
+      76
+    ]
+  },
+  "balanco_hidrico": {
+    "entrada_cristaloide_ml": 1200,
+    "hemocomponentes": {
+      "concentrado_hemacias_ml": 0,
+      "plasma_ml": 0,
+      "plaquetas_ml": 0
+    },
+    "ultrafiltracao_ml": 0,
+    "debito_urinario_ml": 550,
+    "balanco_estimado_ml": 650
+  },
+  "eventos": [
+    "Entrada em CEC sem intercorrencias",
+    "Cardioplegia repetida a cada 20 minutos",
+    "Saida de CEC com baixo suporte vasoativo"
+  ],
+  "monitorizacao": [
+    {
+      "tempo": 0,
+      "fluxo": 5,
+      "hb": 10.8,
+      "hct": 32.4,
+      "lactato": 1.2,
+      "sao2": 99,
+      "ph": 7.39,
+      "svo2": 78,
+      "pao2": 245,
+      "paco2": 39,
+      "hco3": 23.5,
+      "be": -1,
+      "k": 4.2,
+      "ca": 1.16,
+      "na": 138,
+      "cl": 104,
+      "glicose": 142,
+      "fio2": 70,
+      "ivo2": 72,
+      "gap_pco2": 4,
+      "pam": 68,
+      "temperatura": 35.8,
+      "ic": 2.42,
+      "ido2_informado": 370,
+      "do2_vo2": 5.14,
+      "lactato_mg_dl": 10.8
+    },
+    {
+      "tempo": 20,
+      "fluxo": 5.1,
+      "hb": 9.6,
+      "hct": 28.8,
+      "lactato": 1.3,
+      "sao2": 99,
+      "ph": 7.38,
+      "svo2": 80,
+      "pao2": 198,
+      "paco2": 40,
+      "hco3": 23.8,
+      "be": -1,
+      "k": 4.5,
+      "ca": 1.13,
+      "na": 137,
+      "cl": 105,
+      "glicose": 156,
+      "fio2": 60,
+      "ivo2": 68,
+      "gap_pco2": 4,
+      "pam": 72,
+      "temperatura": 34.2,
+      "ic": 2.47,
+      "ido2_informado": 334,
+      "do2_vo2": 4.92,
+      "lactato_mg_dl": 11.7
+    },
+    {
+      "tempo": 45,
+      "fluxo": 5,
+      "hb": 9.1,
+      "hct": 27.3,
+      "lactato": 1.4,
+      "sao2": 98,
+      "ph": 7.37,
+      "svo2": 76,
+      "pao2": 174,
+      "paco2": 42,
+      "hco3": 24.1,
+      "be": -1,
+      "k": 4.3,
+      "ca": 1.12,
+      "na": 138,
+      "cl": 105,
+      "glicose": 168,
+      "fio2": 55,
+      "ivo2": 75,
+      "gap_pco2": 5,
+      "pam": 70,
+      "temperatura": 33.8,
+      "ic": 2.42,
+      "ido2_informado": 307,
+      "do2_vo2": 4.09,
+      "lactato_mg_dl": 12.6
+    },
+    {
+      "tempo": 70,
+      "fluxo": 5.2,
+      "hb": 9,
+      "hct": 27,
+      "lactato": 1.5,
+      "sao2": 99,
+      "ph": 7.4,
+      "svo2": 79,
+      "pao2": 158,
+      "paco2": 38,
+      "hco3": 23.6,
+      "be": -1,
+      "k": 4.1,
+      "ca": 1.17,
+      "na": 139,
+      "cl": 106,
+      "glicose": 172,
+      "fio2": 50,
+      "ivo2": 70,
+      "gap_pco2": 4,
+      "pam": 74,
+      "temperatura": 35.5,
+      "ic": 2.52,
+      "ido2_informado": 317,
+      "do2_vo2": 4.54,
+      "lactato_mg_dl": 13.5
+    },
+    {
+      "tempo": 82,
+      "fluxo": 4.8,
+      "hb": 9.4,
+      "hct": 28.2,
+      "lactato": 1.6,
+      "sao2": 99,
+      "ph": 7.41,
+      "svo2": 77,
+      "pao2": 152,
+      "paco2": 37,
+      "hco3": 23.2,
+      "be": -1,
+      "k": 4,
+      "ca": 1.19,
+      "na": 140,
+      "cl": 106,
+      "glicose": 166,
+      "fio2": 50,
+      "ivo2": 73,
+      "gap_pco2": 4,
+      "pam": 76,
+      "temperatura": 36.2,
+      "ic": 2.33,
+      "ido2_informado": 305,
+      "do2_vo2": 4.18,
+      "lactato_mg_dl": 14.4
+    }
+  ],
+  "debito_urinario": {
+    "volume_ml": 550,
+    "tempo_min": 82
+  },
+  "metadados_conversao": {
+    "superficie_corporal_m2": 2.062,
+    "observacao": "Caso sintetico realista para treino. Nao representa paciente real."
+  }
+}

@@ -1,0 +1,284 @@
+{
+  "metadados": {
+    "id_caso": "CC-009",
+    "categoria": "pediatrico",
+    "finalidade": "Treino de ficha perfusional pediatrica"
+  },
+  "identificacao": {
+    "data_cirurgia": "2026-08-18",
+    "sala": "Centro Cirurgico Pediatrico",
+    "prontuario_simulado": "SIM-CC-009"
+  },
+  "paciente": {
+    "sexo": "masculino",
+    "idade": 4,
+    "peso": 16,
+    "altura": 102,
+    "comorbidades": [
+      "Tetralogia de Fallot",
+      "Cianose aos esforcos",
+      "Saturacao basal reduzida"
+    ],
+    "risco_pre_operatorio": {
+      "rac_subgrupo": "cardiopatia congenita",
+      "creatinina_mg_dl": 0.35,
+      "hematocrito_preop": 46
+    },
+    "procedimento": "Correcao total de Tetralogia de Fallot",
+    "temperatura": 35.2,
+    "pam": 48
+  },
+  "procedimento": {
+    "tipo_cirurgia": "Correcao total de Tetralogia de Fallot",
+    "descricao": "Fechamento de CIV e ampliacao da via de saida do ventriculo direito",
+    "carater": "eletiva pediatrica"
+  },
+  "equipe_perfusao": {
+    "responsavel_montagem": "Perfusionista Pediatrico A",
+    "responsavel_cec": "Perfusionista Pediatrico A",
+    "perfusionista_check": "Perfusionista Pediatrico B"
+  },
+  "tempos_cirurgicos": {
+    "entrada_sala": "07:30",
+    "inducao": "07:48",
+    "incisao": "08:35",
+    "heparinizacao": "08:55",
+    "inicio_cec": "09:05",
+    "inicio_clampeamento": "09:14",
+    "primeira_cardioplegia": "09:16",
+    "fim_clampeamento": "10:22",
+    "inicio_reaquecimento": "10:04",
+    "fim_cec": "10:47",
+    "protamina": "10:52",
+    "fechamento": "11:35",
+    "tempo_cec_min": 102,
+    "tempo_clampeamento_min": 68
+  },
+  "cec": {
+    "configuracao": "Circuito pediatrico",
+    "oxigenador": "Pediatrico baixo prime",
+    "filtro_arterial": true,
+    "prime_ml": 450,
+    "rap_ml": 60,
+    "ultrafiltracao_ml": 350,
+    "hemoconcentrador": true,
+    "cardioplegia": "Del Nido pediatrica",
+    "cardioplegia_ml": 420,
+    "canula_arterial_fr": 12,
+    "canulas_venosas_fr": [
+      18,
+      16
+    ],
+    "drenagem_venosa": "gravidade assistida",
+    "alvo_ic_l_min_m2": 3
+  },
+  "anticoagulacao": {
+    "heparina_mg": 55,
+    "tca_basal_s": 130,
+    "tca_pos_heparina_s": 590,
+    "tca_cec_s": 620,
+    "protamina_mg": 50,
+    "tca_pos_neutralizacao_s": 140
+  },
+  "operacional": {
+    "estrategia_ph": "Alfa-stat",
+    "pressao_barometrica_mmhg": 760,
+    "delta_vav_mmhg": -15,
+    "pressao_pre_membrana_mmhg": 128,
+    "pressao_pos_membrana_mmhg": 106,
+    "fluxo_gas_l_min": [
+      0.9,
+      0.8,
+      0.8,
+      0.75,
+      0.7
+    ],
+    "sweep_fio2_percentual": [
+      70,
+      60,
+      55,
+      50,
+      50
+    ],
+    "temperatura_c": [
+      35.2,
+      32.8,
+      31.8,
+      35.4,
+      36.2
+    ],
+    "pam_mmhg": [
+      48,
+      46,
+      45,
+      50,
+      52
+    ]
+  },
+  "balanco_hidrico": {
+    "entrada_cristaloide_ml": 420,
+    "hemocomponentes": {
+      "concentrado_hemacias_ml": 120,
+      "plasma_ml": 0,
+      "plaquetas_ml": 0
+    },
+    "ultrafiltracao_ml": 350,
+    "debito_urinario_ml": 95,
+    "balanco_estimado_ml": 210
+  },
+  "eventos": [
+    "Prime pediatrico balanceado com hemacias conforme protocolo local",
+    "Ultrafiltracao modificada apos CEC",
+    "Controle rigoroso de temperatura no reaquecimento"
+  ],
+  "monitorizacao": [
+    {
+      "tempo": 0,
+      "fluxo": 2,
+      "hb": 12.6,
+      "hct": 37.8,
+      "lactato": 1.3,
+      "sao2": 99,
+      "ph": 7.38,
+      "svo2": 76,
+      "pao2": 238,
+      "paco2": 40,
+      "hco3": 23.5,
+      "be": -1,
+      "k": 4.1,
+      "ca": 1.18,
+      "na": 138,
+      "cl": 104,
+      "glicose": 102,
+      "fio2": 70,
+      "ivo2": 84,
+      "gap_pco2": 4,
+      "pam": 48,
+      "temperatura": 35.2,
+      "ic": 2.97,
+      "ido2_informado": 525,
+      "do2_vo2": 6.25,
+      "lactato_mg_dl": 11.7
+    },
+    {
+      "tempo": 25,
+      "fluxo": 2.05,
+      "hb": 10.8,
+      "hct": 32.4,
+      "lactato": 1.5,
+      "sao2": 98,
+      "ph": 7.36,
+      "svo2": 73,
+      "pao2": 188,
+      "paco2": 42,
+      "hco3": 22.8,
+      "be": -2,
+      "k": 4.6,
+      "ca": 1.1,
+      "na": 137,
+      "cl": 105,
+      "glicose": 118,
+      "fio2": 60,
+      "ivo2": 88,
+      "gap_pco2": 5,
+      "pam": 46,
+      "temperatura": 32.8,
+      "ic": 3.04,
+      "ido2_informado": 455,
+      "do2_vo2": 5.18,
+      "lactato_mg_dl": 13.5
+    },
+    {
+      "tempo": 50,
+      "fluxo": 2.1,
+      "hb": 10.2,
+      "hct": 30.6,
+      "lactato": 1.8,
+      "sao2": 98,
+      "ph": 7.34,
+      "svo2": 71,
+      "pao2": 164,
+      "paco2": 44,
+      "hco3": 22.1,
+      "be": -3,
+      "k": 4.3,
+      "ca": 1.08,
+      "na": 136,
+      "cl": 105,
+      "glicose": 132,
+      "fio2": 55,
+      "ivo2": 92,
+      "gap_pco2": 6,
+      "pam": 45,
+      "temperatura": 31.8,
+      "ic": 3.12,
+      "ido2_informado": 439,
+      "do2_vo2": 4.78,
+      "lactato_mg_dl": 16.2
+    },
+    {
+      "tempo": 78,
+      "fluxo": 2.1,
+      "hb": 10.6,
+      "hct": 31.8,
+      "lactato": 2,
+      "sao2": 99,
+      "ph": 7.38,
+      "svo2": 74,
+      "pao2": 154,
+      "paco2": 38,
+      "hco3": 22.4,
+      "be": -2,
+      "k": 3.9,
+      "ca": 1.18,
+      "na": 138,
+      "cl": 106,
+      "glicose": 142,
+      "fio2": 50,
+      "ivo2": 88,
+      "gap_pco2": 5,
+      "pam": 50,
+      "temperatura": 35.4,
+      "ic": 3.12,
+      "ido2_informado": 460,
+      "do2_vo2": 5.22,
+      "lactato_mg_dl": 18
+    },
+    {
+      "tempo": 102,
+      "fluxo": 1.9,
+      "hb": 11.2,
+      "hct": 33.6,
+      "lactato": 2.1,
+      "sao2": 99,
+      "ph": 7.4,
+      "svo2": 75,
+      "pao2": 146,
+      "paco2": 36,
+      "hco3": 22.2,
+      "be": -2,
+      "k": 3.8,
+      "ca": 1.2,
+      "na": 139,
+      "cl": 106,
+      "glicose": 136,
+      "fio2": 50,
+      "ivo2": 86,
+      "gap_pco2": 5,
+      "pam": 52,
+      "temperatura": 36.2,
+      "ic": 2.82,
+      "ido2_informado": 438,
+      "do2_vo2": 5.09,
+      "lactato_mg_dl": 18.9
+    }
+  ],
+  "debito_urinario": {
+    "volume_ml": 95,
+    "tempo_min": 102
+  },
+  "metadados_conversao": {
+    "superficie_corporal_m2": 0.673,
+    "observacao": "Caso sintetico realista para treino. Nao representa paciente real."
+  }
+}

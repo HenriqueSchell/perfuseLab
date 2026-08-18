@@ -11,7 +11,7 @@ const statusArquivo = document.getElementById('statusArquivo')
 const errorSex = document.getElementById('errorSex')
 
 const colunasModelo = [
-    'sexo', 'idade', 'peso', 'altura', 'temperatura', 'pam', 'tempo', 'fluxo',
+    'procedimento', 'sexo', 'idade', 'peso', 'altura', 'temperatura', 'pam', 'tempo', 'fluxo',
     'ic', 'hemoglobina', 'hematocrito', 'lactato', 'lactato_mg_dl', 'sao2',
     'ido2', 'ivo2', 'do2_vo2', 'ph', 'svo2', 'pao2', 'paco2', 'hco3', 'be',
     'k', 'ca'
@@ -49,6 +49,11 @@ function valorDaLinha(linha, ...nomes) {
         if (valor !== undefined && valor !== '') return valor
     }
     return null
+}
+
+function valorDeObjeto(objeto, ...nomes) {
+    if (!objeto || typeof objeto !== 'object') return null
+    return valorDaLinha(objeto, ...nomes)
 }
 
 function separarCSV(linha, delimitador) {
@@ -103,6 +108,7 @@ function prepararImportacao(conteudo, extensao) {
         monitorizacao = lerCSV(conteudo)
         const primeira = monitorizacao[0]
         paciente = {
+            procedimento: valorDaLinha(primeira, 'procedimento', 'cirurgia', 'tipo_cirurgia', 'tipoCirurgia', 'procedimentoCirurgico'),
             sexo: valorDaLinha(primeira, 'sexo'),
             idade: valorDaLinha(primeira, 'idade'),
             peso: valorDaLinha(primeira, 'peso'),
@@ -113,7 +119,12 @@ function prepararImportacao(conteudo, extensao) {
     }
 
     const primeira = monitorizacao[0]
+    const procedimento = valorDeObjeto(paciente, 'procedimento', 'cirurgia', 'tipo_cirurgia', 'tipoCirurgia', 'procedimentoCirurgico')
+        || valorDeObjeto(dadosOriginais?.procedimento, 'procedimento', 'tipo', 'tipo_cirurgia', 'nome')
+        || valorDeObjeto(dadosOriginais, 'procedimento', 'cirurgia', 'tipo_cirurgia', 'tipoCirurgia')
+        || valorDaLinha(primeira, 'procedimento', 'cirurgia', 'tipo_cirurgia', 'tipoCirurgia', 'procedimentoCirurgico')
     const pacienteNormalizado = {
+        procedimento: String(procedimento || '').trim(),
         sexo: String(valorDaLinha(paciente, 'sexo') || '').toLowerCase().trim(),
         idade: transformarNumero(valorDaLinha(paciente, 'idade')),
         peso: transformarNumero(valorDaLinha(paciente, 'peso')),
@@ -234,8 +245,8 @@ arquivoDados.addEventListener('change', async event => {
 btnModeloArquivo.addEventListener('click', () => {
     const exemplo = [
         colunasModelo.join(';'),
-        'masculino;55;80;175;36,5;70;0;4,8;2,35;12;36;1,8;;98;;56;;7,40;75;180;38;24;0;4,2;1,15',
-        'masculino;55;80;175;36,0;68;20;4,6;2,25;10,5;31,5;2,2;;97;;52;;7,36;72;160;40;22;-2;4,0;1,10'
+        'Revascularizacao do miocardio;masculino;55;80;175;36,5;70;0;4,8;2,35;12;36;1,8;;98;;56;;7,40;75;180;38;24;0;4,2;1,15',
+        'Revascularizacao do miocardio;masculino;55;80;175;36,0;68;20;4,6;2,25;10,5;31,5;2,2;;97;;52;;7,36;72;160;40;22;-2;4,0;1,10'
     ].join('\n')
     const url = URL.createObjectURL(new Blob([`\uFEFF${exemplo}`], { type: 'text/csv;charset=utf-8' }))
     const link = document.createElement('a')
@@ -257,6 +268,7 @@ btnClose.addEventListener('click', () => {
 })
 
 btnModal.addEventListener('click', () => {
+    const procedimento = document.getElementById('procedimento').value.trim()
     const sexo = document.getElementById('sexo').value.toLowerCase().trim()
     const idade = document.getElementById('idade').value
     const peso = document.getElementById('peso').value.trim()
@@ -292,6 +304,7 @@ btnModal.addEventListener('click', () => {
     }
     
     const paciente = {
+            procedimento,
             sexo,
             idade,
             peso,

@@ -68,16 +68,27 @@ function validate() {
     vm.createContext(dashboardContext)
     loadScript('src/js/dashboard.js', dashboardContext)
 
-    const casesDir = path.join(root, 'casos-clinicos-didaticos')
-    const files = fs.readdirSync(casesDir).filter(file => /^\d+_.*\.csv$/.test(file)).sort()
+    const caseSources = [
+        { dir: path.join(root, 'casos-clinicos-didaticos'), pattern: /^\d+_.*\.csv$/ },
+        { dir: path.join(root, 'casos-completos-cirurgicos'), pattern: /^\d+_.*\.json$/ }
+    ]
+    const files = caseSources.flatMap(source => (
+        fs.existsSync(source.dir)
+            ? fs.readdirSync(source.dir)
+                .filter(file => source.pattern.test(file))
+                .sort()
+                .map(file => path.join(source.dir, file))
+            : []
+    ))
     files.forEach(file => {
-        const importacao = indexContext.prepararImportacao(fs.readFileSync(path.join(casesDir, file), 'utf8'), 'csv')
+        const extensao = path.extname(file).slice(1)
+        const importacao = indexContext.prepararImportacao(fs.readFileSync(file, 'utf8'), extensao)
         const sc = dashboardContext.superficieCorporal(importacao.paciente.peso, importacao.paciente.alturaNum)
         const historico = importacao.historico.map(exame => dashboardContext.completarExame(exame, sc))
         dashboardContext.montarAnalisePerfusional(importacao.paciente, historico, importacao.dadosOriginais || {}, sc)
     })
 
-    console.log(`Dashboard validado com ${files.length} CSV(s).`)
+    console.log(`Dashboard validado com ${files.length} arquivo(s) de caso.`)
 }
 
 validate()

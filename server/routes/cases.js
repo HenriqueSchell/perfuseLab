@@ -7,7 +7,14 @@ function montarTitulo(payload) {
     const patient = payload.patient || payload.paciente || {}
     const idade = patient.idade !== undefined ? `${patient.idade} anos` : 'idade não informada'
     const sexo = patient.sexo || 'sexo não informado'
-    const procedimento = patient.procedimento || payload.clinicalCase?.paciente?.procedimento
+    const procedimento = patient.procedimento
+        || payload.perfusionist?.procedimento
+        || payload.perfusionista?.procedimento
+        || payload.checklist?.metadata?.procedimento
+        || payload.clinicalCase?.paciente?.procedimento
+        || payload.clinicalCase?.procedimento?.tipo_cirurgia
+        || payload.clinicalCase?.procedimento?.nome
+        || payload.clinicalCase?.procedimento
     return procedimento
         ? `${procedimento} · ${sexo} · ${idade}`
         : `Caso PerfuseLab · ${sexo} · ${idade}`

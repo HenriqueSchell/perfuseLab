@@ -76,8 +76,11 @@ perfusionCaseSchema.index({
     title: 'text',
     'patient.sexo': 'text',
     'patient.procedimento': 'text',
+    'clinicalCase.procedimento.tipo_cirurgia': 'text',
+    'clinicalCase.procedimento.nome': 'text',
     'perfusionist.responsavelCec': 'text',
     'perfusionist.responsavelMontagem': 'text',
+    'perfusionist.procedimento': 'text',
     'perfusionist.perfusionistaCheck': 'text',
     notes: 'text'
 })
