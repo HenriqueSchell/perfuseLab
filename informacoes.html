@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="shortcut icon" href="medias/icon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>PerfuseLab - Informações técnicas</title>
+</head>
+<body class="info-page bg-slate-950 text-slate-200">
+    <header class="info-header">
+        <div>
+            <a href="index.html" class="cases-logo">Perfuse<span>Lab</span></a>
+            <p>Fórmulas, limites e observações técnicas fora do relatório impresso.</p>
+        </div>
+        <nav class="cases-nav" aria-label="Navegação das informações técnicas">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="cases.html">Casos salvos</a>
+            <a href="checklist-modelo.html">Modelo checklist</a>
+        </nav>
+    </header>
+
+    <main class="info-shell">
+        <section class="info-hero">
+            <p class="cases-eyebrow">Consulta técnica</p>
+            <h1>Informações para interpretar os relatórios</h1>
+            <p>Esta página concentra fórmulas, correções e limites usados pelo PerfuseLab. O relatório impresso fica mais limpo, e os detalhes técnicos ficam aqui para estudo e conferência.</p>
+        </section>
+
+        <section class="info-card">
+            <h2>Relatórios disponíveis</h2>
+            <div class="info-grid">
+                <article>
+                    <h3>Relatório simples</h3>
+                    <p>Mostra identificação do caso, monitorização essencial, indicadores finais, alertas principais e gráficos centrais. É a melhor opção para comunicação rápida.</p>
+                </article>
+                <article>
+                    <h3>Relatório completo</h3>
+                    <p>Inclui tabela ampliada, mais indicadores e gráficos adicionais, mas sem fórmulas longas ou notas técnicas extensas.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="info-card">
+            <h2>Correção FiO₂/PaO₂</h2>
+            <p>Quando a PaO₂ está acima de 150 mmHg, o PerfuseLab pode calcular uma FiO₂ corrigida pelo método de Hamilton como métrica de desempenho do oxigenador.</p>
+            <div class="info-formula">
+                FiO₂corr = FiO₂ - PaO₂ / (Pb - 47) + 0,21
+            </div>
+            <ul class="info-list">
+                <li>FiO₂ deve entrar como fração no cálculo, por exemplo 0,60 para 60%.</li>
+                <li>PaO₂ e pressão barométrica entram em mmHg.</li>
+                <li>Se a pressão barométrica não for informada, o sistema assume 760 mmHg.</li>
+                <li>O resultado é informativo. Não é prescrição automática de ajuste da FiO₂.</li>
+            </ul>
+        </section>
+
+        <section class="info-card">
+            <h2>Fórmulas principais</h2>
+            <div class="info-table-wrap">
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Fórmula</th>
+                            <th>Uso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Superfície corporal</td>
+                            <td>SC = √(peso × altura / 3600)</td>
+                            <td>Base para indexar fluxo e oferta de oxigênio.</td>
+                        </tr>
+                        <tr>
+                            <td>Índice cardíaco</td>
+                            <td>IC = fluxo / SC</td>
+                            <td>Converte fluxo da bomba em L/min/m².</td>
+                        </tr>
+                        <tr>
+                            <td>Conteúdo arterial de O₂</td>
+                            <td>CaO₂ = Hb × 1,36 × SaO₂ + PaO₂ × 0,003</td>
+                            <td>Estima oxigênio transportado no sangue arterial.</td>
+                        </tr>
+                        <tr>
+                            <td>iDO₂</td>
+                            <td>iDO₂ = 10 × IC × CaO₂</td>
+                            <td>Oferta de oxigênio indexada.</td>
+                        </tr>
+                        <tr>
+                            <td>Extração de O₂</td>
+                            <td>O₂ER = iVO₂ / iDO₂ × 100</td>
+                            <td>Mostra a proporção entre consumo e oferta.</td>
+                        </tr>
+                        <tr>
+                            <td>DO₂/VO₂</td>
+                            <td>DO₂/VO₂ = iDO₂ / iVO₂</td>
+                            <td>Leitura inversa da extração.</td>
+                        </tr>
+                        <tr>
+                            <td>Lactato</td>
+                            <td>mmol/L = mg/dL / 9,009</td>
+                            <td>Padroniza os cálculos em mmol/L.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="info-card">
+            <h2>Limites configurados no dashboard</h2>
+            <div class="info-table-wrap">
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>Parâmetro</th>
+                            <th>Faixa usada</th>
+                            <th>Observação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>iDO₂</td>
+                            <td>Alvo GDP: 280 mL/min/m²</td>
+                            <td>Abaixo de 90% do alvo gera alerta alto.</td>
+                        </tr>
+                        <tr>
+                            <td>Hemoglobina</td>
+                            <td>Atenção PBM se &lt; 7,5 g/dL</td>
+                            <td>Não indica transfusão isoladamente.</td>
+                        </tr>
+                        <tr>
+                            <td>Hematócrito</td>
+                            <td>Crítico se &lt; 22%</td>
+                            <td>Limite geral do dashboard.</td>
+                        </tr>
+                        <tr>
+                            <td>Lactato</td>
+                            <td>Atenção: ≥ 2 mmol/L; crítico: &gt; 4 mmol/L</td>
+                            <td>Interpretar tendência e contexto.</td>
+                        </tr>
+                        <tr>
+                            <td>IC</td>
+                            <td>Adequado se ≥ 2,4 L/min/m²</td>
+                            <td>Depende da superfície corporal e do fluxo.</td>
+                        </tr>
+                        <tr>
+                            <td>SvO₂</td>
+                            <td>Atenção se ≤ 70%; alto se &lt; 65%</td>
+                            <td>Não exclui discordância metabólica quando normal.</td>
+                        </tr>
+                        <tr>
+                            <td>O₂ER</td>
+                            <td>Atenção: ≥ 30%; alto: &gt; 40%</td>
+                            <td>Exige iVO₂ disponível.</td>
+                        </tr>
+                        <tr>
+                            <td>Gap PCO₂</td>
+                            <td>Atenção se ≥ 6 mmHg</td>
+                            <td>Marcador contextual de fluxo/perfusão regional.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="info-card">
+            <h2>Leitura segura</h2>
+            <ul class="info-list">
+                <li>Use o relatório como apoio educacional e operacional, não como substituto do julgamento clínico.</li>
+                <li>Confirme se os exames pertencem ao mesmo tempo de CEC antes de interpretar tendências.</li>
+                <li>Valores pediátricos e neonatais precisam ser contextualizados por idade, peso, protocolo institucional e patologia.</li>
+                <li>Alertas do sistema indicam pontos para revisão, não ordens automáticas de conduta.</li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

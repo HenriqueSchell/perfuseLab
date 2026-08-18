@@ -23,6 +23,7 @@ async function main() {
         copiarArquivo(path.join(root, 'dashboard.html'), path.join(dist, 'dashboard.html')),
         copiarArquivo(path.join(root, 'cases.html'), path.join(dist, 'cases.html')),
         copiarArquivo(path.join(root, 'checklist-modelo.html'), path.join(dist, 'checklist-modelo.html')),
+        copiarArquivo(path.join(root, 'informacoes.html'), path.join(dist, 'informacoes.html')),
         fs.cp(path.join(root, 'src'), path.join(dist, 'src'), { recursive: true }),
         fs.cp(path.join(root, 'medias'), path.join(dist, 'medias'), { recursive: true })
     ])

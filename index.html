@@ -14,7 +14,7 @@
     <!--Header-->
     <header class="h-[400px] md:h-[500px] bg-[url('/medias/header-mobile.png')] md:bg-[url('/medias/header-desktop.png')] bg-cover flex flex-col ">
         <h1 class="text-4xl md:text-5xl text-[#F2071B] text-center pt-20">Perfuse<span class="text-[#FFFFFF]">Lab</span></h1>
-        <p class="text-lg font-semibold text-center pt-8 text-[#D9D9D9]">Plataforma de apoio à decisão em CEC</p>
+        <p class="text-lg font-semibold text-center pt-8 text-[#D9D9D9]">Plataforma de apoio à decisão e ficha técnica perfusional em CEC</p>
         <img class="pt-8 md:hidden" src="medias/deatails-header-mobile.png" alt="heart detail image">
         <img class="pt-8 hidden md:flex" src="medias/deatails-header-desktop.png" alt="heart detail image">
     </header>
@@ -23,7 +23,7 @@
     <main id="main" class="bg-[#EEF6FF] pb-10 flex flex-col items-center gap-12">
         <div class="flex flex-col">
             <h1 class="text-[#F2071B] text-xl md:text-3xl text-center pt-5 font-semibold">Bem vindo-a Perfusionista!</h1>
-            <p class="text-base text-black max-w-[80%] font-semibold text-center m-auto pt-8">Esta é uma Plataforma de análise e apoio à decisão em circulação extracorpórea, com foco em estratégias de proteção renal e monitoramento fisiológico, visando otimizar os desfechos no pós-operatório.</p>
+            <p class="text-base text-black max-w-[80%] font-semibold text-center m-auto pt-8">Esta é uma plataforma de análise, apoio à decisão e registro técnico perfusional em circulação extracorpórea, com foco em monitorização fisiológica, checklist, relatório e documentação do caso.</p>
         </div>
         <!--Cards-->
 
@@ -79,16 +79,19 @@
         </div>
 
         <!--Button-->
-        <div class="flex flex-col md:flex-row gap-4 items-center">
-            <button id="btnMain" class="py-3 px-5 rounded-full bg-[#03A64A] text-white hover:scale-105 transition-all duration-500 border-none">Iniciar Análise Manual</button>
-            <label for="arquivoDados" class="py-3 px-5 rounded-full bg-blue-700 text-white hover:scale-105 transition-all duration-500 cursor-pointer">Entrar com arquivo</label>
-            <a href="cases.html" class="py-3 px-5 rounded-full bg-slate-800 text-white hover:scale-105 transition-all duration-500 border-none">Acesso perfusionista</a>
-            <a href="checklist-modelo.html" class="py-3 px-5 rounded-full bg-slate-700 text-white hover:scale-105 transition-all duration-500 border-none">Modelo checklist</a>
+        <div class="landing-actions flex flex-col md:flex-row gap-4 items-center">
+            <button id="btnMain" class="landing-action-button py-3 px-5 rounded-full bg-[#03A64A] text-white hover:scale-105 transition-all duration-500 border-none">Iniciar Análise Manual</button>
+            <label for="arquivoDados" class="landing-action-button py-3 px-5 rounded-full bg-blue-700 text-white hover:scale-105 transition-all duration-500 cursor-pointer">Entrar com arquivo</label>
+            <a href="cases.html" class="landing-action-button py-3 px-5 rounded-full bg-slate-800 text-white hover:scale-105 transition-all duration-500 border-none">Acesso perfusionista</a>
             <input id="arquivoDados" type="file" accept=".csv,.json,text/csv,application/json" class="hidden">
         </div>
         <div class="w-[85%] md:w-[65%] bg-white border border-blue-200 rounded-2xl p-4 text-center">
             <p class="text-[#374151]">Importe um arquivo CSV ou JSON com os dados do paciente e a monitorização.</p>
-            <button id="btnModeloArquivo" class="mt-2 text-blue-700 underline font-semibold">Baixar modelo CSV</button>
+            <div class="landing-model-actions">
+                <button id="btnModeloArquivo" class="text-blue-700 underline font-semibold">Baixar modelo CSV</button>
+                <a href="checklist-modelo.html" class="text-slate-700 underline font-semibold">Modelo checklist</a>
+            </div>
+            <p class="mt-2 text-sm text-[#64748b]">Use o modelo CSV para entrada de dados e o modelo checklist para impressão operacional.</p>
             <p id="statusArquivo" class="mt-2 text-sm font-semibold hidden"></p>
         </div>
     </main>
@@ -152,7 +155,6 @@
                         <option value="mg/dL">mg/dL</option>
                     </select>
                 </div>
-                <p class="text-xs text-gray-500">Os cálculos e gráficos utilizam mmol/L.</p>
                 <input class="rounded-2xl pl-2" type="text" name="sao2" id="sao2" placeholder="Saturação de oxigênio...">
             </div>
         </div>

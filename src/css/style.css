@@ -137,6 +137,40 @@ a:focus-visible {
     justify-content: center;
 }
 
+.landing-actions {
+    width: min(100%, 820px);
+    justify-content: center;
+}
+
+.landing-action-button {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: min(100%, 210px);
+    min-height: 48px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.landing-model-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem 1rem;
+    margin-top: 0.75rem;
+}
+
+.landing-model-actions > * {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 170px;
+    min-height: 38px;
+    text-align: center;
+    line-height: 1.2;
+}
+
 #main > div:nth-of-type(3) > button,
 #main > div:nth-of-type(3) > label,
 #main > div:nth-of-type(3) > a {
@@ -412,6 +446,11 @@ a:focus-visible {
     box-shadow: inset 0 1px 0 rgba(148, 163, 184, 0.04);
 }
 
+#cards-iniciais .risk-score-card {
+    overflow: hidden;
+    padding-inline: 0.35rem !important;
+}
+
 #cards-iniciais h2 {
     max-width: 100%;
     font-size: clamp(0.92rem, 1.45vw, 1.16rem) !important;
@@ -460,10 +499,30 @@ a:focus-visible {
 }
 
 #campoScore {
-    font-size: clamp(1.12rem, 1.65vw, 1.55rem) !important;
+    font-size: clamp(1.05rem, 1.8vw, 1.35rem) !important;
     line-height: 1.08 !important;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
     white-space: nowrap;
+}
+
+#cards-iniciais .risk-score-card #campoScore {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    font-size: clamp(1.05rem, 1.8vw, 1.35rem) !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.02em;
+    text-align: center;
+    white-space: nowrap;
+    overflow: visible;
+}
+
+#classificacaoScore {
+    width: min(100%, 180px) !important;
+    font-size: 0.76rem !important;
+    line-height: 1.15 !important;
+    white-space: normal;
+    overflow-wrap: anywhere;
 }
 
 #cards-principais {
@@ -545,7 +604,16 @@ a:focus-visible {
 }
 
 #unidadeLactato {
+    color: #0f172a !important;
+    background: #ffffff !important;
     font-size: 0.86rem !important;
+}
+
+#unidadeLactato option,
+#unidadeLactatoInicial,
+#unidadeLactatoInicial option {
+    color: #0f172a !important;
+    background: #ffffff !important;
 }
 
 #card-monitorizacao .flex.justify-between > p:last-child {
@@ -1004,12 +1072,79 @@ a:focus-visible {
 
 .support-modal__footer {
     flex: 0 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
     margin-top: 0.85rem;
     border-top: 1px solid var(--dashboard-border);
     padding-top: 0.85rem;
     color: #94a3b8;
     font-size: 0.82rem;
     line-height: 1.45;
+}
+
+.support-modal__link-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    border: 1px solid #334155;
+    border-radius: 999px;
+    padding: 0.45rem 0.85rem;
+    color: #e2e8f0;
+    background: #0f172a;
+    text-decoration: none;
+    font-weight: 800;
+}
+
+.support-modal__link-button:hover {
+    border-color: #38bdf8;
+}
+
+.support-modal__panel--compact {
+    width: min(100%, 560px);
+    max-height: min(92vh, 680px);
+}
+
+.report-option-grid {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.report-option-card {
+    display: grid;
+    gap: 0.25rem;
+    width: 100%;
+    min-height: 0;
+    border: 1px solid #1e293b;
+    border-radius: 1rem;
+    padding: 1rem;
+    color: #cbd5e1;
+    background: rgba(15, 23, 42, 0.72);
+    text-align: left;
+}
+
+.report-option-card:hover,
+.report-option-card:focus-visible {
+    border-color: #38bdf8;
+    background: rgba(14, 116, 144, 0.25);
+}
+
+.report-option-card strong {
+    color: #f8fafc;
+    font-size: 1rem;
+}
+
+.report-option-card span {
+    color: #94a3b8;
+    line-height: 1.4;
+}
+
+.report-option-card--link {
+    text-decoration: none;
 }
 
 .checklist-grid {
@@ -1305,15 +1440,168 @@ a:focus-visible {
     line-height: 1.3;
 }
 
-#relatorio.relatorio--basico #relatorioGraficos {
+.relatorio-interpretacao,
+.relatorio-info-tecnica {
+    border: 1px solid #cbd5e1;
+    border-radius: 0.75rem;
+    padding: 0.65rem 0.75rem;
+    color: #334155;
+    background: #f8fafc;
+    line-height: 1.45;
+}
+
+#relatorio.relatorio--basico #relatorioGraficos,
+#relatorio.relatorio--simples #relatorioGraficos {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1rem;
     margin-top: 0.75rem;
 }
 
-#relatorio.relatorio--basico #relatorioGraficos h3 {
+#relatorio.relatorio--basico #relatorioGraficos h3,
+#relatorio.relatorio--simples #relatorioGraficos h3 {
     font-size: 1rem;
     margin-bottom: 0.35rem;
+}
+
+.report-chart-canvas {
+    display: block;
+    width: 320px !important;
+    max-width: 100%;
+    height: 180px !important;
+}
+
+/* Informacoes tecnicas */
+
+.info-page {
+    min-height: 100vh;
+}
+
+.info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    width: min(100%, 1240px);
+    margin-inline: auto;
+    padding: 1rem clamp(0.8rem, 2vw, 1.4rem);
+    border-bottom: 1px solid #1e293b;
+}
+
+.info-header p {
+    color: #94a3b8;
+}
+
+.info-shell {
+    width: min(100%, 1120px);
+    margin-inline: auto;
+    padding: clamp(1rem, 3vw, 2rem);
+}
+
+.info-hero,
+.info-card {
+    border: 1px solid #1e293b;
+    border-radius: 1.25rem;
+    background: rgba(15, 23, 42, 0.56);
+}
+
+.info-hero {
+    padding: clamp(1.2rem, 4vw, 2rem);
+}
+
+.info-hero h1 {
+    max-width: 760px;
+    color: #f8fafc;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    font-weight: 900;
+    line-height: 1.02;
+}
+
+.info-hero p:last-child {
+    max-width: 760px;
+    margin-top: 0.85rem;
+    color: #cbd5e1;
+    line-height: 1.7;
+}
+
+.info-card {
+    margin-top: 1rem;
+    padding: clamp(1rem, 3vw, 1.4rem);
+}
+
+.info-card h2 {
+    color: #f8fafc;
+    font-size: clamp(1.25rem, 3vw, 1.65rem);
+    font-weight: 850;
+    line-height: 1.2;
+}
+
+.info-card h3 {
+    color: #e2e8f0;
+    font-weight: 800;
+}
+
+.info-card p,
+.info-list {
+    color: #cbd5e1;
+    line-height: 1.65;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: 0.85rem;
+    margin-top: 1rem;
+}
+
+.info-grid article {
+    border: 1px solid #1e293b;
+    border-radius: 1rem;
+    padding: 1rem;
+    background: rgba(2, 6, 23, 0.45);
+}
+
+.info-formula {
+    margin: 1rem 0;
+    border: 1px solid #334155;
+    border-radius: 1rem;
+    padding: 1rem;
+    color: #bbf7d0;
+    background: #020617;
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    overflow-wrap: anywhere;
+}
+
+.info-list {
+    display: grid;
+    gap: 0.45rem;
+    margin-top: 0.75rem;
+    padding-left: 1.2rem;
+    list-style: disc;
+}
+
+.info-table-wrap {
+    margin-top: 1rem;
+    overflow-x: auto;
+}
+
+.info-table {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    color: #cbd5e1;
+}
+
+.info-table th,
+.info-table td {
+    border: 1px solid #1e293b;
+    padding: 0.75rem;
+    vertical-align: top;
+}
+
+.info-table th {
+    color: #e2e8f0;
+    background: #020617;
+    text-align: left;
 }
 
 /* Casos salvos / acesso do perfusionista */
@@ -1597,6 +1885,10 @@ a:focus-visible {
     font-size: 0.86rem;
 }
 
+.case-data-table--complete {
+    min-width: 1080px;
+}
+
 .case-data-table th,
 .case-data-table td {
     border: 1px solid #1e293b;
@@ -1618,6 +1910,16 @@ a:focus-visible {
 .case-list-plain li {
     border-bottom: 1px solid #1e293b;
     padding-bottom: 0.4rem;
+}
+
+.case-report-note {
+    margin: 0.5rem 0 0.9rem;
+    border: 1px solid #1e293b;
+    border-radius: 0.85rem;
+    padding: 0.75rem;
+    color: #cbd5e1;
+    background: rgba(2, 6, 23, 0.35);
+    line-height: 1.45;
 }
 
 .case-check-grid {
@@ -1815,6 +2117,7 @@ a:focus-visible {
 
 .checklist-template-paper input[type="text"],
 .checklist-template-paper input[type="date"],
+.checklist-template-paper input[type="time"],
 .checklist-template-paper textarea {
     width: 100%;
     min-height: 38px;
@@ -1915,6 +2218,7 @@ a:focus-visible {
 
 @media (max-width: 900px) {
     .cases-header,
+    .info-header,
     .checklist-template-topbar,
     .cases-shell,
     .case-detail__header {
@@ -1922,6 +2226,7 @@ a:focus-visible {
     }
 
     .cases-header,
+    .info-header,
     .checklist-template-topbar,
     .case-detail__header {
         flex-direction: column;
@@ -2104,6 +2409,12 @@ a:focus-visible {
         font-size: 1.34rem !important;
     }
 
+    #cards-iniciais .risk-score-card #campoScore {
+        font-size: 1.08rem !important;
+        line-height: 1.05 !important;
+        letter-spacing: -0.02em;
+    }
+
     #cards-iniciais > div > button {
         width: min(100%, 128px) !important;
         font-size: 0.68rem;
@@ -2251,34 +2562,41 @@ a:focus-visible {
         max-height: 250px;
     }
 
-    #relatorio.relatorio--basico {
+    #relatorio.relatorio--basico,
+    #relatorio.relatorio--simples {
         font-size: 10px;
     }
 
-    #relatorio.relatorio--basico #relatorioTabela {
+    #relatorio.relatorio--basico #relatorioTabela,
+    #relatorio.relatorio--simples #relatorioTabela {
         overflow: visible;
     }
 
-    #relatorio.relatorio--basico table {
+    #relatorio.relatorio--basico table,
+    #relatorio.relatorio--simples table {
         font-size: 10px !important;
     }
 
-    #relatorio.relatorio--basico .relatorio-resumo-grid {
+    #relatorio.relatorio--basico .relatorio-resumo-grid,
+    #relatorio.relatorio--simples .relatorio-resumo-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 4px;
     }
 
-    #relatorio.relatorio--basico .relatorio-resumo-grid > div {
+    #relatorio.relatorio--basico .relatorio-resumo-grid > div,
+    #relatorio.relatorio--simples .relatorio-resumo-grid > div {
         padding: 5px;
     }
 
-    #relatorio.relatorio--basico #relatorioGraficos {
+    #relatorio.relatorio--basico #relatorioGraficos,
+    #relatorio.relatorio--simples #relatorioGraficos {
         display: grid !important;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 8px;
     }
 
-    #relatorio.relatorio--basico canvas {
+    #relatorio.relatorio--basico canvas,
+    #relatorio.relatorio--simples canvas {
         max-height: 150px;
     }
 
@@ -2409,6 +2727,7 @@ a:focus-visible {
 
     .checklist-template-paper input[type="text"],
     .checklist-template-paper input[type="date"],
+    .checklist-template-paper input[type="time"],
     .checklist-template-paper textarea {
         min-height: 22px;
         border-radius: 0;

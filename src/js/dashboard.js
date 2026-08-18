@@ -79,7 +79,7 @@ const CHECKLIST_SECOES = Object.freeze([
     { id: 'anticoagulacao', titulo: 'Anticoagulação', itens: ['TCA basal registrado', 'Dose de heparina/protocolo conferidos', 'Heparinização comunicada e documentada', 'TCA pré-CEC ou pós-heparina dentro do alvo institucional'] },
     { id: 'inicio-cec', titulo: 'Início da CEC', itens: ['Canulação e linhas sem intercorrências aparentes', 'Fluxo inicial e índice cardíaco avaliados', 'Pressões do circuito monitoradas', 'Gasometria inicial documentada'] },
     { id: 'manutencao-cec', titulo: 'Manutenção da CEC', itens: ['Gasometrias e eletrólitos acompanhados', 'iDO₂, lactato, SvO₂/O₂ER revisados', 'Temperatura e estratégia ácido-base acompanhadas'] },
-    { id: 'saida-cec', titulo: 'Saída da CEC', itens: ['Reaquecimento e condições de saída conferidos', 'Volume/hemoconcentração/transfusão avaliados', 'Comunicação com equipe cirúrgica/anestésica registrada'] },
+    { id: 'saida-cec', titulo: 'Saída da CEC', itens: ['Reaquecimento e condições de saída conferidos', 'Volume/hemoconcentração/transfusão avaliados', 'Horário de início/fim da CEC e tempo de clampeamento registrados', 'Comunicação com equipe cirúrgica/anestésica registrada'] },
     { id: 'pos-cec', titulo: 'Pós-CEC', itens: ['Protamina/reversão e TCA pós documentados', 'Débito urinário e balanço revisados', 'Ocorrências, intercorrências técnicas e pendências registradas'] }
 ])
 
@@ -590,8 +590,8 @@ function formatarValorRelatorio(valor, casas = 1, unidade = ''){
     return `${formatarMetrica(numero, casas)}${unidade ? ` ${unidade}` : ''}`
 }
 
-function criarTabelaMonitorizacaoBasica(historico){
-    const colunas = [
+function criarTabelaMonitorizacaoRelatorio(historico, completo = false){
+    const colunasEssenciais = [
         { titulo: 'Tempo', valor: exame => formatarValorRelatorio(exame.tempo, 0, 'min') },
         { titulo: 'Fluxo', valor: exame => formatarValorRelatorio(exame.fluxo, 2, 'L/min') },
         { titulo: 'IC', valor: exame => formatarValorRelatorio(exame.IC, 2, 'L/min/m²') },
@@ -601,10 +601,22 @@ function criarTabelaMonitorizacaoBasica(historico){
         { titulo: 'Lactato', valor: exame => formatarValorRelatorio(exame.lactato, 2, 'mmol/L') },
         { titulo: 'SvO₂', valor: exame => formatarValorRelatorio(exame.svo2, 0, '%') }
     ]
+    const colunasCompletas = [
+        ...colunasEssenciais,
+        { titulo: 'SaO₂', valor: exame => formatarValorRelatorio(exame.sao2, 0, '%') },
+        { titulo: 'O₂ER', valor: exame => formatarValorRelatorio(exame.o2er, 1, '%') },
+        { titulo: 'DO₂/VO₂', valor: exame => formatarValorRelatorio(exame.relacaoDo2Vo2, 2) },
+        { titulo: 'pH', valor: exame => formatarValorRelatorio(exame.ph, 2) },
+        { titulo: 'PaCO₂', valor: exame => formatarValorRelatorio(exame.paco2, 0, 'mmHg') },
+        { titulo: 'HCO₃', valor: exame => formatarValorRelatorio(exame.hco3, 1, 'mEq/L') },
+        { titulo: 'PAM', valor: exame => formatarValorRelatorio(exame.pam, 0, 'mmHg') },
+        { titulo: 'Temp.', valor: exame => formatarValorRelatorio(exame.temperatura, 1, '°C') }
+    ]
+    const colunas = completo ? colunasCompletas : colunasEssenciais
 
     return `
         <table class="relatorio-tabela-basica">
-            <caption>Monitorização essencial</caption>
+            <caption>${completo ? 'Monitorização ampliada' : 'Monitorização essencial'}</caption>
             <thead>
                 <tr>${colunas.map(coluna => `<th>${coluna.titulo}</th>`).join('')}</tr>
             </thead>
@@ -617,14 +629,45 @@ function criarTabelaMonitorizacaoBasica(historico){
     `
 }
 
-function renderizarAnaliseRelatorioBasico(container, analise, historico, SC){
+function simplificarAlertaRelatorio(alerta){
+    const titulo = String(alerta?.titulo || 'Alerta')
+    const detalhe = String(alerta?.detalhe || '')
+
+    if(/PaO[₂2] acima/i.test(titulo) || /Hamilton|FiO[₂2] corrigida|press[aã]o barom[eé]trica/i.test(detalhe)){
+        return {
+            nivel: alerta?.nivel || 'informativo',
+            titulo,
+            detalhe: 'PaO₂ acima de 150 mmHg. Revisar oxigenação conforme contexto e consultar Informações técnicas.'
+        }
+    }
+
+    return {
+        nivel: alerta?.nivel || 'informativo',
+        titulo,
+        detalhe: detalhe.replace(/;\s*equivale a extra[çc][aã]o de O[₂2].*$/i, '.')
+    }
+}
+
+function selecionarAlertasRelatorio(alertas = [], completo = false){
+    const niveisPermitidos = completo ? ['alto', 'moderado', 'informativo'] : ['alto', 'moderado']
+    return alertas
+        .filter(alerta => niveisPermitidos.includes(alerta?.nivel))
+        .map(simplificarAlertaRelatorio)
+        .slice(0, completo ? 8 : 5)
+}
+
+function renderizarAnaliseRelatorio(container, analise, historico, SC, completo = false){
     const inicial = historico[0] || {}
     const final = historico[historico.length - 1] || {}
-    const alertasPrioritarios = analise.alertas
-        .filter(alerta => alerta.nivel === 'alto' || alerta.nivel === 'moderado')
-        .slice(0, 5)
+    const alertasPrioritarios = selecionarAlertasRelatorio(analise.alertas, completo)
+    const interpretacoes = {
+        BAIXO: 'Sem alertas altos ou múltiplos alertas moderados pelas regras configuradas.',
+        MODERADO: 'Há pontos de atenção que merecem revisão da tendência e do contexto clínico.',
+        ALTO: 'Há pelo menos um alerta alto nas regras configuradas. Priorizar conferência dos dados e discussão com a equipe.'
+    }
     const itensChave = [
         ['Risco integrado', analise.risco],
+        ['Tempo em CEC', formatarValorRelatorio(final.tempo, 0, 'min')],
         ['SC', formatarValorRelatorio(SC, 2, 'm²')],
         ['iDO₂ final', formatarValorRelatorio(final.ido2, 0, 'mL/min/m²')],
         ['IC final', formatarValorRelatorio(final.IC, 2, 'L/min/m²')],
@@ -633,18 +676,30 @@ function renderizarAnaliseRelatorioBasico(container, analise, historico, SC){
         ['SvO₂ final', formatarValorRelatorio(final.svo2, 0, '%')],
         ['O₂ER final', formatarValorRelatorio(final.o2er, 1, '%')]
     ]
+    const itensCompletos = [
+        ['DO₂/VO₂ final', formatarValorRelatorio(final.relacaoDo2Vo2, 2)],
+        ['pH final', formatarValorRelatorio(final.ph, 2)],
+        ['PAM final', formatarValorRelatorio(final.pam, 0, 'mmHg')],
+        ['Temperatura final', formatarValorRelatorio(final.temperatura, 1, '°C')],
+        ['Registros', String(historico.length)]
+    ]
+    const itens = completo ? [...itensChave, ...itensCompletos] : itensChave
 
     container.innerHTML = `
         <section class="relatorio-bloco-basico">
-            <h2>Resumo objetivo</h2>
+            <h2>Resumo do caso</h2>
             <div class="relatorio-resumo-grid">
-                ${itensChave.map(([rotulo, valor]) => `
+                ${itens.map(([rotulo, valor]) => `
                     <div>
                         <span>${escaparHtml(rotulo)}</span>
                         <strong>${escaparHtml(valor)}</strong>
                     </div>
                 `).join('')}
             </div>
+        </section>
+        <section class="relatorio-bloco-basico">
+            <h2>Interpretação</h2>
+            <p class="relatorio-interpretacao">${escaparHtml(interpretacoes[analise.risco] || interpretacoes.MODERADO)}</p>
         </section>
         <section class="relatorio-bloco-basico">
             <h2>Alertas principais</h2>
@@ -656,6 +711,9 @@ function renderizarAnaliseRelatorioBasico(container, analise, historico, SC){
                     </li>
                 `).join('')}</ul>`
                 : '<p>Nenhum alerta alto ou moderado identificado pelas regras configuradas.</p>'}
+        </section>
+        <section class="relatorio-bloco-basico relatorio-info-tecnica">
+            <p>Fórmulas, limites detalhados e correções, incluindo FiO₂/PaO₂, ficam na página <strong>Informações técnicas</strong>.</p>
         </section>
     `
 }
@@ -679,20 +737,21 @@ function prepararRelatorioImpressao(modo, contexto){
     const relatorioTabela = document.getElementById('relatorioTabela')
     const relatorioAnalise = document.getElementById('relatorioAnalise')
     const relatorioGraficos = document.getElementById('relatorioGraficos')
-    const basico = modo === 'basico'
+    const simples = modo === 'simples' || modo === 'basico'
+    const completo = !simples
 
-    relatorio.classList.remove('hidden', 'relatorio--basico', 'relatorio--avancado')
-    relatorio.classList.add(basico ? 'relatorio--basico' : 'relatorio--avancado')
+    relatorio.classList.remove('hidden', 'relatorio--basico', 'relatorio--avancado', 'relatorio--simples', 'relatorio--completo')
+    relatorio.classList.add(simples ? 'relatorio--simples' : 'relatorio--completo')
     relatorio.style.position = 'absolute'
     relatorio.style.left = '-10000px'
-    relatorio.style.width = basico ? '820px' : '1000px'
+    relatorio.style.width = simples ? '820px' : '1000px'
 
-    relatorioTitulo.textContent = basico
-        ? 'PerfuseLab - Relatório básico de monitorização'
-        : 'PerfuseLab - Relatório avançado de monitorização'
-    relatorioDescricao.textContent = basico
+    relatorioTitulo.textContent = simples
+        ? 'PerfuseLab - Relatório simples de monitorização'
+        : 'PerfuseLab - Relatório completo de monitorização'
+    relatorioDescricao.textContent = simples
         ? 'Resumo essencial para comunicação rápida e impressão enxuta.'
-        : 'Relatório completo com tabela integral, análise detalhada e gráficos de tendência.'
+        : 'Relatório ampliado com tabela, interpretação organizada e gráficos de tendência.'
     document.getElementById('relatorioGeradoEm').textContent =
         `Gerado em ${new Date().toLocaleString('pt-BR')}`
 
@@ -709,29 +768,21 @@ function prepararRelatorioImpressao(modo, contexto){
     relatorioAnalise.innerHTML = ''
     relatorioGraficos.innerHTML = ''
 
-    if(basico){
-        relatorioTabela.innerHTML = criarTabelaMonitorizacaoBasica(historicoExames)
-        renderizarAnaliseRelatorioBasico(relatorioAnalise, analiseAtual, historicoExames, SC)
+    relatorioTabela.innerHTML = criarTabelaMonitorizacaoRelatorio(historicoExames, completo)
+    renderizarAnaliseRelatorio(relatorioAnalise, analiseAtual, historicoExames, SC, completo)
+
+    if(simples){
         criarGraficoRelatorio(relatorioGraficos, 'iDO₂', 'ido2', historicoExames, limites.ido2)
         criarGraficoRelatorio(relatorioGraficos, 'Lactato', 'lactato', historicoExames, limites.lactato)
         criarGraficoRelatorio(relatorioGraficos, 'Índice cardíaco', 'IC', historicoExames, limites.IC)
         return relatorio
     }
 
-    const tabelaRelatorio = tabelaExames.cloneNode(true)
-    tabelaRelatorio.removeAttribute('id')
-    relatorioTabela.appendChild(tabelaRelatorio)
-    const analiseRelatorio = document.getElementById('analisePerfusional').cloneNode(true)
-    analiseRelatorio.removeAttribute('id')
-    analiseRelatorio.className = 'border border-slate-400 rounded-xl p-4'
-    relatorioAnalise.appendChild(analiseRelatorio)
-    criarGraficoRelatorio(relatorioGraficos, 'Oferta de oxigênio indexada (iDO2)', 'ido2', historicoExames, limites.ido2)
+    criarGraficoRelatorio(relatorioGraficos, 'iDO₂', 'ido2', historicoExames, limites.ido2)
     criarGraficoRelatorio(relatorioGraficos, 'Lactato', 'lactato', historicoExames, limites.lactato)
     criarGraficoRelatorio(relatorioGraficos, 'Índice cardíaco', 'IC', historicoExames, limites.IC)
     criarGraficoRelatorio(relatorioGraficos, 'Hemoglobina', 'hb', historicoExames, limites.HbAdulto)
-    criarGraficoRelatorio(relatorioGraficos, 'Hematócrito', 'hct', historicoExames, limites.HctAdulto)
     criarGraficoRelatorio(relatorioGraficos, 'SvO2', 'svo2', historicoExames, limites.svo2)
-    criarGraficoRelatorio(relatorioGraficos, 'Extração de O2', 'o2er', historicoExames, limites.o2er)
     return relatorio
 }
 
@@ -739,20 +790,33 @@ function imprimirRelatorio(modo, contexto){
     const relatorio = prepararRelatorioImpressao(modo, contexto)
     window.addEventListener('afterprint', () => {
         relatorio.classList.add('hidden')
-        relatorio.classList.remove('relatorio--basico', 'relatorio--avancado')
+        relatorio.classList.remove('relatorio--basico', 'relatorio--avancado', 'relatorio--simples', 'relatorio--completo')
         relatorio.removeAttribute('style')
     }, { once: true })
-    setTimeout(() => window.print(), 250)
+    setTimeout(() => window.print(), 450)
 }
 
 function criarGraficoRelatorio(container, titulo, campo, dados, valorCritico){
     const bloco = document.createElement('div')
     const cabecalho = document.createElement('h3')
     const canvas = document.createElement('canvas')
+    const valores = dados.map(item => transformarNumero(item[campo]))
+    const temValores = valores.some(Number.isFinite)
     cabecalho.textContent = titulo
     cabecalho.className = 'text-xl font-bold mb-2'
+    canvas.className = 'report-chart-canvas'
+    canvas.width = 320
+    canvas.height = 180
     bloco.append(cabecalho, canvas)
     container.appendChild(bloco)
+
+    if(!temValores){
+        canvas.replaceWith(Object.assign(document.createElement('p'), {
+            className: 'text-slate-600',
+            textContent: 'Sem dados suficientes para este gráfico.'
+        }))
+        return
+    }
 
     if(typeof Chart === 'undefined'){
         canvas.replaceWith(Object.assign(document.createElement('p'), {
@@ -762,14 +826,14 @@ function criarGraficoRelatorio(container, titulo, campo, dados, valorCritico){
         return
     }
 
-    new Chart(canvas, {
+    const grafico = new Chart(canvas, {
         type: 'line',
         data: {
             labels: dados.map(item => item.tempo),
             datasets: [
                 {
                     label: titulo,
-                    data: dados.map(item => item[campo]),
+                    data: valores.map(valor => Number.isFinite(valor) ? valor : null),
                     borderColor: '#2563eb',
                     backgroundColor: '#2563eb',
                     borderWidth: 2,
@@ -788,13 +852,15 @@ function criarGraficoRelatorio(container, titulo, campo, dados, valorCritico){
         },
         options: {
             animation: false,
-            responsive: true,
+            responsive: false,
+            maintainAspectRatio: false,
             plugins: { legend: { position: 'bottom' } },
             scales: {
                 x: { title: { display: true, text: 'Tempo em CEC (min)' } }
             }
         }
     })
+    grafico.update('none')
 }
 
 function alvoIdo2PorTemperatura(temperatura){
@@ -911,6 +977,7 @@ function montarAnalisePerfusional(paciente, historico, casoClinico, SC){
     const aucTermica = calcularAucDeficit(dados, exame => exame.alvoIdo2Termico)
     const alertas = []
     const limitacoes = []
+    const informacoesTecnicas = []
     const bmi = Number((transformarNumero(paciente.peso) / Math.pow(transformarNumero(paciente.alturaNum) / 100, 2)).toFixed(1))
     const adequacaoGdpInicial = Number(((inicial.ido2 / alvoGdp) * 100).toFixed(1))
     const adequacaoGdpFinal = Number(((final.ido2 / alvoGdp) * 100).toFixed(1))
@@ -972,9 +1039,13 @@ function montarAnalisePerfusional(paciente, historico, casoClinico, SC){
         if(Number.isFinite(exame.pam) && exame.pam < LIMIARES.pam.moderado) alertas.push(criarAlerta('moderado', `PAM reduzida aos ${exame.tempo} min`, `${formatarMetrica(exame.pam, 0)} mmHg; individualizar conforme autorregulação e contexto.`))
         if(Number.isFinite(exame.pao2) && exame.pao2 > LIMIARES.pao2.informativo){
             const fio2Corrigida = fio2CorrigidaHamilton(exame.fio2, exame.pao2, pressaoBarometrica)
-            alertas.push(criarAlerta('informativo', `PaO₂ acima de 150 mmHg aos ${exame.tempo} min`, Number.isFinite(fio2Corrigida)
-                ? `FiO₂ corrigida para PaO₂ de 150 mmHg pelo método de Hamilton: ${formatarMetrica(fio2Corrigida)}% (Pb ${formatarMetrica(pressaoBarometrica, 0)} mmHg). Métrica de desempenho do oxigenador, não prescrição automática.`
-                : 'O método de Hamilton exige FiO₂ simultânea, PaO₂ e pressão barométrica conhecida ou assumida.'))
+            alertas.push(criarAlerta('informativo', `PaO₂ acima de 150 mmHg aos ${exame.tempo} min`, 'Revisar oxigenação conforme contexto e consultar Informações técnicas.'))
+            informacoesTecnicas.push({
+                titulo: `Correção FiO₂/PaO₂ aos ${exame.tempo} min`,
+                detalhe: Number.isFinite(fio2Corrigida)
+                    ? `FiO₂ corrigida para PaO₂ de 150 mmHg pelo método de Hamilton: ${formatarMetrica(fio2Corrigida)}% (Pb ${formatarMetrica(pressaoBarometrica, 0)} mmHg). Métrica de desempenho do oxigenador, não prescrição automática.`
+                    : 'O método de Hamilton exige FiO₂ simultânea, PaO₂ e pressão barométrica conhecida ou assumida.'
+            })
         }
         if(Number.isFinite(exame.k) && exame.k < LIMIARES.k.baixo) alertas.push(criarAlerta('moderado', `Potássio reduzido aos ${exame.tempo} min`, `${formatarMetrica(exame.k)} mmol/L.`))
         if(Number.isFinite(exame.glicose) && exame.glicose > LIMIARES.glicose.alto) alertas.push(criarAlerta('moderado', `Glicose elevada aos ${exame.tempo} min`, `${formatarMetrica(exame.glicose, 0)} mg/dL.`))
@@ -1007,7 +1078,10 @@ function montarAnalisePerfusional(paciente, historico, casoClinico, SC){
     if(!casoClinico?.operacional?.bis) limitacoes.push('BIS/supressão cerebral não documentados; risco neurológico não pode ser estratificado por esse parâmetro.')
     if(!Number.isFinite(anionGap)) limitacoes.push('Ânion gap não calculado por ausência de Na⁺, Cl⁻ ou HCO₃⁻ simultâneos.')
     if(Number.isFinite(proporcaoCristaloide)) limitacoes.push('A carga cristaloide é nominal: o volume efetivamente intravascular da cardioplegia e as perdas do circuito não foram informados.')
-    if(!Number.isFinite(transformarNumero(casoClinico?.operacional?.pressao_barometrica_mmhg))) limitacoes.push('A correção de FiO₂ de Hamilton assumiu pressão barométrica de 760 mmHg; informar a pressão local melhora a estimativa.')
+    if(!Number.isFinite(transformarNumero(casoClinico?.operacional?.pressao_barometrica_mmhg))) informacoesTecnicas.push({
+        titulo: 'Pressão barométrica assumida',
+        detalhe: 'A correção de FiO₂ de Hamilton assumiu pressão barométrica de 760 mmHg; informar a pressão local melhora a estimativa.'
+    })
     if(Number.isFinite(tcaCec)) limitacoes.push('O alvo de TCA depende do método/dispositivo: 480 s é referência histórica aproximada; sistemas de ativação máxima podem usar valores acima de 400 s.')
     if(!Number.isFinite(tcaPos)) limitacoes.push('TCA pós-neutralização não documentado; não é possível avaliar reversão da heparina ou suspeita de rebote.')
     if(Number.isFinite(transformarNumero(anticoagulacao.heparina_mg))) limitacoes.push('Dose de heparina em mg não foi convertida para UI/kg porque concentração e apresentação do produto não foram documentadas.')
@@ -1029,6 +1103,7 @@ function montarAnalisePerfusional(paciente, historico, casoClinico, SC){
         risco,
         alertas,
         limitacoes,
+        informacoesTecnicas,
         resumo: [
             { rotulo: 'BSA / IMC', valor: `${formatarMetrica(SC, 2)} m² / ${formatarMetrica(bmi)} kg/m²` },
             { rotulo: 'Adequação GDP (280)', valor: `${formatarMetrica(adequacaoGdpInicial)}% → ${formatarMetrica(adequacaoGdpFinal)}%` },
@@ -1134,7 +1209,9 @@ function renderizarAnalisePerfusional(analise){
         MODERADO: 'bg-amber-500',
         ALTO: 'bg-red-600'
     }
-    campoScore.textContent = analise.risco
+    campoScore.textContent = analise.risco === 'MODERADO' ? 'MOD.' : analise.risco
+    campoScore.title = `Risco integrado: ${analise.risco}`
+    campoScore.setAttribute('aria-label', `Risco integrado: ${analise.risco}`)
     classificacaoScore.classList.remove('bg-red-500', 'bg-red-600', 'bg-amber-400', 'bg-amber-500', 'bg-emerald-600')
     classificacaoScore.classList.add(coresRiscoCard[analise.risco])
     classificacaoScore.textContent = `${analise.alertas.filter(alerta => alerta.nivel === 'alto').length} alto(s) · ${analise.alertas.filter(alerta => alerta.nivel === 'moderado').length} moderado(s)`
@@ -1199,6 +1276,9 @@ function criarDadosChecklistPadrao(casoClinico = {}){
     return {
         data: new Date().toISOString().slice(0, 10),
         salaCirurgica: '',
+        horarioInicioCec: '',
+        horarioFimCec: '',
+        tempoClampeamento: '',
         responsavelMontagem: '',
         responsavelCec: '',
         perfusionistaCheck: '',
@@ -1230,6 +1310,9 @@ function sincronizarCamposDadosChecklist(chave, dados){
     const campos = {
         data: document.getElementById('checklistData'),
         salaCirurgica: document.getElementById('checklistSala'),
+        horarioInicioCec: document.getElementById('checklistInicioCec'),
+        horarioFimCec: document.getElementById('checklistFimCec'),
+        tempoClampeamento: document.getElementById('checklistTempoClampeamento'),
         responsavelMontagem: document.getElementById('checklistRespMontagem'),
         responsavelCec: document.getElementById('checklistRespCec'),
         perfusionistaCheck: document.getElementById('checklistPerfusionistaCheck'),
@@ -1464,7 +1547,8 @@ function montarSnapshotBanco(paciente, casoClinico, historico, analise, estadoCh
             resumo: analise?.resumo || [],
             metricas: analise?.metricas || [],
             alertas: analise?.alertas || [],
-            limitacoes: analise?.limitacoes || []
+            limitacoes: analise?.limitacoes || [],
+            informacoesTecnicas: analise?.informacoesTecnicas || []
         },
         source: 'dashboard'
     }
@@ -1557,12 +1641,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let btnGraficoIC = document.getElementById('btnGraficoIC')
     let btnGraficoSvo2 = document.getElementById('btnGraficoSvo2')
     let btnGraficoO2er = document.getElementById('btnGraficoO2er')
-    let btnRelatorioBasico = document.getElementById('btnRelatorioBasico')
-    let btnRelatorioAvancado = document.getElementById('btnRelatorioAvancado')
+    let btnRelatorio = document.getElementById('btnRelatorio')
+    let btnRelatorioSimples = document.getElementById('btnRelatorioSimples')
+    let btnRelatorioCompleto = document.getElementById('btnRelatorioCompleto')
     let btnChecklist = document.getElementById('btnChecklist')
     let btnReferencias = document.getElementById('btnReferencias')
     let btnSalvarBanco = document.getElementById('btnSalvarBanco')
     let btnFecharChecklist = document.getElementById('btnFecharChecklist')
+    let btnFecharRelatorioOpcoes = document.getElementById('btnFecharRelatorioOpcoes')
     let btnFecharReferencias = document.getElementById('btnFecharReferencias')
     let abaValoresReferencia = document.getElementById('abaValoresReferencia')
     let abaFormulasReferencia = document.getElementById('abaFormulasReferencia')
@@ -1756,6 +1842,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     btnChecklist?.addEventListener('click', () => abrirModuloDashboard('checklistModal'))
+    btnRelatorio?.addEventListener('click', () => abrirModuloDashboard('relatorioOpcoesModal'))
     btnReferencias?.addEventListener('click', () => abrirModuloDashboard('referenciasModal'))
     btnSalvarBanco?.addEventListener('click', async () => {
         try {
@@ -1763,9 +1850,8 @@ document.addEventListener('DOMContentLoaded', () => {
             atualizarStatusBanco('Banco: salvando...', 'alerta')
             salvarDadosChecklist(chaveChecklist, dadosChecklist)
             const snapshot = montarSnapshotBanco(paciente, casoClinico, historicoExames, analiseAtual, estadoChecklist, chaveChecklist, dadosChecklist)
-            const resultado = await salvarCasoNoBanco(snapshot)
-            const id = resultado?.data?._id ? ` · ID ${resultado.data._id}` : ''
-            atualizarStatusBanco(`Banco: salvo em ${new Date().toLocaleTimeString('pt-BR')}${id}`, 'sucesso')
+            await salvarCasoNoBanco(snapshot)
+            atualizarStatusBanco('Banco: caso salvo', 'sucesso')
         } catch (erro) {
             atualizarStatusBanco(`Banco: ${erro.message}`, 'erro')
         } finally {
@@ -1773,6 +1859,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
     btnFecharChecklist?.addEventListener('click', () => fecharModuloDashboard('checklistModal'))
+    btnFecharRelatorioOpcoes?.addEventListener('click', () => fecharModuloDashboard('relatorioOpcoesModal'))
     btnFecharReferencias?.addEventListener('click', () => fecharModuloDashboard('referenciasModal'))
     document.querySelectorAll('[data-close-modal]').forEach(elemento => {
         elemento.addEventListener('click', () => fecharModuloDashboard(elemento.dataset.closeModal))
@@ -1780,6 +1867,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', evento => {
         if(evento.key === 'Escape'){
             fecharModuloDashboard('checklistModal')
+            fecharModuloDashboard('relatorioOpcoesModal')
             fecharModuloDashboard('referenciasModal')
         }
     })
@@ -1961,8 +2049,14 @@ document.addEventListener('DOMContentLoaded', () => {
         tabelaExames,
         limites
     })
-    btnRelatorioBasico?.addEventListener('click', () => imprimirRelatorio('basico', contextoRelatorio()))
-    btnRelatorioAvancado?.addEventListener('click', () => imprimirRelatorio('avancado', contextoRelatorio()))
+    btnRelatorioSimples?.addEventListener('click', () => {
+        fecharModuloDashboard('relatorioOpcoesModal')
+        imprimirRelatorio('simples', contextoRelatorio())
+    })
+    btnRelatorioCompleto?.addEventListener('click', () => {
+        fecharModuloDashboard('relatorioOpcoesModal')
+        imprimirRelatorio('completo', contextoRelatorio())
+    })
     
 
 

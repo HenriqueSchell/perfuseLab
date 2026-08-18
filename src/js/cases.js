@@ -10,7 +10,7 @@ const CHECKLIST_SECOES = Object.freeze([
     { id: 'anticoagulacao', titulo: 'Anticoagulacao', itens: ['TCA basal registrado', 'Dose de heparina/protocolo conferidos', 'Heparinizacao comunicada e documentada', 'TCA pre-CEC ou pos-heparina dentro do alvo institucional'] },
     { id: 'inicio-cec', titulo: 'Inicio da CEC', itens: ['Canulacao e linhas sem intercorrencias aparentes', 'Fluxo inicial e indice cardiaco avaliados', 'Pressoes do circuito monitoradas', 'Gasometria inicial documentada'] },
     { id: 'manutencao-cec', titulo: 'Manutencao da CEC', itens: ['Gasometrias e eletrolitos acompanhados', 'iDO2, lactato, SvO2/O2ER revisados', 'Temperatura e estrategia acido-base acompanhadas'] },
-    { id: 'saida-cec', titulo: 'Saida da CEC', itens: ['Reaquecimento e condicoes de saida conferidos', 'Volume/hemoconcentracao/transfusao avaliados', 'Comunicacao com equipe cirurgica/anestesica registrada'] },
+    { id: 'saida-cec', titulo: 'Saida da CEC', itens: ['Reaquecimento e condicoes de saida conferidos', 'Volume/hemoconcentracao/transfusao avaliados', 'Horario de inicio/fim da CEC e tempo de clampeamento registrados', 'Comunicacao com equipe cirurgica/anestesica registrada'] },
     { id: 'pos-cec', titulo: 'Pos-CEC', itens: ['Protamina/reversao e TCA pos documentados', 'Debito urinario e balanco revisados', 'Ocorrencias, intercorrencias tecnicas e pendencias registradas'] }
 ])
 
@@ -37,6 +37,11 @@ function formatarData(valor){
 function valorOuTraco(valor, unidade = ''){
     if(valor === undefined || valor === null || valor === '') return '---'
     return `${escapeHtml(valor)}${unidade ? ` ${unidade}` : ''}`
+}
+
+function tempoMinutosOuVazio(valor){
+    if(valor === undefined || valor === null || valor === '') return ''
+    return `${valor} min`
 }
 
 function resumoChecklist(estado = {}){
@@ -165,6 +170,9 @@ function renderizarDetalheCaso(caso){
     document.getElementById('dadosPerfusionistaCaso').innerHTML = [
         montarLinhaInfo('Data', perfusionista.data),
         montarLinhaInfo('Sala cirurgica', perfusionista.salaCirurgica),
+        montarLinhaInfo('Inicio da CEC', perfusionista.horarioInicioCec),
+        montarLinhaInfo('Fim da CEC', perfusionista.horarioFimCec),
+        montarLinhaInfo('Tempo clampeamento', tempoMinutosOuVazio(perfusionista.tempoClampeamento)),
         montarLinhaInfo('Resp. montagem', perfusionista.responsavelMontagem),
         montarLinhaInfo('Resp. CEC', perfusionista.responsavelCec),
         montarLinhaInfo('Perfusionista check', perfusionista.perfusionistaCheck),
@@ -176,34 +184,53 @@ function renderizarDetalheCaso(caso){
     document.getElementById('checklistCaso').innerHTML = montarChecklistHtml(caso)
 }
 
-function montarTabelaMonitorizacao(dados = []){
+function obterValorRegistro(item, campos){
+    for(const campo of campos){
+        const valor = item?.[campo]
+        if(valor !== undefined && valor !== null && valor !== '') return valor
+    }
+    return null
+}
+
+function valorMonitorizacao(item, campos, unidade = ''){
+    return valorOuTraco(obterValorRegistro(item, campos), unidade)
+}
+
+function montarTabelaMonitorizacao(dados = [], modo = 'simples'){
     if(!Array.isArray(dados) || !dados.length) return '<p class="case-muted">Sem monitorizacao salva.</p>'
+    const completo = modo === 'completo'
+    const colunasEssenciais = [
+        { titulo: 'Tempo', valor: item => valorMonitorizacao(item, ['tempo'], 'min') },
+        { titulo: 'Fluxo', valor: item => valorMonitorizacao(item, ['fluxo'], 'L/min') },
+        { titulo: 'IC', valor: item => valorMonitorizacao(item, ['IC', 'ic'], 'L/min/m²') },
+        { titulo: 'iDO2', valor: item => valorMonitorizacao(item, ['ido2'], 'mL/min/m²') },
+        { titulo: 'Hb', valor: item => valorMonitorizacao(item, ['hb'], 'g/dL') },
+        { titulo: 'Hct', valor: item => valorMonitorizacao(item, ['hct'], '%') },
+        { titulo: 'Lactato', valor: item => valorMonitorizacao(item, ['lactato'], 'mmol/L') },
+        { titulo: 'SvO2', valor: item => valorMonitorizacao(item, ['svo2'], '%') }
+    ]
+    const colunasCompletas = [
+        ...colunasEssenciais,
+        { titulo: 'SaO2', valor: item => valorMonitorizacao(item, ['sao2'], '%') },
+        { titulo: 'O2ER', valor: item => valorMonitorizacao(item, ['o2er'], '%') },
+        { titulo: 'DO2/VO2', valor: item => valorMonitorizacao(item, ['relacaoDo2Vo2', 'do2_vo2']) },
+        { titulo: 'pH', valor: item => valorMonitorizacao(item, ['ph']) },
+        { titulo: 'PaCO2', valor: item => valorMonitorizacao(item, ['paco2'], 'mmHg') },
+        { titulo: 'HCO3', valor: item => valorMonitorizacao(item, ['hco3'], 'mEq/L') },
+        { titulo: 'PAM', valor: item => valorMonitorizacao(item, ['pam'], 'mmHg') },
+        { titulo: 'Temp.', valor: item => valorMonitorizacao(item, ['temperatura'], '°C') }
+    ]
+    const colunas = completo ? colunasCompletas : colunasEssenciais
     const linhas = dados.map(item => `
         <tr>
-            <td>${valorOuTraco(item.tempo)}</td>
-            <td>${valorOuTraco(item.hb)}</td>
-            <td>${valorOuTraco(item.hct)}</td>
-            <td>${valorOuTraco(item.lactato)}</td>
-            <td>${valorOuTraco(item.ido2)}</td>
-            <td>${valorOuTraco(item.IC ?? item.ic)}</td>
-            <td>${valorOuTraco(item.svo2)}</td>
-            <td>${valorOuTraco(item.o2er)}</td>
+            ${colunas.map(coluna => `<td>${coluna.valor(item)}</td>`).join('')}
         </tr>
     `).join('')
     return `
         <div class="case-table-wrap">
-            <table class="case-data-table">
+            <table class="case-data-table ${completo ? 'case-data-table--complete' : ''}">
                 <thead>
-                    <tr>
-                        <th>Tempo</th>
-                        <th>Hb</th>
-                        <th>Hct</th>
-                        <th>Lactato</th>
-                        <th>iDO2</th>
-                        <th>IC</th>
-                        <th>SvO2</th>
-                        <th>O2ER</th>
-                    </tr>
+                    <tr>${colunas.map(coluna => `<th>${coluna.titulo}</th>`).join('')}</tr>
                 </thead>
                 <tbody>${linhas}</tbody>
             </table>
@@ -211,31 +238,88 @@ function montarTabelaMonitorizacao(dados = []){
     `
 }
 
-function montarRelatorioHtml(caso){
+function simplificarAlertaRelatorioCaso(alerta){
+    const titulo = String(alerta?.titulo || 'Alerta')
+    const detalhe = String(alerta?.detalhe || '')
+
+    if(/PaO[₂2] acima/i.test(titulo) || /Hamilton|FiO[₂2] corrigida|press[aã]o barom[eé]trica/i.test(detalhe)){
+        return {
+            nivel: alerta?.nivel || 'informativo',
+            titulo,
+            detalhe: 'PaO2 acima de 150 mmHg. Revisar oxigenacao conforme contexto e consultar Informacoes tecnicas.'
+        }
+    }
+
+    return {
+        nivel: alerta?.nivel || 'informativo',
+        titulo,
+        detalhe: detalhe.replace(/;\s*equivale a extra[çc][aã]o de O[₂2].*$/i, '.')
+    }
+}
+
+function selecionarAlertasRelatorioCaso(alertas = [], modo = 'simples'){
+    const completo = modo === 'completo'
+    const niveis = completo ? ['alto', 'moderado', 'informativo'] : ['alto', 'moderado']
+    return alertas
+        .filter(alerta => niveis.includes(alerta?.nivel))
+        .map(simplificarAlertaRelatorioCaso)
+        .slice(0, completo ? 8 : 5)
+}
+
+function montarIndicadoresRelatorioCaso(caso, modo = 'simples'){
     const analise = caso.analysis || {}
-    const resumo = Array.isArray(analise.resumo) ? analise.resumo : []
-    const metricas = Array.isArray(analise.metricas) ? analise.metricas : []
+    const dados = Array.isArray(caso.monitoring) ? caso.monitoring : []
+    const inicial = dados[0] || {}
+    const final = dados[dados.length - 1] || {}
+    const completo = modo === 'completo'
+    const itens = [
+        montarLinhaInfo('Risco integrado', analise.risco || 'nao calculado'),
+        montarLinhaInfo('Tempo em CEC', valorMonitorizacao(final, ['tempo'], 'min')),
+        montarLinhaInfo('Registros', dados.length),
+        montarLinhaInfo('iDO2 final', valorMonitorizacao(final, ['ido2'], 'mL/min/m²')),
+        montarLinhaInfo('IC final', valorMonitorizacao(final, ['IC', 'ic'], 'L/min/m²')),
+        montarLinhaInfo('Hb final', valorMonitorizacao(final, ['hb'], 'g/dL')),
+        montarLinhaInfo('Lactato inicial/final', `${valorMonitorizacao(inicial, ['lactato'], 'mmol/L')} -> ${valorMonitorizacao(final, ['lactato'], 'mmol/L')}`),
+        montarLinhaInfo('SvO2 final', valorMonitorizacao(final, ['svo2'], '%')),
+        montarLinhaInfo('O2ER final', valorMonitorizacao(final, ['o2er'], '%'))
+    ]
+
+    if(completo){
+        itens.push(
+            montarLinhaInfo('DO2/VO2 final', valorMonitorizacao(final, ['relacaoDo2Vo2', 'do2_vo2'])),
+            montarLinhaInfo('pH final', valorMonitorizacao(final, ['ph'])),
+            montarLinhaInfo('PAM final', valorMonitorizacao(final, ['pam'], 'mmHg')),
+            montarLinhaInfo('Temperatura final', valorMonitorizacao(final, ['temperatura'], '°C'))
+        )
+    }
+
+    return itens.join('')
+}
+
+function montarRelatorioHtml(caso, modo = 'simples'){
+    const analise = caso.analysis || {}
     const alertas = Array.isArray(analise.alertas) ? analise.alertas : []
-    const limitacoes = Array.isArray(analise.limitacoes) ? analise.limitacoes : []
+    const alertasRelatorio = selecionarAlertasRelatorioCaso(alertas, modo)
+    const completo = modo === 'completo'
+    const textoInterpretacao = {
+        BAIXO: 'Sem alertas altos ou multiplos alertas moderados pelas regras configuradas.',
+        MODERADO: 'Ha pontos de atencao que merecem revisao da tendencia e do contexto clinico.',
+        ALTO: 'Ha pelo menos um alerta alto nas regras configuradas. Priorizar conferencia dos dados e discussao com a equipe.'
+    }
+
     return `
-        <div class="case-report-risk">Risco integrado: <strong>${escapeHtml(analise.risco || 'nao calculado')}</strong></div>
-        <div class="case-report-grid">
-            ${resumo.map(item => montarLinhaInfo(item.rotulo, item.valor)).join('') || '<p class="case-muted">Sem resumo salvo.</p>'}
-        </div>
-        <h4>Monitorizacao</h4>
-        ${montarTabelaMonitorizacao(caso.monitoring)}
-        <h4>Metricas calculadas</h4>
+        <div class="case-report-risk">Relatorio ${completo ? 'completo' : 'simples'} · Risco integrado: <strong>${escapeHtml(analise.risco || 'nao calculado')}</strong></div>
+        <h4>Resumo</h4>
+        <div class="case-report-grid">${montarIndicadoresRelatorioCaso(caso, modo)}</div>
+        <h4>Interpretacao</h4>
+        <p class="case-report-note">${escapeHtml(textoInterpretacao[analise.risco] || textoInterpretacao.MODERADO)}</p>
+        <h4>${completo ? 'Monitorizacao ampliada' : 'Monitorizacao essencial'}</h4>
+        ${montarTabelaMonitorizacao(caso.monitoring, modo)}
+        <h4>Alertas principais</h4>
         <ul class="case-list-plain">
-            ${metricas.map(([rotulo, valor]) => `<li><strong>${escapeHtml(rotulo)}:</strong> ${escapeHtml(valor)}</li>`).join('') || '<li>Sem metricas salvas.</li>'}
+            ${alertasRelatorio.map(alerta => `<li><strong>${escapeHtml(alerta.titulo)}:</strong> ${escapeHtml(alerta.detalhe)}</li>`).join('') || '<li>Nenhum alerta principal salvo.</li>'}
         </ul>
-        <h4>Alertas</h4>
-        <ul class="case-list-plain">
-            ${alertas.map(alerta => `<li><strong>${escapeHtml(alerta.titulo)}:</strong> ${escapeHtml(alerta.detalhe)}</li>`).join('') || '<li>Nenhum alerta salvo.</li>'}
-        </ul>
-        <h4>Qualidade e limitacoes</h4>
-        <ul class="case-list-plain">
-            ${limitacoes.map(texto => `<li>${escapeHtml(texto)}</li>`).join('') || '<li>Sem limitacoes salvas.</li>'}
-        </ul>
+        <p class="case-report-note">Formulas, limites detalhados e correcoes, incluindo FiO2/PaO2, ficam na pagina Informacoes tecnicas.</p>
     `
 }
 
@@ -265,6 +349,9 @@ function montarChecklistHtml(caso){
         <div class="case-report-grid">
             ${montarLinhaInfo('Data', metadata.data)}
             ${montarLinhaInfo('Sala cirurgica', metadata.salaCirurgica)}
+            ${montarLinhaInfo('Inicio da CEC', metadata.horarioInicioCec)}
+            ${montarLinhaInfo('Fim da CEC', metadata.horarioFimCec)}
+            ${montarLinhaInfo('Tempo clampeamento', tempoMinutosOuVazio(metadata.tempoClampeamento))}
             ${montarLinhaInfo('Resp. montagem', metadata.responsavelMontagem)}
             ${montarLinhaInfo('Resp. CEC', metadata.responsavelCec)}
             ${montarLinhaInfo('Perfusionista check', metadata.perfusionistaCheck)}
@@ -275,16 +362,16 @@ function montarChecklistHtml(caso){
     `
 }
 
-function imprimirConteudo(tipo){
+function imprimirConteudo(tipo, modo = 'simples'){
     if(!casoAtual) return
     const resumo = montarResumoCaso(casoAtual)
     const printArea = document.getElementById('casePrintArea')
     const titulo = tipo === 'checklist'
         ? 'Checklist de perfusao'
-        : 'Relatorio final PerfuseLab'
+        : `Relatorio ${modo === 'completo' ? 'completo' : 'simples'} PerfuseLab`
     const conteudo = tipo === 'checklist'
         ? montarChecklistHtml(casoAtual)
-        : montarRelatorioHtml(casoAtual)
+        : montarRelatorioHtml(casoAtual, modo)
     printArea.innerHTML = `
         <header class="case-print-header">
             <h1>${titulo}</h1>
@@ -304,13 +391,42 @@ function imprimirConteudo(tipo){
     window.print()
 }
 
+function abrirModalCaso(id){
+    const modal = document.getElementById(id)
+    if(!modal) return
+    modal.classList.remove('hidden')
+    document.body.classList.add('modal-open')
+}
+
+function fecharModalCaso(id){
+    const modal = document.getElementById(id)
+    if(!modal) return
+    modal.classList.add('hidden')
+    document.body.classList.remove('modal-open')
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btnAtualizarCasos').addEventListener('click', carregarCasos)
     document.getElementById('buscaCasos').addEventListener('input', () => {
         window.clearTimeout(window.__perfuseLabBuscaCasos)
         window.__perfuseLabBuscaCasos = window.setTimeout(carregarCasos, 350)
     })
-    document.getElementById('btnImprimirRelatorio').addEventListener('click', () => imprimirConteudo('relatorio'))
+    document.getElementById('btnGerarRelatorioCaso').addEventListener('click', () => abrirModalCaso('caseReportOptionsModal'))
+    document.getElementById('btnFecharOpcoesRelatorioCaso').addEventListener('click', () => fecharModalCaso('caseReportOptionsModal'))
+    document.getElementById('btnImprimirRelatorioSimplesCaso').addEventListener('click', () => {
+        fecharModalCaso('caseReportOptionsModal')
+        imprimirConteudo('relatorio', 'simples')
+    })
+    document.getElementById('btnImprimirRelatorioCompletoCaso').addEventListener('click', () => {
+        fecharModalCaso('caseReportOptionsModal')
+        imprimirConteudo('relatorio', 'completo')
+    })
     document.getElementById('btnImprimirChecklist').addEventListener('click', () => imprimirConteudo('checklist'))
+    document.querySelectorAll('[data-close-modal]').forEach(elemento => {
+        elemento.addEventListener('click', () => fecharModalCaso(elemento.dataset.closeModal))
+    })
+    document.addEventListener('keydown', evento => {
+        if(evento.key === 'Escape') fecharModalCaso('caseReportOptionsModal')
+    })
     carregarCasos()
 })

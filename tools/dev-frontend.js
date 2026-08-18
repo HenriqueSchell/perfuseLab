@@ -29,7 +29,7 @@ function resolverArquivo(urlPath) {
     const allowed = allowedRoots.some(base => resolved === base || resolved.startsWith(`${base}${path.sep}`))
 
     if (!allowed) return null
-    if (!/^(index|dashboard|cases|checklist-modelo)\.html$|^src[\\/]|^medias[\\/]/.test(relativePath)) return null
+    if (!/^(index|dashboard|cases|checklist-modelo|informacoes)\.html$|^src[\\/]|^medias[\\/]/.test(relativePath)) return null
     return resolved
 }
 

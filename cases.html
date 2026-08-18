@@ -16,6 +16,7 @@
         </div>
         <nav class="cases-nav" aria-label="Navegação dos casos salvos">
             <a href="dashboard.html">Dashboard</a>
+            <a href="informacoes.html">Informações</a>
             <a href="checklist-modelo.html">Modelo checklist</a>
             <button id="btnAtualizarCasos" type="button">Atualizar</button>
         </nav>
@@ -52,7 +53,7 @@
                         <p id="subtituloCasoSelecionado"></p>
                     </div>
                     <div class="case-detail__actions">
-                        <button id="btnImprimirRelatorio" type="button">Imprimir relatório</button>
+                        <button id="btnGerarRelatorioCaso" type="button">Gerar relatório</button>
                         <button id="btnImprimirChecklist" type="button">Imprimir checklist</button>
                     </div>
                 </header>
@@ -74,6 +75,34 @@
     </main>
 
     <section id="casePrintArea" class="case-print-area hidden" aria-hidden="true"></section>
+
+    <section id="caseReportOptionsModal" class="support-modal hidden" role="dialog" aria-modal="true" aria-labelledby="caseReportOptionsTitle">
+        <div class="support-modal__backdrop" data-close-modal="caseReportOptionsModal"></div>
+        <div class="support-modal__panel support-modal__panel--compact">
+            <header class="support-modal__header">
+                <div>
+                    <p class="text-sm text-blue-300 uppercase tracking-wide">Banco de dados</p>
+                    <h2 id="caseReportOptionsTitle" class="text-2xl text-slate-100">Gerar relatório</h2>
+                    <p class="text-slate-400">Escolha qual versão deseja imprimir do caso salvo.</p>
+                </div>
+                <button id="btnFecharOpcoesRelatorioCaso" class="support-modal__close" aria-label="Fechar opções de relatório">Fechar</button>
+            </header>
+            <div class="report-option-grid">
+                <button id="btnImprimirRelatorioSimplesCaso" class="report-option-card" type="button">
+                    <strong>Relatório simples</strong>
+                    <span>Resumo, tabela essencial e alertas principais.</span>
+                </button>
+                <button id="btnImprimirRelatorioCompletoCaso" class="report-option-card" type="button">
+                    <strong>Relatório completo</strong>
+                    <span>Tabela ampliada e interpretação mais detalhada.</span>
+                </button>
+                <a class="report-option-card report-option-card--link" href="informacoes.html">
+                    <strong>Informações técnicas</strong>
+                    <span>Fórmulas, limites e correções fora do relatório.</span>
+                </a>
+            </div>
+        </div>
+    </section>
 
     <script src="src/js/runtime-env.js"></script>
     <script src="src/js/config.js"></script>
