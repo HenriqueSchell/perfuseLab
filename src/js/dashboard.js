@@ -1489,7 +1489,8 @@ async function salvarCasoNoBanco(snapshot){
         throw new Error('Fetch não está disponível neste ambiente.')
     }
 
-    const resposta = await fetch(`${API_BASE_URL}/api/cases/sync`, {
+    const fetchApi = window.PerfuseLabConfig?.authenticatedFetch || fetch
+    const resposta = await fetchApi(`${API_BASE_URL}/api/cases/sync`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(snapshot)

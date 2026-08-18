@@ -17,6 +17,10 @@ NODE_ENV=production
 MONGO_URI=
 MONGODB_DB=
 FRONTEND_URL=
+PERFUSELAB_AUTH_USER=
+PERFUSELAB_AUTH_PASSWORD=
+PERFUSELAB_AUTH_SECRET=
+PERFUSELAB_AUTH_TOKEN_TTL_HOURS=8
 ```
 
 Observacoes:
@@ -25,6 +29,9 @@ Observacoes:
 - `MONGO_URI` deve ser a URI real do MongoDB Atlas.
 - `MONGODB_DB` e opcional se a URI ja apontar para o banco correto.
 - `FRONTEND_URL` deve ser a URL oficial da Netlify, sem barra final.
+- `PERFUSELAB_AUTH_USER` e `PERFUSELAB_AUTH_PASSWORD` sao o login da aplicacao para acessar casos salvos.
+- `PERFUSELAB_AUTH_SECRET` assina os tokens de sessao. Gere um valor longo e aleatorio, por exemplo com `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`.
+- `PERFUSELAB_AUTH_TOKEN_TTL_HOURS` define por quantas horas o login fica valido na aba do navegador.
 
 ## Deploy do backend no Render
 
@@ -38,6 +45,8 @@ Build Command: npm ci
 Start Command: npm start
 Node: 20 ou superior
 ```
+
+Importante: o start command correto e `npm start`. Nao use `node start`, porque isso faz o Render procurar um arquivo chamado `start` e o deploy falha com `Cannot find module '/opt/render/project/src/start'`.
 
 Depois cadastre as variaveis de ambiente do backend e publique.
 
@@ -114,7 +123,8 @@ O servidor local do frontend injeta `http://localhost:3000` como API por padrao.
 3. Frontend acessando a API:
    - Abra a Netlify.
    - Entre em "Casos salvos".
-   - Se a lista carregar ou retornar "nenhum caso", a chamada chegou na API.
+   - Informe o usuario e a senha cadastrados no Render.
+   - Se a lista carregar ou retornar "nenhum caso", a chamada autenticada chegou na API.
 
 4. Persistencia:
    - Abra um caso no dashboard.
@@ -126,6 +136,7 @@ O servidor local do frontend injeta `http://localhost:3000` como API por padrao.
 
 - Nao versionar `.env`.
 - Nao colocar `MONGO_URI` no frontend.
+- Nao colocar `PERFUSELAB_AUTH_PASSWORD` ou `PERFUSELAB_AUTH_SECRET` no frontend.
 - Nao usar origem aberta em producao.
 - Nao publicar a raiz inteira do repositorio na Netlify; use `dist/`.
 - Se uma credencial real tiver sido enviada para GitHub, rotacione usuario/senha no MongoDB Atlas.

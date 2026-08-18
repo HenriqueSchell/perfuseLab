@@ -76,7 +76,8 @@ function montarResumoCaso(caso){
 }
 
 async function buscarJson(url, opcoes){
-    const resposta = await fetch(url, opcoes)
+    const fetchApi = window.PerfuseLabConfig?.authenticatedFetch || fetch
+    const resposta = await fetchApi(url, opcoes)
     const corpo = await resposta.json().catch(() => ({}))
     if(!resposta.ok){
         throw new Error(corpo.error || 'Nao foi possivel carregar os dados.')

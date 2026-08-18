@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: perfuselab-api
+    runtime: node
+    plan: free
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: MONGODB_DB
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: PERFUSELAB_AUTH_USER
+        sync: false
+      - key: PERFUSELAB_AUTH_PASSWORD
+        sync: false
+      - key: PERFUSELAB_AUTH_SECRET
+        sync: false
+      - key: PERFUSELAB_AUTH_TOKEN_TTL_HOURS
+        value: 8

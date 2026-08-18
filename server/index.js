@@ -4,6 +4,8 @@ const cors = require('cors')
 const express = require('express')
 const { connectDatabase, getDatabaseStatus } = require('./config/database')
 const { createCorsOptions, getAllowedOrigins } = require('./config/cors')
+const { authenticateRequest, isAuthConfigured } = require('./middleware/auth')
+const authRouter = require('./routes/auth')
 const casesRouter = require('./routes/cases')
 const { errorHandler } = require('./middleware/errorHandler')
 
@@ -13,6 +15,10 @@ const allowedOrigins = getAllowedOrigins()
 
 if (process.env.NODE_ENV === 'production' && !allowedOrigins.length) {
     console.warn('FRONTEND_URL nao foi definida. Requisicoes de navegador serao bloqueadas pelo CORS.')
+}
+
+if (process.env.NODE_ENV === 'production' && !isAuthConfigured()) {
+    console.warn('PERFUSELAB_AUTH_USER e PERFUSELAB_AUTH_PASSWORD nao foram definidas. O acesso aos dados sera bloqueado.')
 }
 
 app.use(cors(createCorsOptions()))
@@ -38,7 +44,8 @@ app.get('/', (req, res) => {
     })
 })
 
-app.use('/api/cases', casesRouter)
+app.use('/api/auth', authRouter)
+app.use('/api/cases', authenticateRequest, casesRouter)
 app.use((req, res) => {
     res.status(404).json({ error: 'Rota nao encontrada.' })
 })
