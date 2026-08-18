@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="shortcut icon" href="medias/icon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>PerfuseLab - Casos salvos</title>
+</head>
+<body class="cases-page bg-slate-950 text-slate-200">
+    <header class="cases-header">
+        <div>
+            <a href="index.html" class="cases-logo">Perfuse<span>Lab</span></a>
+            <p>Acesso do perfusionista aos casos salvos no banco de dados.</p>
+        </div>
+        <nav class="cases-nav" aria-label="Navegação dos casos salvos">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="checklist-modelo.html">Modelo checklist</a>
+            <button id="btnAtualizarCasos" type="button">Atualizar</button>
+        </nav>
+    </header>
+
+    <main class="cases-shell">
+        <section class="cases-sidebar" aria-labelledby="tituloListaCasos">
+            <div class="cases-sidebar__top">
+                <div>
+                    <p class="cases-eyebrow">Banco de dados</p>
+                    <h1 id="tituloListaCasos">Casos salvos</h1>
+                </div>
+                <span id="contadorCasos">0</span>
+            </div>
+            <label class="cases-search">
+                <span>Buscar por paciente, procedimento ou perfusionista</span>
+                <input id="buscaCasos" type="search" placeholder="Digite para buscar...">
+            </label>
+            <div id="statusCasos" class="cases-status">Carregando casos...</div>
+            <div id="listaCasos" class="cases-list"></div>
+        </section>
+
+        <section class="case-detail" aria-labelledby="tituloCasoSelecionado">
+            <div id="casoVazio" class="case-empty">
+                <h2>Nenhum caso selecionado</h2>
+                <p>Selecione um caso salvo para ver paciente, relatório final e checklist.</p>
+            </div>
+
+            <article id="casoSelecionado" class="hidden">
+                <header class="case-detail__header">
+                    <div>
+                        <p class="cases-eyebrow">Caso selecionado</p>
+                        <h2 id="tituloCasoSelecionado"></h2>
+                        <p id="subtituloCasoSelecionado"></p>
+                    </div>
+                    <div class="case-detail__actions">
+                        <button id="btnImprimirRelatorio" type="button">Imprimir relatório</button>
+                        <button id="btnImprimirChecklist" type="button">Imprimir checklist</button>
+                    </div>
+                </header>
+
+                <div id="dadosPacienteCaso" class="case-info-grid"></div>
+                <div id="dadosPerfusionistaCaso" class="case-info-grid"></div>
+
+                <section class="case-panel">
+                    <h3>Relatório final</h3>
+                    <div id="relatorioCaso"></div>
+                </section>
+
+                <section class="case-panel">
+                    <h3>Checklist</h3>
+                    <div id="checklistCaso"></div>
+                </section>
+            </article>
+        </section>
+    </main>
+
+    <section id="casePrintArea" class="case-print-area hidden" aria-hidden="true"></section>
+
+    <script src="src/js/runtime-env.js"></script>
+    <script src="src/js/config.js"></script>
+    <script src="src/js/cases.js"></script>
+</body>
+</html>

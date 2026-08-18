@@ -1,0 +1,31 @@
+CASO 18 - HIPONATREMIA E HEMODILUICAO
+
+OBJETIVO DIDATICO
+Treinar a interpretacao de queda de hemoglobina, queda de sodio e iDO2 limitrofe sem transformar um valor isolado em decisao terapeutica.
+
+RESUMO DOS RESULTADOS
+- BSA: 1,61 m2.
+- iDO2 calculado: 335,49 -> 296,96 -> 269,73 -> 259,19 mL/min/m2.
+- Tempo abaixo de 280: 41,3 min.
+- AUC abaixo de 280: 524,3 (mL/min/m2) x min.
+- Hb: 9,5 -> 8,4 -> 7,7 -> 7,3 g/dL.
+- Sodio: 137 -> 133 -> 131 -> 129 mmol/L.
+- Lactato: 1,5 -> 2,2 mmol/L.
+- Risco exibido: MODERADO.
+
+INTERPRETACAO
+1. A queda da hemoglobina reduz o conteudo arterial de oxigenio.
+2. Mesmo com IC estavel, o iDO2 cai para faixa limitrofe aos 60 e 90 minutos.
+3. A hemoglobina final abaixo de 7,5 g/dL gera alerta, com a observacao de que transfusao nao deve ser decidida isoladamente por esse numero.
+4. A hiponatremia e didaticamente importante, mas o framework atual nao possui alerta especifico para sodio baixo.
+5. O lactato final em faixa de atencao reforca a necessidade de acompanhar tendencia.
+
+PONTO DE APRENDIZAGEM
+Hemodiluicao muda varias coisas ao mesmo tempo: Hb, Hct, eletrolitos, oncoticidade e conteudo arterial. O iDO2 ajuda a integrar parte desse efeito, mas nao tudo.
+
+PERGUNTAS PARA ESTUDO
+- Por que o iDO2 caiu se o fluxo ficou igual?
+- Qual achado nao foi alertado pelo sistema?
+- Que dados ajudariam a entender a hemodiluicao?
+
+Material simulado para estudo.

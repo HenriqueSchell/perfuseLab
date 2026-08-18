@@ -1,0 +1,31 @@
+CASO 21 - PEDIATRICO: CEC ESTAVEL
+
+OBJETIVO DIDATICO
+Comecar a serie pediatrica por um caso estavel, com boa oferta de oxigenio, baixa extracao e lactato discreto.
+
+RESUMO DOS RESULTADOS
+- Paciente simulado: 8 anos, 25 kg, 128 cm.
+- BSA: 0,94 m2.
+- iDO2 calculado: 416,24 -> 400,13 -> 383,95 -> 379,44 mL/min/m2.
+- Tempo abaixo de 280: 0,0 min.
+- IC: 2,76 L/min/m2 em todos os tempos.
+- O2ER: 16,8% -> 19,0%.
+- Lactato: 1,0 -> 1,3 mmol/L.
+- Risco exibido: MODERADO.
+
+INTERPRETACAO
+1. O iDO2 fica bem acima do alvo fixo de 280 em toda a serie.
+2. SvO2, O2ER e DO2/VO2 sugerem boa reserva global.
+3. O lactato sobe pouco, mas a razao final/inicial passa de 1,1 e gera alerta moderado.
+4. O tempo de CEC de 80 minutos tambem entra como alerta moderado.
+5. Este e um caso bom para estudar como o framework pode marcar MODERADO mesmo em fisiologia globalmente tranquila.
+
+LIMITACAO PEDIATRICA
+Os limiares atuais do PerfuseLab nao sao um protocolo pediatrico validado. Use este caso para aprender o comportamento do framework, nao como recomendacao assistencial.
+
+PERGUNTAS PARA ESTUDO
+- Por que o risco nao ficou BAIXO?
+- Qual marcador foi mais tranquilizador?
+- O que mudaria se o lactato ficasse estavel?
+
+Material simulado para estudo.

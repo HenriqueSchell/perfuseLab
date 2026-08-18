@@ -1,0 +1,32 @@
+CASO 24 - PEDIATRICO: QUEDA DE SaO2/PaO2 NO OXIGENADOR
+
+OBJETIVO DIDATICO
+Mostrar como uma queda de saturacao arterial pode levar o iDO2 para faixa limitrofe, mesmo com fluxo razoavel.
+
+RESUMO DOS RESULTADOS
+- Paciente simulado: 6 anos, 20 kg, 115 cm.
+- BSA: 0,80 m2.
+- iDO2 calculado: 346,70 -> 282,76 -> 267,05 -> 342,24 mL/min/m2.
+- Tempo abaixo de 280: 29,9 min.
+- AUC abaixo de 280: 193,6 (mL/min/m2) x min.
+- SaO2: 98 -> 88 -> 92 -> 98%.
+- PaO2: 180 -> 60 -> 70 -> 150 mmHg.
+- SvO2: 75 -> 70 -> 68 -> 72%.
+- Risco exibido: MODERADO.
+
+INTERPRETACAO
+1. A queda de SaO2 aos 20 e 50 minutos reduz o conteudo arterial de oxigenio.
+2. O pior iDO2 ocorre aos 50 minutos: 267,05 mL/min/m2.
+3. A SvO2 fica limitrofe e o gap PCO2 chega a 6 mmHg no pior ponto.
+4. A recuperacao final de SaO2/PaO2 melhora o iDO2 para 342,24.
+5. O caso ensina a procurar o mecanismo do iDO2: fluxo, Hb, SaO2 e PaO2.
+
+LIMITACAO PEDIATRICA
+As metas de gases e fluxo em pediatria variam conforme tamanho, temperatura e cardiopatia. Aqui o objetivo e ver a matematica do framework.
+
+PERGUNTAS PARA ESTUDO
+- O que mais explica a queda de iDO2: Hb, fluxo ou SaO2?
+- Por que o risco nao ficou ALTO?
+- O que a AUC acrescenta ao valor final normalizado?
+
+Material simulado para estudo.

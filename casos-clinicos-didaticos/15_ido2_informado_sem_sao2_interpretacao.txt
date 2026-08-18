@@ -1,0 +1,31 @@
+CASO 15 - iDO2 INFORMADO SEM SaO2 MEDIDA
+
+OBJETIVO DIDATICO
+Mostrar como o PerfuseLab se comporta quando o arquivo informa iDO2, mas nao permite recalculo independente por falta de SaO2 arterial.
+
+RESUMO DOS RESULTADOS
+- BSA: 1,70 m2.
+- iDO2 informado: 310 -> 285 -> 248 -> 275 mL/min/m2.
+- Tempo abaixo de 280: 55,9 min.
+- AUC abaixo de 280: 970,1 (mL/min/m2) x min.
+- O2ER: 21,0% -> 23,9% -> 31,5% -> 27,6%.
+- SvO2: 76 -> 74 -> 68 -> 70%.
+- Lactato: 1,2 -> 2,4 mmol/L.
+- Risco exibido: ALTO.
+
+INTERPRETACAO
+1. O sistema aceita o arquivo porque cada ponto possui iDO2 informado.
+2. Como a SaO2 esta vazia, o painel nao consegue recalcular a oferta pela equacao do conteudo arterial.
+3. Aos 60 minutos, o iDO2 informado cai para 248 mL/min/m2, abaixo de 90% do alvo, gerando alerta alto.
+4. O mesmo ponto tem O2ER limitrofe, gap PCO2 aumentado e SvO2 limitrofe.
+5. O sistema tambem informa que ha iDO2 sem SaO2 medida; portanto, a auditoria matematica fica limitada.
+
+PONTO DE APRENDIZAGEM
+Quando um valor e "informado", ele pode ser clinicamente util, mas perde rastreabilidade. Para estudo e auditoria, prefira sempre registrar Hb, fluxo/IC, SaO2 e PaO2 do mesmo tempo.
+
+PERGUNTAS PARA ESTUDO
+- Quais campos faltaram para recalcular o iDO2?
+- Por que esse caso ainda recebe risco ALTO?
+- O que significa SaO2 implicita discordante?
+
+Material simulado para estudo.

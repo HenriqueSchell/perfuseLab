@@ -1,0 +1,30 @@
+CASO 17 - HIPERCALEMIA APOS CARDIOPLEGIA: LIMITE DO FRAMEWORK
+
+OBJETIVO DIDATICO
+Aprender a identificar um achado clinicamente importante que o conjunto atual de alertas ainda nao classifica como alto ou moderado.
+
+RESUMO DOS RESULTADOS
+- BSA: 1,65 m2.
+- iDO2 calculado: 357,10 -> 349,09 -> 345,69 -> 341,82 mL/min/m2.
+- Tempo abaixo de 280: 0,0 min.
+- Potassio: 4,5 -> 5,5 -> 6,2 -> 4,8 mmol/L.
+- Lactato: 1,1 -> 1,8 mmol/L.
+- O2ER: 17,9% -> 18,9% -> 19,7% -> 19,3%.
+- Risco exibido: MODERADO.
+
+INTERPRETACAO
+1. A oferta de oxigenio esta adequada durante toda a serie.
+2. O marcador didatico principal e o potassio elevado aos 30 e 60 minutos.
+3. O PerfuseLab atual alerta potassio reduzido, mas ainda nao possui regra para potassio alto.
+4. Por isso, o risco integrado fica MODERADO por lactato em elevacao e tempo de CEC, nao pela hipercalemia.
+5. Este caso e excelente para lembrar que o framework apoia a leitura, mas nao substitui raciocinio clinico completo.
+
+PONTO DE APRENDIZAGEM
+Nem todo achado relevante vira alerta. O estudante deve ler a tabela completa, nao apenas o painel de risco.
+
+PERGUNTAS PARA ESTUDO
+- Por que o potassio alto nao aparece como alerta?
+- Que regra voce adicionaria ao framework para hiperpotassemia?
+- Como diferenciar efeito de cardioplegia, hemolise e amostra inadequada?
+
+Material simulado para estudo.

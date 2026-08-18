@@ -1,0 +1,34 @@
+CASO 28 - NEONATO: LACTATO CRITICO COM iDO2 PRESERVADO
+
+OBJETIVO DIDATICO
+Treinar um caso neonatal em que a oferta global esta muito alta, mas o metabolismo piora.
+
+RESUMO DOS RESULTADOS
+- Paciente simulado: neonato de aproximadamente 2 semanas.
+- No CSV, idade = 0,04 ano por limitacao do campo numerico.
+- Peso/altura: 3,6 kg, 52 cm.
+- BSA: 0,23 m2.
+- iDO2 calculado: 577,06 -> 562,92 -> 548,78 -> 539,51 mL/min/m2.
+- Tempo abaixo de 280: 0,0 min.
+- Lactato: 2,0 -> 5,0 mmol/L.
+- pH final: 7,20.
+- HCO3 final: 15 mmol/L.
+- Glicose final: 225 mg/dL.
+- Risco exibido: ALTO.
+
+INTERPRETACAO
+1. A oferta global de oxigenio fica muito acima do alvo fixo.
+2. A O2ER permanece baixa, sem padrao de extracao elevada.
+3. O lactato final de 5,0 mmol/L gera alerta alto.
+4. A gasometria final e compativel com acidose metabolica.
+5. O caso mostra que iDO2 preservado nao exclui problema metabolico, regional, inflamatorio ou de depuracao.
+
+LIMITACAO NEONATAL
+Neonatos podem ter fisiologia e metas muito diferentes. O caso e simulado para aprendizado; nao define alvo neonatal de iDO2.
+
+PERGUNTAS PARA ESTUDO
+- Por que o risco fica ALTO sem baixo iDO2?
+- O que diferencia lactato por oferta global baixa de lactato por outras causas?
+- Que dados adicionais voce pediria para entender a acidose?
+
+Material simulado para estudo.

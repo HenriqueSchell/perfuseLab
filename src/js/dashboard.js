@@ -1,9 +1,87 @@
 
 let graficoAtual = null
+const API_BASE_URL = typeof window !== 'undefined' && window.PerfuseLabConfig
+    ? window.PerfuseLabConfig.getApiBaseUrl()
+    : ''
 const CONSTANTES_OXIGENIO = Object.freeze({
     capacidadeHb: 1.36,
     solubilidadePlasmatica: 0.003
 })
+
+const LIMIARES = Object.freeze({
+    ido2: { alvoGdp: 280, cardCritico: 260, alertaAltoRazao: 0.9 },
+    hb: { atencao: 7.5, preservada: 10, pediatricoGrafico: 9 },
+    hct: { critico: 22, limítrofe: 24, pediatricoGrafico: 25 },
+    lactato: { atencao: 2, critico: 4, elevacaoRazao: 1.1 },
+    ic: { critico: 2.2, adequado: 2.4 },
+    o2er: { moderado: 30, alto: 40 },
+    do2vo2: { moderado: 3.33, alto: 2.5 },
+    svo2: { moderado: 70, alto: 65 },
+    gapPco2: { moderado: 6 },
+    pam: { moderado: 60 },
+    pao2: { informativo: 150 },
+    k: { baixo: 3.5 },
+    glicose: { alto: 180 },
+    tempoCec: { moderadoMin: 60, moderadoMax: 120, alto: 120 },
+    tca: { minimoUsual: 400, historico: 480 },
+    acidoBase: { phBaixo: 7.35, phAlto: 7.45, paco2Baixo: 35, paco2Alto: 45, hco3Baixo: 22, hco3Alto: 26, hco3Compensacao: 24 }
+})
+
+const INDICES_CARDIACOS_CONVERSAO = Object.freeze([2.0, 2.2, 2.4, 2.5, 2.6, 2.8, 3.0, 3.2])
+
+const REFERENCIAS_PARAMETROS = Object.freeze([
+    { nome: 'Lactato', unidade: 'mmol/L', referencia: `< ${LIMIARES.lactato.atencao}`, atencao: `${LIMIARES.lactato.atencao} a ${LIMIARES.lactato.critico}`, critico: `> ${LIMIARES.lactato.critico}`, observacao: 'Usado internamente em mmol/L; mg/dL é convertido por 9,009.' },
+    { nome: 'Hematócrito', unidade: '%', referencia: `>= ${LIMIARES.hct.limítrofe}`, atencao: `${LIMIARES.hct.critico} a < ${LIMIARES.hct.limítrofe}`, critico: `< ${LIMIARES.hct.critico}`, observacao: 'Limites gerais do dashboard; pediatria/neonatal exigem validação própria.' },
+    { nome: 'Hemoglobina', unidade: 'g/dL', referencia: `>= ${LIMIARES.hb.preservada}`, atencao: `< ${LIMIARES.hb.preservada}`, critico: `Atenção PBM se < ${LIMIARES.hb.atencao}`, observacao: 'O alerta não indica transfusão isoladamente.' },
+    { nome: 'pH', unidade: '', referencia: `${LIMIARES.acidoBase.phBaixo} a ${LIMIARES.acidoBase.phAlto}`, atencao: 'Avaliar com PaCO₂/HCO₃⁻', critico: 'A preencher', observacao: 'Regras atuais classificam distúrbio ácido-base por combinação de pH, PaCO₂ e HCO₃⁻.' },
+    { nome: 'PaO₂', unidade: 'mmHg', referencia: 'A preencher', atencao: `Informativo se > ${LIMIARES.pao2.informativo}`, critico: 'A preencher', observacao: 'O dashboard usa PaO₂ alta para métrica de FiO₂ corrigida de Hamilton.' },
+    { nome: 'PaCO₂', unidade: 'mmHg', referencia: `${LIMIARES.acidoBase.paco2Baixo} a ${LIMIARES.acidoBase.paco2Alto}`, atencao: 'Fora da faixa com pH/HCO₃⁻ alterados', critico: 'A preencher', observacao: 'Usado apenas na interpretação ácido-base.' },
+    { nome: 'Bicarbonato', unidade: 'mEq/L', referencia: `${LIMIARES.acidoBase.hco3Baixo} a ${LIMIARES.acidoBase.hco3Alto}`, atencao: 'Fora da faixa com pH/PaCO₂ alterados', critico: 'A preencher', observacao: 'Usado no resumo ácido-base, ânion gap e delta-delta.' },
+    { nome: 'Base excess', unidade: 'mEq/L', referencia: 'A preencher', atencao: 'A preencher', critico: 'A preencher', observacao: 'Campo registrado, sem alerta específico no código atual.' },
+    { nome: 'Cálcio', unidade: 'mmol/L ou mg/dL', referencia: 'A preencher', atencao: 'A preencher', critico: 'A preencher', observacao: 'O sistema pede confirmar unidade e tipo antes de classificar.' },
+    { nome: 'Potássio', unidade: 'mmol/L', referencia: `>= ${LIMIARES.k.baixo}`, atencao: `< ${LIMIARES.k.baixo}`, critico: 'A preencher', observacao: 'Há alerta para potássio baixo; potássio alto ainda não eleva risco.' },
+    { nome: 'Glicemia', unidade: 'mg/dL', referencia: `<= ${LIMIARES.glicose.alto}`, atencao: `> ${LIMIARES.glicose.alto}`, critico: 'A preencher', observacao: 'Regra local de alerta metabólico.' },
+    { nome: 'Índice cardíaco', unidade: 'L/min/m²', referencia: `>= ${LIMIARES.ic.adequado}`, atencao: `${LIMIARES.ic.critico} a < ${LIMIARES.ic.adequado}`, critico: `< ${LIMIARES.ic.critico}`, observacao: 'Calculado como fluxo da bomba / superfície corporal.' },
+    { nome: 'Fluxo da bomba', unidade: 'L/min', referencia: 'A preencher', atencao: 'A preencher', critico: 'A preencher', observacao: 'Dado operacional; o índice cardíaco deriva dele quando há BSA.' },
+    { nome: 'DO₂ / iDO₂', unidade: 'mL/min/m²', referencia: `>= ${LIMIARES.ido2.alvoGdp}`, atencao: `${LIMIARES.ido2.cardCritico} a < ${LIMIARES.ido2.alvoGdp}`, critico: `< ${LIMIARES.ido2.cardCritico} no card; alto se < ${LIMIARES.ido2.alertaAltoRazao * 100}% do alvo na análise`, observacao: 'Alvo GDP fixo; alvo térmico é exibido separadamente.' },
+    { nome: 'VO₂ / iVO₂', unidade: 'mL/min/m²', referencia: 'A preencher', atencao: 'A preencher', critico: 'A preencher', observacao: 'iVO₂ é informado pelo usuário/arquivo; o dashboard não calcula VO₂ diretamente.' },
+    { nome: 'Extração de oxigênio', unidade: '%', referencia: `< ${LIMIARES.o2er.moderado}`, atencao: `${LIMIARES.o2er.moderado} a ${LIMIARES.o2er.alto}`, critico: `> ${LIMIARES.o2er.alto}`, observacao: 'Calculada como iVO₂ / iDO₂ × 100 quando iVO₂ está disponível.' },
+    { nome: 'DO₂/VO₂', unidade: 'razão', referencia: `> ${LIMIARES.do2vo2.moderado}`, atencao: `${LIMIARES.do2vo2.alto} a ${LIMIARES.do2vo2.moderado}`, critico: `< ${LIMIARES.do2vo2.alto}`, observacao: 'Equivalente inverso da extração.' },
+    { nome: 'Saturação venosa', unidade: '%', referencia: `> ${LIMIARES.svo2.moderado}`, atencao: `${LIMIARES.svo2.alto} a ${LIMIARES.svo2.moderado}`, critico: `< ${LIMIARES.svo2.alto}`, observacao: 'SvO₂ preservada não exclui discordância metabólica.' },
+    { nome: 'Gap PCO₂', unidade: 'mmHg', referencia: `< ${LIMIARES.gapPco2.moderado}`, atencao: `>= ${LIMIARES.gapPco2.moderado}`, critico: 'A preencher', observacao: 'Marcador contextual de fluxo/perfusão regional.' },
+    { nome: 'PAM', unidade: 'mmHg', referencia: `>= ${LIMIARES.pam.moderado}`, atencao: `< ${LIMIARES.pam.moderado}`, critico: 'A preencher', observacao: 'Regra geral do app; individualizar por autorregulação e contexto.' }
+])
+
+const FORMULAS_REFERENCIA = Object.freeze([
+    { nome: 'Superfície corporal (BSA/SC)', equacao: 'SC = √(peso × altura / 3600)', variaveis: 'peso em kg; altura em cm', unidades: 'm²' },
+    { nome: 'Índice cardíaco', equacao: 'IC = fluxo da bomba / SC', variaveis: 'fluxo em L/min; SC em m²', unidades: 'L/min/m²' },
+    { nome: 'Conteúdo arterial de O₂ (CaO₂)', equacao: 'CaO₂ = Hb × 1,36 × SaO₂ + PaO₂ × 0,003', variaveis: 'Hb em g/dL; SaO₂ como fração; PaO₂ em mmHg', unidades: 'mL/dL' },
+    { nome: 'Oferta de oxigênio indexada (iDO₂)', equacao: 'iDO₂ = 10 × IC × CaO₂', variaveis: 'IC em L/min/m²; CaO₂ em mL/dL', unidades: 'mL/min/m²' },
+    { nome: 'Oferta de oxigênio por fluxo total', equacao: 'DO₂ = fluxo × CaO₂ × 10; iDO₂ = DO₂ / SC', variaveis: 'fluxo em L/min; SC em m²', unidades: 'mL/min e mL/min/m²' },
+    { nome: 'SaO₂ implícita por iDO₂ informado', equacao: 'SaO₂ = ((iDO₂ / (10 × IC) - PaO₂ × 0,003) / (Hb × 1,36)) × 100', variaveis: 'Usada apenas para auditoria quando falta SaO₂ medida', unidades: '%' },
+    { nome: 'Extração de oxigênio', equacao: 'O₂ER = iVO₂ / iDO₂ × 100', variaveis: 'iVO₂ informado; iDO₂ calculado ou informado', unidades: '%' },
+    { nome: 'Relação DO₂/VO₂', equacao: 'DO₂/VO₂ = iDO₂ / iVO₂', variaveis: 'iDO₂ e iVO₂ indexados', unidades: 'razão' },
+    { nome: 'Hemoglobina estimada por hematócrito', equacao: 'Hb = Hct / 3', variaveis: 'Regra simples usada quando só Hct é informado', unidades: 'g/dL' },
+    { nome: 'Hematócrito estimado por hemoglobina', equacao: 'Hct = Hb × 3', variaveis: 'Regra simples usada quando só Hb é informada', unidades: '%' },
+    { nome: 'Lactato em mg/dL para mmol/L', equacao: 'lactato mmol/L = lactato mg/dL / 9,009', variaveis: 'Conversão de unidade', unidades: 'mmol/L' },
+    { nome: 'Ânion gap', equacao: 'AG = Na⁺ - (Cl⁻ + HCO₃⁻)', variaveis: 'Na, Cl e HCO₃ simultâneos', unidades: 'mEq/L' },
+    { nome: 'Delta-delta', equacao: 'Δ/Δ = (AG - 12) / (24 - HCO₃⁻)', variaveis: 'Calculado quando AG e HCO₃ são disponíveis', unidades: 'razão' },
+    { nome: 'AUC de déficit de iDO₂', equacao: 'Área entre alvo e iDO₂ quando iDO₂ < alvo, por interpolação linear', variaveis: 'Série temporal de iDO₂ e alvo', unidades: '(mL/min/m²) × min' },
+    { nome: 'FiO₂ corrigida de Hamilton', equacao: 'FiO₂corr = FiO₂ - PaO₂/(Pb - 47) + 0,21', variaveis: 'FiO₂ em fração; PaO₂ e pressão barométrica em mmHg', unidades: '%' },
+    { nome: 'Conteúdo venoso / VO₂ direto', equacao: 'A preencher', variaveis: 'Não implementado como cálculo direto no dashboard atual', unidades: 'A preencher' }
+])
+
+const CHECKLIST_SECOES = Object.freeze([
+    { id: 'identificacao', titulo: 'Identificação e equipe', itens: ['Paciente, procedimento, data e sala cirúrgica conferidos', 'Perfusionista da montagem, responsável pela CEC e perfusionista check identificados', 'Peso, altura, BSA e metas iniciais revisados', 'Exames/laboratório basal disponíveis'] },
+    { id: 'preparo-bomba', titulo: 'Preparo da bomba', itens: ['Máquina de CEC conferida', 'Aparelho de TCA disponível e funcional', 'Cardioplegia/rolete conferidos', 'Bateria da máquina testada', 'Equipamentos de segurança, manivela/hand crank e luz de emergência disponíveis', 'Painel da bomba com SC/tubo/L/min conferido', 'Circulador de água e controle térmico funcionando', 'Vaporizador de gás conferido quando aplicável', 'Conferência de vazamentos e retirada de bolhas do circuito', 'Pinças, conectores e tubos após passagem estéril conferidos', 'Drogas, cardioplegia, gelo quando necessário, sangue e derivados disponíveis', 'Cânulas arteriais e venosas disponíveis'] },
+    { id: 'bomba-posicionada', titulo: 'Bomba posicionada', itens: ['Aquecimento do prime conferido', 'Cronômetro, fluxômetro e blender testados', 'Aparelho de vácuo testado e funcionando', 'Sensores de temperatura posicionados/testados', 'Planejamento da CEC alinhado com equipe cirúrgica e anestésica', 'Perfusato conferido', 'Transdutores de pressão funcionando', 'Teste de pulso e resistência documentado', 'Cálculos da CEC revisados antes do início'] },
+    { id: 'circuito', titulo: 'Circuito e insumos', itens: ['Circuito montado e revisado', 'Oxigenador e reservatório conferidos', 'Prime/RAP/cardioplegia revisados'] },
+    { id: 'anticoagulacao', titulo: 'Anticoagulação', itens: ['TCA basal registrado', 'Dose de heparina/protocolo conferidos', 'Heparinização comunicada e documentada', 'TCA pré-CEC ou pós-heparina dentro do alvo institucional'] },
+    { id: 'inicio-cec', titulo: 'Início da CEC', itens: ['Canulação e linhas sem intercorrências aparentes', 'Fluxo inicial e índice cardíaco avaliados', 'Pressões do circuito monitoradas', 'Gasometria inicial documentada'] },
+    { id: 'manutencao-cec', titulo: 'Manutenção da CEC', itens: ['Gasometrias e eletrólitos acompanhados', 'iDO₂, lactato, SvO₂/O₂ER revisados', 'Temperatura e estratégia ácido-base acompanhadas'] },
+    { id: 'saida-cec', titulo: 'Saída da CEC', itens: ['Reaquecimento e condições de saída conferidos', 'Volume/hemoconcentração/transfusão avaliados', 'Comunicação com equipe cirúrgica/anestésica registrada'] },
+    { id: 'pos-cec', titulo: 'Pós-CEC', itens: ['Protamina/reversão e TCA pós documentados', 'Débito urinário e balanço revisados', 'Ocorrências, intercorrências técnicas e pendências registradas'] }
+])
 
 // Transformar número
 function transformarNumero(valor){
@@ -101,13 +179,13 @@ function resetarExames(camposExames){
 
 function classificarHemoglobina(valor, elemento){
     elemento.classList.remove('bg-red-500','bg-amber-600','bg-emerald-600')
-    if(valor < 7.5){
+    if(valor < LIMIARES.hb.atencao){
         elemento.classList.add('bg-amber-600')
         elemento.textContent = 'Atenção PBM'
-    }else if(valor >= 7.5 && valor < 10){
+    }else if(valor >= LIMIARES.hb.atencao && valor < LIMIARES.hb.preservada){
         elemento.classList.add('bg-amber-600')
         elemento.textContent = 'Avaliar contexto'
-    }else if(valor >= 10){
+    }else if(valor >= LIMIARES.hb.preservada){
         elemento.classList.add('bg-emerald-600')
         elemento.textContent = 'Preservada'
     }
@@ -115,27 +193,27 @@ function classificarHemoglobina(valor, elemento){
 
 function classificarHematocrito(valor, elemento){
     elemento.classList.remove('bg-red-500','bg-amber-600','bg-emerald-600')
-    if(valor < 22){
+    if(valor < LIMIARES.hct.critico){
         elemento.classList.add('bg-red-500')
         elemento.textContent = 'Zona Crítica'
-    }else if(valor >= 22 && valor < 24){
+    }else if(valor >= LIMIARES.hct.critico && valor < LIMIARES.hct.limítrofe){
         elemento.classList.add('bg-amber-600')
         elemento.textContent = 'Zona Limítrofe'
-    }else if(valor >=24){
+    }else if(valor >= LIMIARES.hct.limítrofe){
         elemento.classList.add('bg-emerald-600')
-        elemento.textContent = 'Acima de 24%'
+        elemento.textContent = `Acima de ${LIMIARES.hct.limítrofe}%`
     }
 }
 
 function classificarLactato(valor, elemento){
     elemento.classList.remove('bg-red-500','bg-amber-400','bg-emerald-600')
-    if(valor > 4){
+    if(valor > LIMIARES.lactato.critico){
         elemento.classList.add('bg-red-500')
         elemento.textContent = 'Crítico'
-    }else if(valor >= 2 && valor <= 4){
+    }else if(valor >= LIMIARES.lactato.atencao && valor <= LIMIARES.lactato.critico){
         elemento.classList.add('bg-amber-400')
         elemento.textContent = 'Atenção'
-    }else if(valor < 2){
+    }else if(valor < LIMIARES.lactato.atencao){
         elemento.classList.add('bg-emerald-600')
         elemento.textContent = 'Adequado'
     }
@@ -148,13 +226,13 @@ function classificarIC(valor, elemento){
         elemento.textContent = 'Não calculável'
         return
     }
-    if(valor < 2.2){
+    if(valor < LIMIARES.ic.critico){
         elemento.classList.add('bg-red-500')
         elemento.textContent = 'Zona Crítica'
-    }else if(valor >= 2.2 && valor < 2.4){
+    }else if(valor >= LIMIARES.ic.critico && valor < LIMIARES.ic.adequado){
         elemento.classList.add('bg-amber-600')
         elemento.textContent = 'Zona Limítrofe'
-    }else if(valor >= 2.4){
+    }else if(valor >= LIMIARES.ic.adequado){
         elemento.classList.add('bg-emerald-600')
         elemento.textContent = 'Adequado'
     }
@@ -167,13 +245,13 @@ function classificarOfertaOxigenio(valor, elemento){
         elemento.textContent = 'Não calculável'
         return
     }
-    if(valor < 260){
+    if(valor < LIMIARES.ido2.cardCritico){
         elemento.classList.add('bg-red-500')
-        elemento.textContent = 'Abaixo de 260'
-    }else if(valor >= 260 && valor < 280){
+        elemento.textContent = `Abaixo de ${LIMIARES.ido2.cardCritico}`
+    }else if(valor >= LIMIARES.ido2.cardCritico && valor < LIMIARES.ido2.alvoGdp){
         elemento.classList.add('bg-amber-600')
         elemento.textContent = 'Abaixo do alvo GDP'
-    }else if(valor >= 280){
+    }else if(valor >= LIMIARES.ido2.alvoGdp){
         elemento.classList.add('bg-emerald-600')
         elemento.textContent = 'Alvo GDP'
     }
@@ -215,20 +293,20 @@ function score(ido2, hct, lactato, IC){
         scoreHct = 0
     }
     //Score Lactato
-    if(lactato < 2){
+    if(lactato < LIMIARES.lactato.atencao){
         scoreLactato = 2
-    }else if(lactato >= 2 && lactato <= 3){
+    }else if(lactato >= LIMIARES.lactato.atencao && lactato <= 3){
         scoreLactato = 1
     }else if(lactato > 3){
         scoreLactato = 0
     }
     
     //Score IC
-    if(IC >= 2.4){
+    if(IC >= LIMIARES.ic.adequado){
         scoreIC = 2
-    }else if(IC >= 2.2 && IC < 2.4){
+    }else if(IC >= LIMIARES.ic.critico && IC < LIMIARES.ic.adequado){
         scoreIC = 1
-    }else if(IC < 2.2){
+    }else if(IC < LIMIARES.ic.critico){
         scoreIC = 0
     }
     
@@ -236,7 +314,7 @@ function score(ido2, hct, lactato, IC){
     let scoreTotal = scoreIdo2 + scoreHct + scoreLactato + scoreIC
 
     //Regra de corte fisiológica
-    if(hct < 22 && IC < 2.2){
+    if(hct < LIMIARES.hct.critico && IC < LIMIARES.ic.critico){
         scoreTotal -= 1
     }
     return scoreTotal
@@ -355,6 +433,12 @@ function criarGrafico(campo, dados, valorCritico = null){
     }
 
     local.innerHTML = ''
+
+    if(typeof Chart === 'undefined'){
+        graficoAtual = null
+        local.innerHTML = '<p class="text-slate-400 text-center py-6">Gráfico indisponível: Chart.js não carregou.</p>'
+        return
+    }
 
     let canvas = document.createElement('canvas')
     local.appendChild(canvas)
@@ -489,6 +573,178 @@ function descreverOrigemIdo2(exame){
     return Number.isFinite(exame.ido2Informado) ? 'Informado' : 'Não calculável'
 }
 
+function escaparHtml(valor){
+    const mapa = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    }
+    return String(valor ?? '').replace(/[&<>"']/g, caractere => mapa[caractere])
+}
+
+function formatarValorRelatorio(valor, casas = 1, unidade = ''){
+    const numero = transformarNumero(valor)
+    if(!Number.isFinite(numero)) return '—'
+    return `${formatarMetrica(numero, casas)}${unidade ? ` ${unidade}` : ''}`
+}
+
+function criarTabelaMonitorizacaoBasica(historico){
+    const colunas = [
+        { titulo: 'Tempo', valor: exame => formatarValorRelatorio(exame.tempo, 0, 'min') },
+        { titulo: 'Fluxo', valor: exame => formatarValorRelatorio(exame.fluxo, 2, 'L/min') },
+        { titulo: 'IC', valor: exame => formatarValorRelatorio(exame.IC, 2, 'L/min/m²') },
+        { titulo: 'iDO₂', valor: exame => formatarValorRelatorio(exame.ido2, 0, 'mL/min/m²') },
+        { titulo: 'Hb', valor: exame => formatarValorRelatorio(exame.hb, 2, 'g/dL') },
+        { titulo: 'Hct', valor: exame => formatarValorRelatorio(exame.hct, 1, '%') },
+        { titulo: 'Lactato', valor: exame => formatarValorRelatorio(exame.lactato, 2, 'mmol/L') },
+        { titulo: 'SvO₂', valor: exame => formatarValorRelatorio(exame.svo2, 0, '%') }
+    ]
+
+    return `
+        <table class="relatorio-tabela-basica">
+            <caption>Monitorização essencial</caption>
+            <thead>
+                <tr>${colunas.map(coluna => `<th>${coluna.titulo}</th>`).join('')}</tr>
+            </thead>
+            <tbody>
+                ${historico.map(exame => `
+                    <tr>${colunas.map(coluna => `<td>${escaparHtml(coluna.valor(exame))}</td>`).join('')}</tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `
+}
+
+function renderizarAnaliseRelatorioBasico(container, analise, historico, SC){
+    const inicial = historico[0] || {}
+    const final = historico[historico.length - 1] || {}
+    const alertasPrioritarios = analise.alertas
+        .filter(alerta => alerta.nivel === 'alto' || alerta.nivel === 'moderado')
+        .slice(0, 5)
+    const itensChave = [
+        ['Risco integrado', analise.risco],
+        ['SC', formatarValorRelatorio(SC, 2, 'm²')],
+        ['iDO₂ final', formatarValorRelatorio(final.ido2, 0, 'mL/min/m²')],
+        ['IC final', formatarValorRelatorio(final.IC, 2, 'L/min/m²')],
+        ['Hb final', formatarValorRelatorio(final.hb, 2, 'g/dL')],
+        ['Lactato inicial/final', `${formatarValorRelatorio(inicial.lactato, 2, 'mmol/L')} → ${formatarValorRelatorio(final.lactato, 2, 'mmol/L')}`],
+        ['SvO₂ final', formatarValorRelatorio(final.svo2, 0, '%')],
+        ['O₂ER final', formatarValorRelatorio(final.o2er, 1, '%')]
+    ]
+
+    container.innerHTML = `
+        <section class="relatorio-bloco-basico">
+            <h2>Resumo objetivo</h2>
+            <div class="relatorio-resumo-grid">
+                ${itensChave.map(([rotulo, valor]) => `
+                    <div>
+                        <span>${escaparHtml(rotulo)}</span>
+                        <strong>${escaparHtml(valor)}</strong>
+                    </div>
+                `).join('')}
+            </div>
+        </section>
+        <section class="relatorio-bloco-basico">
+            <h2>Alertas principais</h2>
+            ${alertasPrioritarios.length
+                ? `<ul class="relatorio-alertas-basico">${alertasPrioritarios.map(alerta => `
+                    <li>
+                        <strong>${escaparHtml(alerta.titulo)}</strong>
+                        <span>${escaparHtml(alerta.detalhe)}</span>
+                    </li>
+                `).join('')}</ul>`
+                : '<p>Nenhum alerta alto ou moderado identificado pelas regras configuradas.</p>'}
+        </section>
+    `
+}
+
+function prepararRelatorioImpressao(modo, contexto){
+    const {
+        paciente,
+        idade,
+        peso,
+        altura,
+        SC,
+        historicoExames,
+        analiseAtual,
+        tabelaExames,
+        limites
+    } = contexto
+    const relatorio = document.getElementById('relatorio')
+    const relatorioTitulo = document.getElementById('relatorioTitulo')
+    const relatorioDescricao = document.getElementById('relatorioDescricao')
+    const relatorioPaciente = document.getElementById('relatorioPaciente')
+    const relatorioTabela = document.getElementById('relatorioTabela')
+    const relatorioAnalise = document.getElementById('relatorioAnalise')
+    const relatorioGraficos = document.getElementById('relatorioGraficos')
+    const basico = modo === 'basico'
+
+    relatorio.classList.remove('hidden', 'relatorio--basico', 'relatorio--avancado')
+    relatorio.classList.add(basico ? 'relatorio--basico' : 'relatorio--avancado')
+    relatorio.style.position = 'absolute'
+    relatorio.style.left = '-10000px'
+    relatorio.style.width = basico ? '820px' : '1000px'
+
+    relatorioTitulo.textContent = basico
+        ? 'PerfuseLab - Relatório básico de monitorização'
+        : 'PerfuseLab - Relatório avançado de monitorização'
+    relatorioDescricao.textContent = basico
+        ? 'Resumo essencial para comunicação rápida e impressão enxuta.'
+        : 'Relatório completo com tabela integral, análise detalhada e gráficos de tendência.'
+    document.getElementById('relatorioGeradoEm').textContent =
+        `Gerado em ${new Date().toLocaleString('pt-BR')}`
+
+    relatorioPaciente.innerHTML = `
+        <p><strong>Sexo:</strong> ${escaparHtml(paciente.sexo)}</p>
+        <p><strong>Idade:</strong> ${formatarValorRelatorio(idade, 0, 'anos')}</p>
+        <p><strong>Peso:</strong> ${formatarValorRelatorio(peso, 1, 'kg')}</p>
+        <p><strong>Altura:</strong> ${formatarValorRelatorio(altura, 0, 'cm')}</p>
+        <p><strong>Superfície corporal:</strong> ${formatarValorRelatorio(SC, 2, 'm²')}</p>
+        <p><strong>Registros:</strong> ${historicoExames.length}</p>
+    `
+
+    relatorioTabela.innerHTML = ''
+    relatorioAnalise.innerHTML = ''
+    relatorioGraficos.innerHTML = ''
+
+    if(basico){
+        relatorioTabela.innerHTML = criarTabelaMonitorizacaoBasica(historicoExames)
+        renderizarAnaliseRelatorioBasico(relatorioAnalise, analiseAtual, historicoExames, SC)
+        criarGraficoRelatorio(relatorioGraficos, 'iDO₂', 'ido2', historicoExames, limites.ido2)
+        criarGraficoRelatorio(relatorioGraficos, 'Lactato', 'lactato', historicoExames, limites.lactato)
+        criarGraficoRelatorio(relatorioGraficos, 'Índice cardíaco', 'IC', historicoExames, limites.IC)
+        return relatorio
+    }
+
+    const tabelaRelatorio = tabelaExames.cloneNode(true)
+    tabelaRelatorio.removeAttribute('id')
+    relatorioTabela.appendChild(tabelaRelatorio)
+    const analiseRelatorio = document.getElementById('analisePerfusional').cloneNode(true)
+    analiseRelatorio.removeAttribute('id')
+    analiseRelatorio.className = 'border border-slate-400 rounded-xl p-4'
+    relatorioAnalise.appendChild(analiseRelatorio)
+    criarGraficoRelatorio(relatorioGraficos, 'Oferta de oxigênio indexada (iDO2)', 'ido2', historicoExames, limites.ido2)
+    criarGraficoRelatorio(relatorioGraficos, 'Lactato', 'lactato', historicoExames, limites.lactato)
+    criarGraficoRelatorio(relatorioGraficos, 'Índice cardíaco', 'IC', historicoExames, limites.IC)
+    criarGraficoRelatorio(relatorioGraficos, 'Hemoglobina', 'hb', historicoExames, limites.HbAdulto)
+    criarGraficoRelatorio(relatorioGraficos, 'Hematócrito', 'hct', historicoExames, limites.HctAdulto)
+    criarGraficoRelatorio(relatorioGraficos, 'SvO2', 'svo2', historicoExames, limites.svo2)
+    criarGraficoRelatorio(relatorioGraficos, 'Extração de O2', 'o2er', historicoExames, limites.o2er)
+    return relatorio
+}
+
+function imprimirRelatorio(modo, contexto){
+    const relatorio = prepararRelatorioImpressao(modo, contexto)
+    window.addEventListener('afterprint', () => {
+        relatorio.classList.add('hidden')
+        relatorio.classList.remove('relatorio--basico', 'relatorio--avancado')
+        relatorio.removeAttribute('style')
+    }, { once: true })
+    setTimeout(() => window.print(), 250)
+}
+
 function criarGraficoRelatorio(container, titulo, campo, dados, valorCritico){
     const bloco = document.createElement('div')
     const cabecalho = document.createElement('h3')
@@ -497,6 +753,14 @@ function criarGraficoRelatorio(container, titulo, campo, dados, valorCritico){
     cabecalho.className = 'text-xl font-bold mb-2'
     bloco.append(cabecalho, canvas)
     container.appendChild(bloco)
+
+    if(typeof Chart === 'undefined'){
+        canvas.replaceWith(Object.assign(document.createElement('p'), {
+            className: 'text-slate-600',
+            textContent: 'Gráfico indisponível: Chart.js não carregou.'
+        }))
+        return
+    }
 
     new Chart(canvas, {
         type: 'line',
@@ -611,29 +875,29 @@ function analisarAcidoBase(exame){
     if(!Number.isFinite(exame.ph) || !Number.isFinite(exame.paco2) || !Number.isFinite(exame.hco3)){
         return { resumo: 'Não calculável', detalhe: 'pH, PaCO₂ e HCO₃⁻ são necessários.' }
     }
-    if(exame.ph < 7.35 && exame.paco2 > 45){
+    if(exame.ph < LIMIARES.acidoBase.phBaixo && exame.paco2 > LIMIARES.acidoBase.paco2Alto){
         return { resumo: 'Acidose respiratória', detalhe: 'pH reduzido com PaCO₂ elevada; avaliar componente metabólico associado.' }
     }
-    if(exame.ph < 7.35 && exame.hco3 < 22){
+    if(exame.ph < LIMIARES.acidoBase.phBaixo && exame.hco3 < LIMIARES.acidoBase.hco3Baixo){
         return { resumo: 'Acidose metabólica', detalhe: 'pH e HCO₃⁻ reduzidos; verificar compensação respiratória e ânion gap.' }
     }
-    if(exame.ph > 7.45 && exame.paco2 < 35){
+    if(exame.ph > LIMIARES.acidoBase.phAlto && exame.paco2 < LIMIARES.acidoBase.paco2Baixo){
         return { resumo: 'Alcalose respiratória', detalhe: 'pH elevado com PaCO₂ reduzida.' }
     }
-    if(exame.ph > 7.45 && exame.hco3 > 26){
+    if(exame.ph > LIMIARES.acidoBase.phAlto && exame.hco3 > LIMIARES.acidoBase.hco3Alto){
         return { resumo: 'Alcalose metabólica', detalhe: 'pH e HCO₃⁻ elevados.' }
     }
-    if(exame.paco2 < 35 && exame.hco3 <= 24){
+    if(exame.paco2 < LIMIARES.acidoBase.paco2Baixo && exame.hco3 <= LIMIARES.acidoBase.hco3Compensacao){
         return { resumo: 'Provável alcalose respiratória compensada', detalhe: 'PaCO₂ reduzida com queda de HCO₃⁻ e pH próximo da faixa normal.' }
     }
-    if(exame.paco2 > 45 && exame.hco3 >= 24){
+    if(exame.paco2 > LIMIARES.acidoBase.paco2Alto && exame.hco3 >= LIMIARES.acidoBase.hco3Compensacao){
         return { resumo: 'Provável acidose respiratória compensada', detalhe: 'PaCO₂ elevada com retenção de HCO₃⁻ e pH próximo da faixa normal.' }
     }
     return { resumo: 'Sem distúrbio primário evidente', detalhe: 'Interpretar em conjunto com temperatura, estratégia alfa-stat e tendência.' }
 }
 
 function montarAnalisePerfusional(paciente, historico, casoClinico, SC){
-    const alvoGdp = 280
+    const alvoGdp = LIMIARES.ido2.alvoGdp
     const pressaoBarometrica = transformarNumero(casoClinico?.operacional?.pressao_barometrica_mmhg) || 760
     const dados = historico
         .map(exame => ({
@@ -693,38 +957,38 @@ function montarAnalisePerfusional(paciente, historico, casoClinico, SC){
 
     dados.forEach(exame => {
         const adequacaoGdp = Number.isFinite(exame.ido2) ? exame.ido2 / alvoGdp : null
-        if(Number.isFinite(adequacaoGdp) && adequacaoGdp < 0.9) alertas.push(criarAlerta('alto', `iDO₂ abaixo do alvo GDP aos ${exame.tempo} min`, `${formatarMetrica(adequacaoGdp * 100)}% de 280 mL/min/m².`))
-        else if(Number.isFinite(adequacaoGdp) && adequacaoGdp < 1) alertas.push(criarAlerta('moderado', `iDO₂ limítrofe para GDP aos ${exame.tempo} min`, `${formatarMetrica(adequacaoGdp * 100)}% de 280 mL/min/m².`))
+        if(Number.isFinite(adequacaoGdp) && adequacaoGdp < LIMIARES.ido2.alertaAltoRazao) alertas.push(criarAlerta('alto', `iDO₂ abaixo do alvo GDP aos ${exame.tempo} min`, `${formatarMetrica(adequacaoGdp * 100)}% de ${alvoGdp} mL/min/m².`))
+        else if(Number.isFinite(adequacaoGdp) && adequacaoGdp < 1) alertas.push(criarAlerta('moderado', `iDO₂ limítrofe para GDP aos ${exame.tempo} min`, `${formatarMetrica(adequacaoGdp * 100)}% de ${alvoGdp} mL/min/m².`))
         if(['incompativel', 'discordante', 'divergente'].includes(exame.consistenciaIdo2)){
             alertas.push(criarAlerta('informativo', `Conferir iDO₂ aos ${exame.tempo} min`, descreverOrigemIdo2(exame)))
         }
-        if(Number.isFinite(exame.o2er) && exame.o2er > 40) alertas.push(criarAlerta('alto', `Extração de O₂ elevada aos ${exame.tempo} min`, `${formatarMetrica(exame.o2er)}%; critério do protocolo: >40%.`))
-        else if(Number.isFinite(exame.o2er) && exame.o2er >= 30) alertas.push(criarAlerta('moderado', `Extração de O₂ limítrofe aos ${exame.tempo} min`, `${formatarMetrica(exame.o2er)}%.`))
-        if(Number.isFinite(exame.gapPco2) && exame.gapPco2 >= 6) alertas.push(criarAlerta('moderado', `Gap PCO₂ aumentado aos ${exame.tempo} min`, `${formatarMetrica(exame.gapPco2)} mmHg.`))
-        if(Number.isFinite(exame.relacaoDo2Vo2) && exame.relacaoDo2Vo2 < 2.5) alertas.push(criarAlerta('alto', `Relação DO₂/VO₂ crítica aos ${exame.tempo} min`, `${formatarMetrica(exame.relacaoDo2Vo2, 2)}; equivale a extração de O₂ >40%.`))
-        else if(Number.isFinite(exame.relacaoDo2Vo2) && exame.relacaoDo2Vo2 <= 3.33) alertas.push(criarAlerta('moderado', `Relação DO₂/VO₂ limítrofe aos ${exame.tempo} min`, `${formatarMetrica(exame.relacaoDo2Vo2, 2)}; equivale a extração de O₂ entre 30% e 40%.`))
-        if(Number.isFinite(exame.svo2) && exame.svo2 < 65) alertas.push(criarAlerta('alto', `SvO₂ inadequada aos ${exame.tempo} min`, `${formatarMetrica(exame.svo2)}%.`))
-        else if(Number.isFinite(exame.svo2) && exame.svo2 <= 70) alertas.push(criarAlerta('moderado', `SvO₂ limítrofe aos ${exame.tempo} min`, `${formatarMetrica(exame.svo2)}%.`))
-        if(Number.isFinite(exame.pam) && exame.pam < 60) alertas.push(criarAlerta('moderado', `PAM reduzida aos ${exame.tempo} min`, `${formatarMetrica(exame.pam, 0)} mmHg; individualizar conforme autorregulação e contexto.`))
-        if(Number.isFinite(exame.pao2) && exame.pao2 > 150){
+        if(Number.isFinite(exame.o2er) && exame.o2er > LIMIARES.o2er.alto) alertas.push(criarAlerta('alto', `Extração de O₂ elevada aos ${exame.tempo} min`, `${formatarMetrica(exame.o2er)}%; critério do protocolo: >${LIMIARES.o2er.alto}%.`))
+        else if(Number.isFinite(exame.o2er) && exame.o2er >= LIMIARES.o2er.moderado) alertas.push(criarAlerta('moderado', `Extração de O₂ limítrofe aos ${exame.tempo} min`, `${formatarMetrica(exame.o2er)}%.`))
+        if(Number.isFinite(exame.gapPco2) && exame.gapPco2 >= LIMIARES.gapPco2.moderado) alertas.push(criarAlerta('moderado', `Gap PCO₂ aumentado aos ${exame.tempo} min`, `${formatarMetrica(exame.gapPco2)} mmHg.`))
+        if(Number.isFinite(exame.relacaoDo2Vo2) && exame.relacaoDo2Vo2 < LIMIARES.do2vo2.alto) alertas.push(criarAlerta('alto', `Relação DO₂/VO₂ crítica aos ${exame.tempo} min`, `${formatarMetrica(exame.relacaoDo2Vo2, 2)}; equivale a extração de O₂ >${LIMIARES.o2er.alto}%.`))
+        else if(Number.isFinite(exame.relacaoDo2Vo2) && exame.relacaoDo2Vo2 <= LIMIARES.do2vo2.moderado) alertas.push(criarAlerta('moderado', `Relação DO₂/VO₂ limítrofe aos ${exame.tempo} min`, `${formatarMetrica(exame.relacaoDo2Vo2, 2)}; equivale a extração de O₂ entre ${LIMIARES.o2er.moderado}% e ${LIMIARES.o2er.alto}%.`))
+        if(Number.isFinite(exame.svo2) && exame.svo2 < LIMIARES.svo2.alto) alertas.push(criarAlerta('alto', `SvO₂ inadequada aos ${exame.tempo} min`, `${formatarMetrica(exame.svo2)}%.`))
+        else if(Number.isFinite(exame.svo2) && exame.svo2 <= LIMIARES.svo2.moderado) alertas.push(criarAlerta('moderado', `SvO₂ limítrofe aos ${exame.tempo} min`, `${formatarMetrica(exame.svo2)}%.`))
+        if(Number.isFinite(exame.pam) && exame.pam < LIMIARES.pam.moderado) alertas.push(criarAlerta('moderado', `PAM reduzida aos ${exame.tempo} min`, `${formatarMetrica(exame.pam, 0)} mmHg; individualizar conforme autorregulação e contexto.`))
+        if(Number.isFinite(exame.pao2) && exame.pao2 > LIMIARES.pao2.informativo){
             const fio2Corrigida = fio2CorrigidaHamilton(exame.fio2, exame.pao2, pressaoBarometrica)
             alertas.push(criarAlerta('informativo', `PaO₂ acima de 150 mmHg aos ${exame.tempo} min`, Number.isFinite(fio2Corrigida)
                 ? `FiO₂ corrigida para PaO₂ de 150 mmHg pelo método de Hamilton: ${formatarMetrica(fio2Corrigida)}% (Pb ${formatarMetrica(pressaoBarometrica, 0)} mmHg). Métrica de desempenho do oxigenador, não prescrição automática.`
                 : 'O método de Hamilton exige FiO₂ simultânea, PaO₂ e pressão barométrica conhecida ou assumida.'))
         }
-        if(Number.isFinite(exame.k) && exame.k < 3.5) alertas.push(criarAlerta('moderado', `Potássio reduzido aos ${exame.tempo} min`, `${formatarMetrica(exame.k)} mmol/L.`))
-        if(Number.isFinite(exame.glicose) && exame.glicose > 180) alertas.push(criarAlerta('moderado', `Glicose elevada aos ${exame.tempo} min`, `${formatarMetrica(exame.glicose, 0)} mg/dL.`))
-        if(Number.isFinite(exame.hb) && exame.hb < 7.5) alertas.push(criarAlerta('moderado', `Hemoglobina abaixo de 7,5 g/dL aos ${exame.tempo} min`, `${formatarMetrica(exame.hb, 2)} g/dL; transfusão não deve ser indicada isoladamente por este valor.`))
+        if(Number.isFinite(exame.k) && exame.k < LIMIARES.k.baixo) alertas.push(criarAlerta('moderado', `Potássio reduzido aos ${exame.tempo} min`, `${formatarMetrica(exame.k)} mmol/L.`))
+        if(Number.isFinite(exame.glicose) && exame.glicose > LIMIARES.glicose.alto) alertas.push(criarAlerta('moderado', `Glicose elevada aos ${exame.tempo} min`, `${formatarMetrica(exame.glicose, 0)} mg/dL.`))
+        if(Number.isFinite(exame.hb) && exame.hb < LIMIARES.hb.atencao) alertas.push(criarAlerta('moderado', `Hemoglobina abaixo de ${String(LIMIARES.hb.atencao).replace('.', ',')} g/dL aos ${exame.tempo} min`, `${formatarMetrica(exame.hb, 2)} g/dL; transfusão não deve ser indicada isoladamente por este valor.`))
     })
 
-    if(final.lactato > 4) alertas.push(criarAlerta('alto', 'Lactato final crítico', `${formatarMetrica(final.lactato, 2)} mmol/L.`))
-    else if(final.lactato >= 2) alertas.push(criarAlerta('moderado', 'Lactato final em faixa de atenção', `${formatarMetrica(final.lactato, 2)} mmol/L.`))
-    if(lactatoRatio > 1.1) alertas.push(criarAlerta('moderado', 'Lactato em elevação', `Razão final/inicial ${formatarMetrica(lactatoRatio, 2)}; interpretar com tendência e contexto clínico.`))
-    if(final.tempo >= 60 && final.tempo <= 120) alertas.push(criarAlerta('moderado', 'Tempo de CEC moderado', `${formatarMetrica(final.tempo, 0)} minutos.`))
-    else if(final.tempo > 120) alertas.push(criarAlerta('alto', 'Tempo de CEC elevado', `${formatarMetrica(final.tempo, 0)} minutos.`))
-    if(Number.isFinite(tcaCec) && tcaCec < 400){
+    if(final.lactato > LIMIARES.lactato.critico) alertas.push(criarAlerta('alto', 'Lactato final crítico', `${formatarMetrica(final.lactato, 2)} mmol/L.`))
+    else if(final.lactato >= LIMIARES.lactato.atencao) alertas.push(criarAlerta('moderado', 'Lactato final em faixa de atenção', `${formatarMetrica(final.lactato, 2)} mmol/L.`))
+    if(lactatoRatio > LIMIARES.lactato.elevacaoRazao) alertas.push(criarAlerta('moderado', 'Lactato em elevação', `Razão final/inicial ${formatarMetrica(lactatoRatio, 2)}; interpretar com tendência e contexto clínico.`))
+    if(final.tempo >= LIMIARES.tempoCec.moderadoMin && final.tempo <= LIMIARES.tempoCec.moderadoMax) alertas.push(criarAlerta('moderado', 'Tempo de CEC moderado', `${formatarMetrica(final.tempo, 0)} minutos.`))
+    else if(final.tempo > LIMIARES.tempoCec.alto) alertas.push(criarAlerta('alto', 'Tempo de CEC elevado', `${formatarMetrica(final.tempo, 0)} minutos.`))
+    if(Number.isFinite(tcaCec) && tcaCec < LIMIARES.tca.minimoUsual){
         alertas.push(criarAlerta('alto', 'TCA abaixo do mínimo terapêutico usual', `${formatarMetrica(tcaCec, 0)} s; conferir dispositivo, protocolo e concentração de heparina.`))
-    }else if(Number.isFinite(tcaCec) && tcaCec < 480){
+    }else if(Number.isFinite(tcaCec) && tcaCec < LIMIARES.tca.historico){
         alertas.push(criarAlerta('moderado', 'TCA abaixo do alvo histórico de 480 s', `${formatarMetrica(tcaCec, 0)} s; alguns dispositivos de ativação máxima utilizam alvo acima de 400 s.`))
     }
 
@@ -752,7 +1016,7 @@ function montarAnalisePerfusional(paciente, historico, casoClinico, SC){
         avisosConversao.forEach(aviso => limitacoes.push(aviso))
     }
 
-    const hipoxiaOculta = final.svo2 >= 70 && (final.lactato >= 2 || final.gapPco2 >= 6 || final.o2er >= 30)
+    const hipoxiaOculta = final.svo2 >= LIMIARES.svo2.moderado && (final.lactato >= LIMIARES.lactato.atencao || final.gapPco2 >= LIMIARES.gapPco2.moderado || final.o2er >= LIMIARES.o2er.moderado)
     if(hipoxiaOculta) alertas.push(criarAlerta('informativo', 'Marcadores metabólicos discordantes', 'SvO₂ preservada com pelo menos um marcador metabólico ou de extração alterado; o achado não confirma hipóxia tecidual isoladamente.'))
     if(hipoxiaOculta) limitacoes.push('A associação entre SvO₂ preservada e marcador metabólico alterado é apenas descritiva; não foi usada como diagnóstico de “hipóxia oculta” nem para elevar o risco global.')
 
@@ -807,12 +1071,12 @@ function renderizarAnalisePerfusional(analise){
     resumo.innerHTML = ''
     analise.resumo.forEach(item => {
         const card = document.createElement('div')
-        card.className = 'border border-slate-700 rounded-2xl p-4'
+        card.className = 'analysis-summary-card border border-slate-700 rounded-2xl p-4'
         const rotulo = document.createElement('p')
-        rotulo.className = 'text-slate-500'
+        rotulo.className = 'analysis-summary-label text-slate-500'
         rotulo.textContent = item.rotulo
         const valor = document.createElement('p')
-        valor.className = 'text-xl text-slate-100 mt-1'
+        valor.className = 'analysis-summary-value text-xl text-slate-100 mt-1'
         valor.textContent = item.valor
         card.append(rotulo, valor)
         resumo.appendChild(card)
@@ -844,7 +1108,7 @@ function renderizarAnalisePerfusional(analise){
                 moderado: 'border-amber-400 bg-amber-950/30',
                 informativo: 'border-blue-500 bg-blue-950/30'
             }
-            bloco.className = `border-l-4 p-3 rounded ${cores[alerta.nivel]}`
+            bloco.className = `analysis-alert border-l-4 p-3 rounded ${cores[alerta.nivel]}`
             const titulo = document.createElement('strong')
             titulo.className = 'block text-slate-100'
             titulo.textContent = alerta.titulo
@@ -874,6 +1138,368 @@ function renderizarAnalisePerfusional(analise){
     classificacaoScore.classList.remove('bg-red-500', 'bg-red-600', 'bg-amber-400', 'bg-amber-500', 'bg-emerald-600')
     classificacaoScore.classList.add(coresRiscoCard[analise.risco])
     classificacaoScore.textContent = `${analise.alertas.filter(alerta => alerta.nivel === 'alto').length} alto(s) · ${analise.alertas.filter(alerta => alerta.nivel === 'moderado').length} moderado(s)`
+}
+
+function abrirModuloDashboard(id){
+    const modal = document.getElementById(id)
+    if(!modal) return
+    modal.classList.remove('hidden')
+    document.body.classList.add('modal-open')
+}
+
+function fecharModuloDashboard(id){
+    const modal = document.getElementById(id)
+    if(!modal) return
+    modal.classList.add('hidden')
+    document.body.classList.remove('modal-open')
+}
+
+function criarChaveCaso(paciente, casoClinico = {}){
+    const origem = casoClinico?.paciente?.procedimento || casoClinico?.metadados?.arquivo || 'caso-local'
+    const partes = [
+        'perfuselab-checklist',
+        paciente?.sexo || 'sem-sexo',
+        paciente?.idade ?? 'sem-idade',
+        paciente?.peso ?? 'sem-peso',
+        paciente?.alturaNum ?? 'sem-altura',
+        origem
+    ]
+    return partes.map(parte => String(parte).toLowerCase().replace(/\s+/g, '-')).join(':')
+}
+
+function criarEstadoChecklistPadrao(){
+    return CHECKLIST_SECOES.reduce((estado, secao) => {
+        secao.itens.forEach((texto, indice) => {
+            estado[`${secao.id}-${indice}`] = {
+                status: 'pendente',
+                observacao: ''
+            }
+        })
+        return estado
+    }, {})
+}
+
+function carregarEstadoChecklist(chave){
+    const padrao = criarEstadoChecklistPadrao()
+    try {
+        const salvo = JSON.parse(localStorage.getItem(chave) || '{}')
+        return Object.fromEntries(
+            Object.entries(padrao).map(([id, item]) => [id, { ...item, ...(salvo[id] || {}) }])
+        )
+    } catch {
+        return padrao
+    }
+}
+
+function salvarEstadoChecklist(chave, estado){
+    localStorage.setItem(chave, JSON.stringify(estado))
+}
+
+function criarDadosChecklistPadrao(casoClinico = {}){
+    return {
+        data: new Date().toISOString().slice(0, 10),
+        salaCirurgica: '',
+        responsavelMontagem: '',
+        responsavelCec: '',
+        perfusionistaCheck: '',
+        responsavelFinal: '',
+        procedimento: casoClinico?.paciente?.procedimento || '',
+        intercorrenciasTecnicas: ''
+    }
+}
+
+function chaveDadosChecklist(chave){
+    return `${chave}:dados-perfusionista`
+}
+
+function carregarDadosChecklist(chave, casoClinico = {}){
+    const padrao = criarDadosChecklistPadrao(casoClinico)
+    try {
+        const salvo = JSON.parse(localStorage.getItem(chaveDadosChecklist(chave)) || '{}')
+        return { ...padrao, ...salvo }
+    } catch {
+        return padrao
+    }
+}
+
+function salvarDadosChecklist(chave, dados){
+    localStorage.setItem(chaveDadosChecklist(chave), JSON.stringify(dados))
+}
+
+function sincronizarCamposDadosChecklist(chave, dados){
+    const campos = {
+        data: document.getElementById('checklistData'),
+        salaCirurgica: document.getElementById('checklistSala'),
+        responsavelMontagem: document.getElementById('checklistRespMontagem'),
+        responsavelCec: document.getElementById('checklistRespCec'),
+        perfusionistaCheck: document.getElementById('checklistPerfusionistaCheck'),
+        responsavelFinal: document.getElementById('checklistResponsavelFinal'),
+        procedimento: document.getElementById('checklistProcedimento'),
+        intercorrenciasTecnicas: document.getElementById('checklistIntercorrencias')
+    }
+
+    Object.entries(campos).forEach(([campo, elemento]) => {
+        if(!elemento) return
+        elemento.value = dados[campo] || ''
+        elemento.addEventListener('input', () => {
+            dados[campo] = elemento.value
+            salvarDadosChecklist(chave, dados)
+        })
+    })
+}
+
+function calcularResumoChecklist(estado){
+    const itens = Object.values(estado)
+    const total = itens.length
+    const concluidos = itens.filter(item => item.status === 'concluido').length
+    const pendentes = total - concluidos
+    return { total, concluidos, pendentes }
+}
+
+function atualizarResumoChecklist(estado){
+    const resumo = calcularResumoChecklist(estado)
+    const texto = `Checklist: ${resumo.concluidos}/${resumo.total} concluídos`
+    const resumoHeader = document.getElementById('resumoChecklist')
+    const progresso = document.getElementById('progressoChecklist')
+    const pendencias = document.getElementById('pendenciasChecklist')
+    if(resumoHeader){
+        resumoHeader.textContent = resumo.pendentes > 0
+            ? `${texto} · ${resumo.pendentes} pendente(s)`
+            : `${texto} · sem pendências`
+        resumoHeader.classList.toggle('text-amber-300', resumo.pendentes > 0)
+        resumoHeader.classList.toggle('text-emerald-300', resumo.pendentes === 0)
+    }
+    if(progresso) progresso.textContent = texto
+    if(pendencias) pendencias.textContent = resumo.pendentes > 0
+        ? `${resumo.pendentes} item(ns) ainda pendente(s)`
+        : 'Sem pendências registradas'
+}
+
+function renderizarChecklist(estado, chave){
+    const container = document.getElementById('checklistConteudo')
+    if(!container) return
+    container.innerHTML = ''
+
+    CHECKLIST_SECOES.forEach(secao => {
+        const bloco = document.createElement('article')
+        bloco.className = 'checklist-section'
+        const titulo = document.createElement('h3')
+        titulo.textContent = secao.titulo
+        bloco.appendChild(titulo)
+
+        secao.itens.forEach((texto, indice) => {
+            const id = `${secao.id}-${indice}`
+            const item = estado[id]
+            const linha = document.createElement('div')
+            linha.className = 'checklist-item'
+
+            const topo = document.createElement('div')
+            topo.className = 'checklist-item__top'
+
+            const checkbox = document.createElement('input')
+            checkbox.type = 'checkbox'
+            checkbox.checked = item.status === 'concluido'
+            checkbox.id = `check-${id}`
+
+            const label = document.createElement('label')
+            label.setAttribute('for', checkbox.id)
+            label.textContent = texto
+
+            const status = document.createElement('span')
+            status.className = `checklist-status ${item.status === 'concluido' ? 'is-done' : 'is-pending'}`
+            status.textContent = item.status === 'concluido' ? 'Concluído' : 'Pendente'
+
+            const observacao = document.createElement('input')
+            observacao.type = 'text'
+            observacao.value = item.observacao || ''
+            observacao.placeholder = 'Observação curta...'
+            observacao.className = 'checklist-note'
+
+            checkbox.addEventListener('change', () => {
+                item.status = checkbox.checked ? 'concluido' : 'pendente'
+                status.textContent = checkbox.checked ? 'Concluído' : 'Pendente'
+                status.classList.toggle('is-done', checkbox.checked)
+                status.classList.toggle('is-pending', !checkbox.checked)
+                salvarEstadoChecklist(chave, estado)
+                atualizarResumoChecklist(estado)
+            })
+
+            observacao.addEventListener('input', () => {
+                item.observacao = observacao.value
+                salvarEstadoChecklist(chave, estado)
+            })
+
+            topo.append(checkbox, label, status)
+            linha.append(topo, observacao)
+            bloco.appendChild(linha)
+        })
+
+        container.appendChild(bloco)
+    })
+
+    atualizarResumoChecklist(estado)
+}
+
+function renderizarReferencias(){
+    const valores = document.getElementById('referenciasValores')
+    const formulas = document.getElementById('referenciasFormulas')
+    if(valores){
+        valores.innerHTML = ''
+        REFERENCIAS_PARAMETROS.forEach(parametro => {
+            const card = document.createElement('article')
+            card.className = 'reference-card'
+            card.innerHTML = `
+                <div class="reference-card__header">
+                    <h3>${parametro.nome}</h3>
+                    <span>${parametro.unidade || 'sem unidade'}</span>
+                </div>
+                <dl>
+                    <div><dt>Referência</dt><dd>${parametro.referencia}</dd></div>
+                    <div><dt>Atenção</dt><dd>${parametro.atencao}</dd></div>
+                    <div><dt>Crítico</dt><dd>${parametro.critico}</dd></div>
+                </dl>
+                <p>${parametro.observacao}</p>
+            `
+            valores.appendChild(card)
+        })
+    }
+
+    if(formulas){
+        formulas.innerHTML = ''
+        FORMULAS_REFERENCIA.forEach(formula => {
+            const bloco = document.createElement('article')
+            bloco.className = 'formula-card'
+            bloco.innerHTML = `
+                <h3>${formula.nome}</h3>
+                <code>${formula.equacao}</code>
+                <p><strong>Variáveis:</strong> ${formula.variaveis}</p>
+                <p><strong>Unidades:</strong> ${formula.unidades}</p>
+            `
+            formulas.appendChild(bloco)
+        })
+    }
+}
+
+function alternarAbaReferencias(aba){
+    const valores = document.getElementById('referenciasValores')
+    const formulas = document.getElementById('referenciasFormulas')
+    const abaValores = document.getElementById('abaValoresReferencia')
+    const abaFormulas = document.getElementById('abaFormulasReferencia')
+    const mostrarFormulas = aba === 'formulas'
+    valores?.classList.toggle('hidden', mostrarFormulas)
+    formulas?.classList.toggle('hidden', !mostrarFormulas)
+    abaValores?.classList.toggle('is-active', !mostrarFormulas)
+    abaFormulas?.classList.toggle('is-active', mostrarFormulas)
+}
+
+function atualizarResumoFluxoIndice(fluxoAtual, SC){
+    const fluxoNumerico = transformarNumero(fluxoAtual)
+    const indice = indiceCardiaco(fluxoNumerico, SC)
+    const resumoFluxo = document.getElementById('resumoFluxoBomba')
+    const resumoIndice = document.getElementById('resumoIndiceCardiaco')
+    const resumoSC = document.getElementById('resumoSuperficieCorporal')
+    if(resumoFluxo) resumoFluxo.textContent = Number.isFinite(fluxoNumerico) ? `${formatarMetrica(fluxoNumerico, 2)} L/min` : '— L/min'
+    if(resumoIndice) resumoIndice.textContent = Number.isFinite(indice) ? `${formatarMetrica(indice, 2)} L/min/m²` : '— L/min/m²'
+    if(resumoSC) resumoSC.textContent = Number.isFinite(SC) ? `${formatarMetrica(SC, 2)} m²` : '— m²'
+}
+
+function renderizarConversaoIndiceFluxo(SC){
+    const corpoTabela = document.getElementById('tabelaConversaoIcFluxo')
+    const scAtual = document.getElementById('conversaoScAtual')
+    if(!corpoTabela) return
+
+    const superficie = transformarNumero(SC)
+    if(scAtual){
+        scAtual.textContent = Number.isFinite(superficie)
+            ? `SC: ${formatarMetrica(superficie, 2)} m²`
+            : 'SC: — m²'
+    }
+
+    if(!Number.isFinite(superficie) || superficie <= 0){
+        corpoTabela.innerHTML = '<tr><td colspan="4">Informe peso e altura para calcular.</td></tr>'
+        return
+    }
+
+    const linhas = []
+    for(let indice = 0; indice < INDICES_CARDIACOS_CONVERSAO.length; indice += 2){
+        const primeiroIndice = INDICES_CARDIACOS_CONVERSAO[indice]
+        const segundoIndice = INDICES_CARDIACOS_CONVERSAO[indice + 1]
+        const primeiroFluxo = primeiroIndice * superficie
+        const segundoFluxo = segundoIndice ? segundoIndice * superficie : null
+        linhas.push(`
+            <tr>
+                <td>${formatarMetrica(primeiroIndice, 1)}</td>
+                <td>${formatarMetrica(primeiroFluxo, 2)}</td>
+                <td>${segundoIndice ? formatarMetrica(segundoIndice, 1) : '—'}</td>
+                <td>${Number.isFinite(segundoFluxo) ? formatarMetrica(segundoFluxo, 2) : '—'}</td>
+            </tr>
+        `)
+    }
+    corpoTabela.innerHTML = linhas.join('')
+}
+
+function salvarHistoricoCaso(historico){
+    localStorage.setItem('historicoImportado', JSON.stringify(historico))
+}
+
+function montarSnapshotBanco(paciente, casoClinico, historico, analise, estadoChecklist, chaveChecklist, dadosChecklist = {}){
+    const resumoChecklist = calcularResumoChecklist(estadoChecklist)
+    return {
+        clientCaseKey: chaveChecklist,
+        title: dadosChecklist.procedimento
+            ? `${dadosChecklist.procedimento} · ${paciente?.sexo || 'sexo não informado'} · ${paciente?.idade || 'idade não informada'} anos`
+            : undefined,
+        patient: paciente,
+        perfusionist: dadosChecklist,
+        clinicalCase: casoClinico || {},
+        monitoring: historico,
+        checklist: {
+            key: chaveChecklist,
+            metadata: dadosChecklist,
+            state: estadoChecklist,
+            summary: resumoChecklist
+        },
+        analysis: {
+            risco: analise?.risco,
+            resumo: analise?.resumo || [],
+            metricas: analise?.metricas || [],
+            alertas: analise?.alertas || [],
+            limitacoes: analise?.limitacoes || []
+        },
+        source: 'dashboard'
+    }
+}
+
+function atualizarStatusBanco(mensagem, tipo = 'neutro'){
+    const status = document.getElementById('statusBanco')
+    if(!status) return
+    status.textContent = mensagem
+    status.classList.remove('text-slate-500', 'text-emerald-300', 'text-amber-300', 'text-red-300')
+    const classes = {
+        neutro: 'text-slate-500',
+        sucesso: 'text-emerald-300',
+        alerta: 'text-amber-300',
+        erro: 'text-red-300'
+    }
+    status.classList.add(classes[tipo] || classes.neutro)
+}
+
+async function salvarCasoNoBanco(snapshot){
+    if(typeof fetch !== 'function'){
+        throw new Error('Fetch não está disponível neste ambiente.')
+    }
+
+    const resposta = await fetch(`${API_BASE_URL}/api/cases/sync`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(snapshot)
+    })
+
+    const corpo = await resposta.json().catch(() => ({}))
+    if(!resposta.ok){
+        throw new Error(corpo.error || 'Não foi possível salvar o caso no banco.')
+    }
+    return corpo
 }
 
 
@@ -930,7 +1556,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let btnGraficoIC = document.getElementById('btnGraficoIC')
     let btnGraficoSvo2 = document.getElementById('btnGraficoSvo2')
     let btnGraficoO2er = document.getElementById('btnGraficoO2er')
-    let btnRelatorio = document.getElementById('btnRelatorio')
+    let btnRelatorioBasico = document.getElementById('btnRelatorioBasico')
+    let btnRelatorioAvancado = document.getElementById('btnRelatorioAvancado')
+    let btnChecklist = document.getElementById('btnChecklist')
+    let btnReferencias = document.getElementById('btnReferencias')
+    let btnSalvarBanco = document.getElementById('btnSalvarBanco')
+    let btnFecharChecklist = document.getElementById('btnFecharChecklist')
+    let btnFecharReferencias = document.getElementById('btnFecharReferencias')
+    let abaValoresReferencia = document.getElementById('abaValoresReferencia')
+    let abaFormulasReferencia = document.getElementById('abaFormulasReferencia')
     
     //Conteúdo Header
     campoSexo.textContent = `Paciente: ${paciente.sexo}`
@@ -954,6 +1588,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //Superfície Corporal
     let SC = superficieCorporal(peso,altura)
     campoSC.textContent = `SC: ${formatarMetrica(SC, 2)} m²`
+    atualizarResumoFluxoIndice(fluxo, SC)
+    renderizarConversaoIndiceFluxo(SC)
 
     //Oferta de oxigênio iDO²
     let ido2 = ofertaOxigenio(hemoglobina, sao2, fluxo, SC)
@@ -1048,7 +1684,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {input: hco3, campo: campoHco3, unidade: 'mEq/L'},
         {input: be, campo: campoBe, unidade: 'mEq/L'},
         {input: lactatoAtt, campo: campoLactatoExame, unidade: () => unidadeLactato.value},
-        {input: k, campo: campoK, unidade: 'mEq/L'},
+        {input: k, campo: campoK, unidade: 'mmol/L'},
         {input: ca, campo: campoCa, unidade: 'mmol/L'},
         {input: hb, campo: campoHbExame, unidade: 'g/dL'},
         {input: hctAtt, campo: campoHctExame, unidade: '%'},
@@ -1064,7 +1700,17 @@ document.addEventListener('DOMContentLoaded', () => {
         {input: glicose, campo: campoGlicose, unidade: 'mg/dL'},
     ]
 
-    const limites = {'lactato': 4, 'ido2': 280, 'HbAdulto': 7.5, 'HbPediatrico': 9, 'HctAdulto': 22, 'HctPediatrico':25, 'IC': 2.2, 'svo2': 70, 'o2er': 30}
+    const limites = {
+        lactato: LIMIARES.lactato.critico,
+        ido2: LIMIARES.ido2.alvoGdp,
+        HbAdulto: LIMIARES.hb.atencao,
+        HbPediatrico: LIMIARES.hb.pediatricoGrafico,
+        HctAdulto: LIMIARES.hct.critico,
+        HctPediatrico: LIMIARES.hct.pediatricoGrafico,
+        IC: LIMIARES.ic.critico,
+        svo2: LIMIARES.svo2.moderado,
+        o2er: LIMIARES.o2er.moderado
+    }
 
 
     //Tabela Monitorização
@@ -1079,6 +1725,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sao2 = exameMaisRecente.sao2
     ido2 = exameMaisRecente.ido2
     IC = exameMaisRecente.IC
+    atualizarResumoFluxoIndice(fluxo, SC)
     campoHb.textContent = hemoglobina
     campoHct.textContent = hct
     campoLactato.textContent = lactato
@@ -1096,8 +1743,50 @@ document.addEventListener('DOMContentLoaded', () => {
     let analiseAtual = montarAnalisePerfusional(paciente, historicoExames, casoClinico, SC)
     renderizarAnalisePerfusional(analiseAtual)
 
-    
+    const chaveChecklist = criarChaveCaso(paciente, casoClinico)
+    const estadoChecklist = carregarEstadoChecklist(chaveChecklist)
+    const dadosChecklist = carregarDadosChecklist(chaveChecklist, casoClinico)
+    renderizarChecklist(estadoChecklist, chaveChecklist)
+    sincronizarCamposDadosChecklist(chaveChecklist, dadosChecklist)
+    renderizarReferencias()
+    atualizarStatusBanco('Banco: caso ainda não salvo', 'neutro')
 
+
+
+
+    btnChecklist?.addEventListener('click', () => abrirModuloDashboard('checklistModal'))
+    btnReferencias?.addEventListener('click', () => abrirModuloDashboard('referenciasModal'))
+    btnSalvarBanco?.addEventListener('click', async () => {
+        try {
+            btnSalvarBanco.disabled = true
+            atualizarStatusBanco('Banco: salvando...', 'alerta')
+            salvarDadosChecklist(chaveChecklist, dadosChecklist)
+            const snapshot = montarSnapshotBanco(paciente, casoClinico, historicoExames, analiseAtual, estadoChecklist, chaveChecklist, dadosChecklist)
+            const resultado = await salvarCasoNoBanco(snapshot)
+            const id = resultado?.data?._id ? ` · ID ${resultado.data._id}` : ''
+            atualizarStatusBanco(`Banco: salvo em ${new Date().toLocaleTimeString('pt-BR')}${id}`, 'sucesso')
+        } catch (erro) {
+            atualizarStatusBanco(`Banco: ${erro.message}`, 'erro')
+        } finally {
+            btnSalvarBanco.disabled = false
+        }
+    })
+    btnFecharChecklist?.addEventListener('click', () => fecharModuloDashboard('checklistModal'))
+    btnFecharReferencias?.addEventListener('click', () => fecharModuloDashboard('referenciasModal'))
+    document.querySelectorAll('[data-close-modal]').forEach(elemento => {
+        elemento.addEventListener('click', () => fecharModuloDashboard(elemento.dataset.closeModal))
+    })
+    document.addEventListener('keydown', evento => {
+        if(evento.key === 'Escape'){
+            fecharModuloDashboard('checklistModal')
+            fecharModuloDashboard('referenciasModal')
+        }
+    })
+    abaValoresReferencia?.addEventListener('click', () => alternarAbaReferencias('valores'))
+    abaFormulasReferencia?.addEventListener('click', () => alternarAbaReferencias('formulas'))
+    fluxoInput.addEventListener('input', () => {
+        atualizarResumoFluxoIndice(transformarNumero(fluxoInput.value) ?? fluxo, SC)
+    })
 
     //Monitorização Laboratorial
     btnExames.addEventListener('click', () => {
@@ -1201,7 +1890,9 @@ document.addEventListener('DOMContentLoaded', () => {
             glicose: transformarNumero(glicose.value)
         }, SC)
         historicoExames.push(exames)
+        salvarHistoricoCaso(historicoExames)
         origemIdo2.textContent = descreverOrigemIdo2(exames)
+        atualizarResumoFluxoIndice(exames.fluxo, SC)
         console.log('Histórico atualizado:', historicoExames)
 
         //Atualizar tabela exames
@@ -1258,50 +1949,19 @@ document.addEventListener('DOMContentLoaded', () => {
         criarGrafico('o2er', historicoExames, limites.o2er)
     })
 
-    btnRelatorio.addEventListener('click', () => {
-        const relatorio = document.getElementById('relatorio')
-        const relatorioPaciente = document.getElementById('relatorioPaciente')
-        const relatorioTabela = document.getElementById('relatorioTabela')
-        const relatorioAnalise = document.getElementById('relatorioAnalise')
-        const relatorioGraficos = document.getElementById('relatorioGraficos')
-        relatorio.classList.remove('hidden')
-        relatorio.style.position = 'absolute'
-        relatorio.style.left = '-10000px'
-        relatorio.style.width = '1000px'
-        document.getElementById('relatorioGeradoEm').textContent =
-            `Gerado em ${new Date().toLocaleString('pt-BR')}`
-
-        relatorioPaciente.innerHTML = `
-            <p><strong>Sexo:</strong> ${paciente.sexo}</p>
-            <p><strong>Idade:</strong> ${idade} anos</p>
-            <p><strong>Peso:</strong> ${peso} kg</p>
-            <p><strong>Altura:</strong> ${altura} cm</p>
-            <p><strong>Superfície corporal:</strong> ${formatarMetrica(SC, 2)} m²</p>
-            <p><strong>Registros:</strong> ${historicoExames.length}</p>
-        `
-        relatorioTabela.innerHTML = ''
-        const tabelaRelatorio = tabelaExames.cloneNode(true)
-        tabelaRelatorio.removeAttribute('id')
-        relatorioTabela.appendChild(tabelaRelatorio)
-        relatorioAnalise.innerHTML = ''
-        const analiseRelatorio = document.getElementById('analisePerfusional').cloneNode(true)
-        analiseRelatorio.removeAttribute('id')
-        analiseRelatorio.className = 'border border-slate-400 rounded-xl p-4'
-        relatorioAnalise.appendChild(analiseRelatorio)
-        relatorioGraficos.innerHTML = ''
-        criarGraficoRelatorio(relatorioGraficos, 'Oferta de oxigênio indexada (iDO2)', 'ido2', historicoExames, limites.ido2)
-        criarGraficoRelatorio(relatorioGraficos, 'Lactato', 'lactato', historicoExames, limites.lactato)
-        criarGraficoRelatorio(relatorioGraficos, 'Índice cardíaco', 'IC', historicoExames, limites.IC)
-        criarGraficoRelatorio(relatorioGraficos, 'Hemoglobina', 'hb', historicoExames, limites.HbAdulto)
-        criarGraficoRelatorio(relatorioGraficos, 'Hematócrito', 'hct', historicoExames, limites.HctAdulto)
-        criarGraficoRelatorio(relatorioGraficos, 'SvO2', 'svo2', historicoExames, limites.svo2)
-        criarGraficoRelatorio(relatorioGraficos, 'Extração de O2', 'o2er', historicoExames, limites.o2er)
-        window.addEventListener('afterprint', () => {
-            relatorio.classList.add('hidden')
-            relatorio.removeAttribute('style')
-        }, { once: true })
-        setTimeout(() => window.print(), 250)
+    const contextoRelatorio = () => ({
+        paciente,
+        idade,
+        peso,
+        altura,
+        SC,
+        historicoExames,
+        analiseAtual,
+        tabelaExames,
+        limites
     })
+    btnRelatorioBasico?.addEventListener('click', () => imprimirRelatorio('basico', contextoRelatorio()))
+    btnRelatorioAvancado?.addEventListener('click', () => imprimirRelatorio('avancado', contextoRelatorio()))
     
 
 

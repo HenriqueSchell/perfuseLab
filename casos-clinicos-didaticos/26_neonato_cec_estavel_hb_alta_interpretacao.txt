@@ -1,0 +1,32 @@
+CASO 26 - NEONATO: CEC ESTAVEL COM HEMOGLOBINA ALTA
+
+OBJETIVO DIDATICO
+Iniciar a serie neonatal com um caso de alta oferta de oxigenio por Hb elevada e fluxo indexado alto.
+
+RESUMO DOS RESULTADOS
+- Paciente simulado: neonato de aproximadamente 7 dias.
+- No CSV, idade = 0,02 ano por limitacao do campo numerico.
+- Peso/altura: 3,2 kg, 50 cm.
+- BSA: 0,21 m2.
+- iDO2 calculado: 568,96 -> 547,05 -> 542,95 -> 534,13 mL/min/m2.
+- Tempo abaixo de 280: 0,0 min.
+- Hb: 13,5 -> 12,5 g/dL.
+- Lactato: 1,5 -> 1,8 mmol/L.
+- Risco exibido: MODERADO.
+
+INTERPRETACAO
+1. O iDO2 fica muito acima de 280 por Hb neonatal alta e IC elevado.
+2. O2ER e DO2/VO2 permanecem confortaveis.
+3. O framework alerta PAM < 60 mmHg em todos os pontos, pois usa regra geral.
+4. Em neonatos, PAM absoluta deve ser interpretada por idade, anatomia, temperatura e protocolo.
+5. O caso e estavel do ponto de vista de oferta global, mas MODERADO pela regra de PAM, lactato em elevacao e tempo.
+
+LIMITACAO NEONATAL
+O PerfuseLab atual nao tem regras especificas por faixa etaria neonatal. Estes casos servem para treino matematico e visual do framework.
+
+PERGUNTAS PARA ESTUDO
+- Por que o iDO2 ficou tao alto?
+- O alerta de PAM deve ser lido do mesmo modo que em adulto?
+- Qual diferenca entre regra do app e protocolo neonatal?
+
+Material simulado para estudo.

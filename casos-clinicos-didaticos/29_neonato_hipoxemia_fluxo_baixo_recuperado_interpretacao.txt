@@ -1,0 +1,34 @@
+CASO 29 - NEONATO: HIPOXEMIA E FLUXO BAIXO COM RECUPERACAO
+
+OBJETIVO DIDATICO
+Mostrar um periodo curto de baixa oferta causado por combinacao de SaO2 baixa, Hb menor e fluxo indexado reduzido.
+
+RESUMO DOS RESULTADOS
+- Paciente simulado: neonato de aproximadamente 11 dias.
+- No CSV, idade = 0,03 ano por limitacao do campo numerico.
+- Peso/altura: 3,0 kg, 49 cm.
+- BSA: 0,20 m2.
+- iDO2 calculado: 526,20 -> 268,63 -> 251,46 -> 409,11 mL/min/m2.
+- Tempo abaixo de 280: 24,5 min.
+- AUC abaixo de 280: 455,8 (mL/min/m2) x min.
+- SaO2: 98 -> 82 -> 86 -> 96%.
+- PaO2: 160 -> 45 -> 55 -> 90 mmHg.
+- SvO2: 74 -> 66 -> 62 -> 70%.
+- Risco exibido: ALTO.
+
+INTERPRETACAO
+1. O primeiro ponto tem iDO2 alto por Hb e fluxo indexado favoraveis.
+2. Aos 20 e 40 minutos, SaO2 e fluxo caem; o iDO2 entra em faixa limitrofe e depois abaixo de 90% do alvo.
+3. A O2ER sobe e a relacao DO2/VO2 fica limitrofe.
+4. SvO2 de 62% aos 40 minutos gera alerta alto.
+5. A recuperacao final melhora o iDO2, mas o periodo de deficit permanece registrado pela AUC.
+
+LIMITACAO NEONATAL
+Baixa PaO2/SaO2 em neonato deve ser interpretada com cardiopatia, mistura, estrategia ventilatoria e anatomia. O framework so calcula o impacto na oferta global.
+
+PERGUNTAS PARA ESTUDO
+- Qual foi o pior ponto e por que?
+- Por que a recuperacao final nao torna o caso automaticamente tranquilo?
+- Como SaO2 altera o CaO2?
+
+Material simulado para estudo.

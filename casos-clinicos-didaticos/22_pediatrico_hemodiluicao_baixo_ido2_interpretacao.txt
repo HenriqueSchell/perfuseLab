@@ -1,0 +1,33 @@
+CASO 22 - PEDIATRICO: HEMODILUICAO COM BAIXO iDO2
+
+OBJETIVO DIDATICO
+Mostrar a queda do iDO2 por hemodiluicao importante em uma crianca pequena.
+
+RESUMO DOS RESULTADOS
+- Paciente simulado: 4 anos, 16 kg, 102 cm.
+- BSA: 0,67 m2.
+- iDO2 calculado: 301,57 -> 249,93 -> 212,33 -> 219,87 mL/min/m2.
+- Tempo abaixo de 280: 61,6 min.
+- AUC abaixo de 280: 2994,3 (mL/min/m2) x min.
+- Hb: 9,5 -> 6,8 g/dL.
+- O2ER: 25,2% -> 43,2%.
+- SvO2: 72 -> 62%.
+- Lactato: 1,2 -> 2,8 mmol/L.
+- Risco exibido: ALTO.
+
+INTERPRETACAO
+1. A queda da hemoglobina reduz muito o conteudo arterial de oxigenio.
+2. O iDO2 cai abaixo de 280 a partir de 20 minutos e fica muito baixo aos 45 e 70 minutos.
+3. A extracao passa de 40% nos tempos finais, e a relacao DO2/VO2 entra em faixa critica.
+4. SvO2 baixa, gap PCO2 aumentado, lactato em elevacao e acidose metabolica reforcam o padrao.
+5. O caso fica ALTO por baixo iDO2, extracao elevada, relacao DO2/VO2 critica e SvO2 inadequada.
+
+LIMITACAO PEDIATRICA
+O alerta de Hb < 7,5 g/dL e uma regra local geral. Em perfusao pediatrica real, metas de Hb/Hct dependem de idade, cardiopatia, cianose, temperatura e protocolo institucional.
+
+PERGUNTAS PARA ESTUDO
+- Qual variavel derrubou mais o iDO2?
+- O fluxo indexado compensou a queda de Hb?
+- O que a O2ER mostrou antes do lactato ficar mais alto?
+
+Material simulado para estudo.

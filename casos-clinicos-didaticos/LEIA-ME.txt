@@ -1,48 +1,71 @@
-PERFUSELAB - 10 CASOS CLÍNICOS DIDÁTICOS
+PERFUSELAB - 30 CASOS CLINICOS DIDATICOS
 
-Esta pasta contém 10 arquivos CSV e um texto explicativo correspondente a cada caso.
+Esta pasta contem 30 arquivos CSV e um texto explicativo correspondente a cada caso.
 
 COMO UTILIZAR
 1. Abra o PerfuseLab.
 2. Clique em "Entrar com arquivo".
 3. Selecione um dos arquivos CSV desta pasta.
-4. Compare a tabela, os gráficos, os alertas e o risco integrado com o arquivo TXT do mesmo número.
+4. Compare a tabela, os graficos, os alertas e o risco integrado com o arquivo TXT do mesmo numero.
 5. Tente interpretar primeiro sem consultar o gabarito. Depois leia o texto explicativo.
 
 ORDEM SUGERIDA
-01 - CEC estável.
-02 - Hemodiluição com queda importante de iDO2.
-03 - Recuperação da oferta após aumento simulado do fluxo.
+01 - CEC estavel.
+02 - Hemodiluicao com queda importante de iDO2.
+03 - Recuperacao da oferta apos aumento simulado do fluxo.
 04 - Lactato crescente apesar de iDO2 preservado.
-05 - Extração de oxigênio elevada e SvO2 baixa.
-06 - Acidose respiratória com oferta de oxigênio preservada.
-07 - Hiperóxia com iDO2 adequado.
+05 - Extracao de oxigenio elevada e SvO2 baixa.
+06 - Acidose respiratoria com oferta de oxigenio preservada.
+07 - Hiperoxia com iDO2 adequado.
 08 - CEC prolongada, anemia e lactato crescente.
 09 - Hipotermia e reaquecimento.
-10 - Reoperação valvar com dados coerentes.
+10 - Reoperacao valvar com dados coerentes.
+11 - Vasoplegia/PAM baixa com iDO2 preservado.
+12 - Hiperglicemia e lactato com iDO2 preservado.
+13 - Hipocalemia no reaquecimento.
+14 - Obesidade: fluxo total alto, indice baixo.
+15 - iDO2 informado sem SaO2 medida.
+16 - Gap PCO2 alto com SvO2 preservada.
+17 - Hipercalemia apos cardioplegia: limite do framework.
+18 - Hiponatremia e hemodiluicao.
+19 - Acidose metabolica com lactato critico.
+20 - Queda de SaO2 arterial recuperada.
+21 - Pediatrico: CEC estavel.
+22 - Pediatrico: hemodiluicao com baixo iDO2.
+23 - Pediatrico: lactato critico com iDO2 preservado.
+24 - Pediatrico: queda de SaO2/PaO2 no oxigenador.
+25 - Pediatrico: PAM baixa e gap PCO2 alto.
+26 - Neonato: CEC estavel com hemoglobina alta.
+27 - Neonato: hemodiluicao profunda com baixo iDO2.
+28 - Neonato: lactato critico com iDO2 preservado.
+29 - Neonato: hipoxemia e fluxo baixo com recuperacao.
+30 - Neonato: hipocalemia no reaquecimento.
 
-FÓRMULAS CENTRAIS
+FORMULAS CENTRAIS
 - BSA: raiz quadrada de (peso x altura / 3600).
 - CaO2: Hb x 1,36 x SaO2 + PaO2 x 0,003.
-- iDO2: 10 x índice de fluxo x CaO2.
+- iDO2: 10 x indice de fluxo x CaO2.
 - O2ER: iVO2 / iDO2 x 100.
 - DO2/VO2: iDO2 / iVO2.
+- Lactato: quando vier em mg/dL, converter para mmol/L dividindo por 9,009.
 
-OBSERVAÇÕES IMPORTANTES
-- Os casos são simulados e foram produzidos para estudo do comportamento do framework.
-- O risco integrado é uma regra do aplicativo, não um escore clínico validado.
-- Uma classificação isolada não substitui a tendência temporal nem a avaliação do contexto.
-- O alvo GDP de 280 mL/min/m2 é apresentado como referência operacional, não como limite biológico universal.
-- O alvo térmico é uma regra local configurada no framework e deve ser interpretado separadamente.
-- Os textos não indicam tratamento para pacientes reais.
+OBSERVACOES IMPORTANTES
+- Os casos sao simulados e foram produzidos para estudo do comportamento do framework.
+- O risco integrado e uma regra do aplicativo, nao um escore clinico validado.
+- Uma classificacao isolada nao substitui a tendencia temporal nem a avaliacao do contexto.
+- O alvo GDP de 280 mL/min/m2 e apresentado como referencia operacional, nao como limite biologico universal.
+- O alvo termico e uma regra local configurada no framework e deve ser interpretado separadamente.
+- Alguns achados importantes, como hipercalemia e hiponatremia, aparecem na tabela, mas ainda nao elevam automaticamente o risco integrado.
+- Os casos pediatricos e neonatais usam as mesmas regras gerais do framework; eles servem para estudo matematico e nao representam protocolo pediatrico/neonatal validado.
+- Nos casos neonatais, a idade foi registrada em anos decimais porque o campo atual do CSV nao separa dias/meses. Exemplo: 0,02 ano equivale aproximadamente a 7 dias.
+- Os textos nao indicam tratamento para pacientes reais.
 
-REFERÊNCIAS DE APOIO
+REFERENCIAS DE APOIO
 - Mosteller RD. Simplified calculation of body-surface area.
   https://pubmed.ncbi.nlm.nih.gov/3657876/
 - Ranucci et al. Goal-directed perfusion com alvo de iDO2 igual ou superior a 280 mL/min/m2.
   https://pubmed.ncbi.nlm.nih.gov/29778331/
 - Diretriz EACTS/EACTAIC/EBCP 2024, publicada em 2025.
   https://pmc.ncbi.nlm.nih.gov/articles/PMC11826095/
-- Fórmula operacional contemporânea de iDO2 em CEC.
+- Formula operacional contemporanea de iDO2 em CEC.
   https://pmc.ncbi.nlm.nih.gov/articles/PMC12039435/
-

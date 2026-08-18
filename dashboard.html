@@ -13,14 +13,24 @@
     <header class="md:flex justify-between max-w-5xl m-auto px-2">
         <h1 class="text-slate-100 text-3xl text-center mt-5"><a href="index.html">Perfuse<span class="text-[#F2071B]">Lab</span></a></h1>
         <!--Dados do paciente-->
-        <div class="text-slate-400 text-lg mt-5 ml-5 md:flex md:gap-4 md:ml-0 items-center">
+        <div class="dashboard-patient-meta text-slate-400 text-lg mt-5 ml-5 md:flex md:gap-4 md:ml-0 items-center">
             <p id="campoSexo"></p>
             <p id="campoIdade"></p>
             <p id="campoPeso"></p>
             <p id="campoAltura"></p>
             <p id="campoSC"></p>
         </div>
-        <button id="btnRelatorio" class="mt-5 bg-blue-700 text-white rounded-lg px-4 py-2">Gerar relatório</button>
+        <div class="dashboard-actions mt-5">
+            <button id="btnChecklist" class="bg-slate-800 text-white rounded-lg px-4 py-2 border border-slate-700">Checklist</button>
+            <button id="btnReferencias" class="bg-slate-800 text-white rounded-lg px-4 py-2 border border-slate-700">Referências</button>
+            <button id="btnSalvarBanco" class="bg-emerald-700 text-white rounded-lg px-4 py-2">Salvar caso</button>
+            <a href="cases.html" class="dashboard-action-link bg-slate-800 text-white rounded-lg px-4 py-2 border border-slate-700">Casos salvos</a>
+            <a href="checklist-modelo.html" class="dashboard-action-link bg-slate-800 text-white rounded-lg px-4 py-2 border border-slate-700">Modelo checklist</a>
+            <button id="btnRelatorioBasico" class="bg-blue-700 text-white rounded-lg px-4 py-2">Relatório básico</button>
+            <button id="btnRelatorioAvancado" class="bg-indigo-700 text-white rounded-lg px-4 py-2">Relatório avançado</button>
+            <p id="resumoChecklist" class="dashboard-checklist-summary text-xs text-slate-400">Checklist: 0/0 concluídos</p>
+            <p id="statusBanco" class="dashboard-db-status text-xs text-slate-500">Banco: aguardando salvamento</p>
+        </div>
     </header>
     <hr class="text-slate-400 mt-5">
 
@@ -99,7 +109,20 @@
                         <input class="rounded-lg w-[30%]" type="number" name="fluxoInput" id="fluxoInput">
                         <p id="campoFluxo" class="text-2xl text-slate-100 hidden"></p>
                     </div>
-
+                    <div id="fluxoIndiceResumo" class="flow-index-summary mx-3">
+                        <div>
+                            <span>Fluxo da bomba</span>
+                            <strong id="resumoFluxoBomba">— L/min</strong>
+                        </div>
+                        <div>
+                            <span>Índice cardíaco</span>
+                            <strong id="resumoIndiceCardiaco">— L/min/m²</strong>
+                        </div>
+                        <div>
+                            <span>Superfície corporal</span>
+                            <strong id="resumoSuperficieCorporal">— m²</strong>
+                        </div>
+                    </div>
                     <!--HB-->
                     <div class="flex justify-between px-3">
                         <p class="text-slate-600  text-2xl">Hemoglobina</p>
@@ -244,6 +267,30 @@
                 </div>
             </div>
 
+            <div id="icFluxoConversao" class="ic-flow-conversion" aria-labelledby="tituloConversaoIcFluxo">
+                <header>
+                    <div>
+                        <span>Consulta rápida</span>
+                        <h3 id="tituloConversaoIcFluxo">IC → fluxo da bomba</h3>
+                    </div>
+                    <strong id="conversaoScAtual">SC: — m²</strong>
+                </header>
+                <div class="ic-flow-conversion__table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>IC</th>
+                                <th>Fluxo</th>
+                                <th>IC</th>
+                                <th>Fluxo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaConversaoIcFluxo"></tbody>
+                    </table>
+                </div>
+                <p>Fluxo = IC × SC atual. Use como referência operacional rápida.</p>
+            </div>
+
             <!--Card Tabela-->
             <div class="monitor-table-wrapper mt-5 mb-5 md:mt-0 md:mb-0 p-5">
                 <table id="tabelaExames" class="text-slate-600 w-full md:w-[80%] m-auto border-2 border-slate-800 text-lg">
@@ -355,14 +402,95 @@
                 <h3 class="text-xl text-slate-100 mb-3">Base técnica</h3>
                 <p>Equação de iDO²: 10 × IC × [Hb × 1,36 × SaO² + PaO² × 0,003], conforme literatura contemporânea de CEC. Alvo GDP de 280: Ranucci et al., 2018. Conduta da CEC: diretriz EACTS/EACTAIC/EBCP 2024, publicada em 2025. Anticoagulação: STS/SCA/AmSECT, 2018. Correção FiO²/PaO²: Hamilton et al., 2017.</p>
                 <p class="mt-2">A tabela térmica de taDO²i e o índice exploratório são componentes locais do protocolo e não devem ser apresentados como escores validados.</p>
+                <p class="mt-2 text-slate-500">Ferramenta de apoio à análise e ao acompanhamento perfusional. Não substitui julgamento clínico, protocolo institucional ou decisão da equipe assistencial.</p>
             </div>
         </section>
 
     </main>
 
+    <section id="checklistModal" class="support-modal hidden" role="dialog" aria-modal="true" aria-labelledby="checklistTitulo">
+        <div class="support-modal__backdrop" data-close-modal="checklistModal"></div>
+        <div class="support-modal__panel support-modal__panel--wide">
+            <header class="support-modal__header">
+                <div>
+                    <p class="text-sm text-emerald-300 uppercase tracking-wide">Acompanhamento de CEC</p>
+                    <h2 id="checklistTitulo" class="text-2xl text-slate-100">Checklist de perfusão</h2>
+                    <p class="text-slate-400">Estrutura inicial vinculada ao caso atual. O conteúdo pode ser adaptado ao seu checklist institucional.</p>
+                </div>
+                <button id="btnFecharChecklist" class="support-modal__close" aria-label="Fechar checklist">Fechar</button>
+            </header>
+            <div class="support-modal__summary">
+                <span id="progressoChecklist">0/0 concluídos</span>
+                <span id="pendenciasChecklist">Sem pendências registradas</span>
+            </div>
+            <div class="perfusionist-check-fields" aria-label="Dados do perfusionista e identificação da sala">
+                <label>
+                    <span>Data</span>
+                    <input id="checklistData" type="date">
+                </label>
+                <label>
+                    <span>Sala cirúrgica</span>
+                    <input id="checklistSala" type="text" placeholder="Ex.: sala 3">
+                </label>
+                <label>
+                    <span>Resp. montagem</span>
+                    <input id="checklistRespMontagem" type="text" placeholder="Nome do perfusionista">
+                </label>
+                <label>
+                    <span>Resp. CEC</span>
+                    <input id="checklistRespCec" type="text" placeholder="Nome do perfusionista">
+                </label>
+                <label>
+                    <span>Perfusionista check</span>
+                    <input id="checklistPerfusionistaCheck" type="text" placeholder="Dupla checagem">
+                </label>
+                <label>
+                    <span>Responsável final</span>
+                    <input id="checklistResponsavelFinal" type="text" placeholder="Nome do responsável">
+                </label>
+                <label class="perfusionist-check-fields__wide">
+                    <span>Procedimento</span>
+                    <input id="checklistProcedimento" type="text" placeholder="Procedimento cirúrgico">
+                </label>
+                <label class="perfusionist-check-fields__wide">
+                    <span>Intercorrências técnicas</span>
+                    <input id="checklistIntercorrencias" type="text" placeholder="Registre intercorrências, se houver">
+                </label>
+            </div>
+            <div id="checklistConteudo" class="checklist-grid"></div>
+            <footer class="support-modal__footer">
+                <p>O checklist é apoio operacional e educacional; valide conteúdo e responsabilidades com o protocolo da instituição.</p>
+            </footer>
+        </div>
+    </section>
+
+    <section id="referenciasModal" class="support-modal hidden" role="dialog" aria-modal="true" aria-labelledby="referenciasTitulo">
+        <div class="support-modal__backdrop" data-close-modal="referenciasModal"></div>
+        <div class="support-modal__panel support-modal__panel--wide">
+            <header class="support-modal__header">
+                <div>
+                    <p class="text-sm text-blue-300 uppercase tracking-wide">Consulta rápida</p>
+                    <h2 id="referenciasTitulo" class="text-2xl text-slate-100">Referências e cola</h2>
+                    <p class="text-slate-400">Valores, limites e fórmulas usados ou preparados pelo dashboard.</p>
+                </div>
+                <button id="btnFecharReferencias" class="support-modal__close" aria-label="Fechar referências">Fechar</button>
+            </header>
+            <div class="reference-tabs" role="tablist" aria-label="Áreas de referência">
+                <button id="abaValoresReferencia" class="reference-tab is-active" type="button">Valores de referência</button>
+                <button id="abaFormulasReferencia" class="reference-tab" type="button">Fórmulas</button>
+            </div>
+            <div id="referenciasValores" class="reference-grid"></div>
+            <div id="referenciasFormulas" class="formula-list hidden"></div>
+            <footer class="support-modal__footer">
+                <p>Itens marcados como “A preencher” não têm limite clínico definido no código atual. Revise clinicamente antes de usar em coleta real.</p>
+            </footer>
+        </div>
+    </section>
+
     <section id="relatorio" class="hidden bg-white text-slate-900 p-8">
         <header class="border-b-2 border-slate-800 pb-4 mb-6">
-            <h1 class="text-3xl font-bold">PerfuseLab - Relatório de Monitorização</h1>
+            <h1 id="relatorioTitulo" class="text-3xl font-bold">PerfuseLab - Relatório de Monitorização</h1>
+            <p id="relatorioDescricao" class="text-sm mt-1 text-slate-600"></p>
             <p id="relatorioGeradoEm"></p>
             <div id="relatorioPaciente" class="mt-3 grid grid-cols-2 gap-2"></div>
         </header>
@@ -375,6 +503,8 @@
 
 
 
+<script src="src/js/runtime-env.js"></script>
+<script src="src/js/config.js"></script>
 <script src="src/js/dashboard.js"></script>
 </body>
 </html>

@@ -1,0 +1,32 @@
+CASO 23 - PEDIATRICO: LACTATO CRITICO COM iDO2 PRESERVADO
+
+OBJETIVO DIDATICO
+Treinar a leitura de lactato e acidose metabolica quando a oferta global de oxigenio permanece adequada.
+
+RESUMO DOS RESULTADOS
+- Paciente simulado: 10 anos, 32 kg, 140 cm.
+- BSA: 1,12 m2.
+- iDO2 calculado: 392,94 -> 376,45 -> 360,38 -> 348,85 mL/min/m2.
+- Tempo abaixo de 280: 0,0 min.
+- Lactato: 1,4 -> 4,2 mmol/L.
+- pH final: 7,22.
+- HCO3 final: 16 mmol/L.
+- Glicose: 130 -> 235 mg/dL.
+- Risco exibido: ALTO.
+
+INTERPRETACAO
+1. O iDO2 permanece acima do alvo fixo durante toda a CEC.
+2. A O2ER fica baixa a moderada, sem padrao de extracao elevada.
+3. O lactato final acima de 4 mmol/L gera alerta alto.
+4. O pH baixo e o HCO3 reduzido caracterizam acidose metabolica no resumo do framework.
+5. A glicose elevada e o gap PCO2 final aumentado ajudam a compor um quadro metabolico, nao de baixo iDO2 global.
+
+LIMITACAO PEDIATRICA
+Em criancas, lactato deve ser interpretado com perfusao regional, cardiopatia, drogas vasoativas, temperatura e tempo cirurgico. O framework apenas organiza sinais.
+
+PERGUNTAS PARA ESTUDO
+- Por que o risco e ALTO se o iDO2 esta bom?
+- Que hipoteses explicam lactato alto sem baixo iDO2 global?
+- Como pH, HCO3 e BE ajudam a confirmar a historia?
+
+Material simulado para estudo.

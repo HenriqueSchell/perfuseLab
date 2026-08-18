@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/css/style.css">
+    <style>
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 9mm;
+            }
+        }
+    </style>
+    <link rel="shortcut icon" href="medias/icon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>PerfuseLab - Modelo de Checklist</title>
+</head>
+<body class="checklist-template-page bg-slate-950 text-slate-200">
+    <header class="checklist-template-topbar">
+        <div>
+            <a href="index.html" class="cases-logo">Perfuse<span>Lab</span></a>
+            <p>Modelo operacional de checklist para circulação extracorpórea.</p>
+        </div>
+        <nav class="cases-nav checklist-template-nav" aria-label="Navegação do modelo de checklist">
+            <a href="index.html">Início</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="cases.html">Casos salvos</a>
+            <button id="btnImprimirModeloChecklist" type="button">Imprimir modelo</button>
+            <button id="btnLimparModeloChecklist" type="button">Limpar campos</button>
+        </nav>
+    </header>
+
+    <main class="checklist-template-shell">
+        <section class="checklist-template-paper" aria-labelledby="tituloModeloChecklist">
+            <header class="checklist-template-paper__header">
+                <div class="checklist-template-brand">
+                    <strong>PerfuseLab</strong>
+                    <span>Checklist de Perfusão</span>
+                </div>
+                <div>
+                    <h1 id="tituloModeloChecklist">Modelo de Checklist de CEC</h1>
+                    <p>Preparo, montagem, posicionamento da bomba, anticoagulação, condução e saída de CEC.</p>
+                </div>
+            </header>
+
+            <section class="checklist-template-identification" aria-label="Identificação do caso e equipe">
+                <label>
+                    <span>Data</span>
+                    <input type="date" name="data">
+                </label>
+                <label>
+                    <span>Sala cirúrgica</span>
+                    <input type="text" name="sala" placeholder="Sala">
+                </label>
+                <label class="wide">
+                    <span>Paciente</span>
+                    <input type="text" name="paciente" placeholder="Nome / registro">
+                </label>
+                <label>
+                    <span>Idade</span>
+                    <input type="text" name="idade" placeholder="Anos">
+                </label>
+                <label>
+                    <span>Peso</span>
+                    <input type="text" name="peso" placeholder="kg">
+                </label>
+                <label>
+                    <span>Altura</span>
+                    <input type="text" name="altura" placeholder="cm">
+                </label>
+                <label>
+                    <span>SC/BSA</span>
+                    <input type="text" name="sc" placeholder="m²">
+                </label>
+                <label class="wide">
+                    <span>Procedimento</span>
+                    <input type="text" name="procedimento" placeholder="Procedimento cirúrgico">
+                </label>
+                <label class="wide">
+                    <span>Perfusionista responsável pela montagem</span>
+                    <input type="text" name="responsavel-montagem" placeholder="Nome">
+                </label>
+                <label class="wide">
+                    <span>Perfusionista responsável pela CEC</span>
+                    <input type="text" name="responsavel-cec" placeholder="Nome">
+                </label>
+                <label class="wide">
+                    <span>Perfusionista check</span>
+                    <input type="text" name="perfusionista-check" placeholder="Nome">
+                </label>
+                <label class="wide">
+                    <span>Responsável final</span>
+                    <input type="text" name="responsavel-final" placeholder="Nome">
+                </label>
+            </section>
+
+            <section class="checklist-template-grid" aria-label="Checklist operacional">
+                <article class="checklist-template-section">
+                    <h2>Preparo da Bomba</h2>
+                    <div class="checklist-template-table">
+                        <div class="checklist-template-table__head">
+                            <span>Item</span>
+                            <span>CEC</span>
+                            <span>Check</span>
+                        </div>
+                        <label><span>Máquina de CEC conferida</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Aparelho de TCA disponível e funcional</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Cardioplegia/rolete conferidos</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Bateria da máquina testada</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Manivela/hand crank e luz de emergência disponíveis</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Painel da bomba com SC, tubo e L/min revisado</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Circulador de água e controle térmico funcionando</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Vaporizador de gás conferido quando aplicável</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Conferência de vazamentos realizada</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Retirada de bolhas do circuito realizada</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Pinças, conectores e linhas disponíveis</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Tubos conferidos após passagem estéril</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Cânulas arteriais e venosas disponíveis</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Drogas, sangue/derivados e gelo quando necessário</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Cardioplegia preparada e armazenada</span><input type="checkbox"><input type="checkbox"></label>
+                    </div>
+                </article>
+
+                <article class="checklist-template-section">
+                    <h2>Bomba Posicionada</h2>
+                    <div class="checklist-template-table">
+                        <div class="checklist-template-table__head">
+                            <span>Item</span>
+                            <span>CEC</span>
+                            <span>Check</span>
+                        </div>
+                        <label><span>Aquecimento do prime conferido</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Cronômetro disponível</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Fluxômetro disponível e funcional</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Blender testado e funcionando</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Aparelho de vácuo testado e funcionando</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Sensores de temperatura posicionados/testados</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Planejamento da CEC alinhado com equipe cirúrgica/anestésica</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Perfusato conferido</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Transdutores de pressão funcionando</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Teste de pulso e resistência documentado</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Cálculos da CEC revisados</span><input type="checkbox"><input type="checkbox"></label>
+                    </div>
+                </article>
+
+                <article class="checklist-template-section">
+                    <h2>Anticoagulação e Início</h2>
+                    <div class="checklist-template-table">
+                        <div class="checklist-template-table__head">
+                            <span>Item</span>
+                            <span>CEC</span>
+                            <span>Check</span>
+                        </div>
+                        <label><span>Gasometria inicial disponível</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>TCA pré-heparina registrado</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Heparinização comunicada/documentada</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>TCA pós-heparina dentro do alvo institucional</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Canulação, linhas e clamps conferidos</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Fluxo inicial e índice cardíaco definidos</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Pressões do circuito monitoradas</span><input type="checkbox"><input type="checkbox"></label>
+                    </div>
+                </article>
+
+                <article class="checklist-template-section">
+                    <h2>Manutenção e Saída</h2>
+                    <div class="checklist-template-table">
+                        <div class="checklist-template-table__head">
+                            <span>Item</span>
+                            <span>CEC</span>
+                            <span>Check</span>
+                        </div>
+                        <label><span>Gasometrias seriadas acompanhadas</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>iDO₂, lactato, SvO₂/O₂ER revisados</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Eletrólitos e glicemia acompanhados</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Temperatura e estratégia ácido-base acompanhadas</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Reaquecimento e condições de saída conferidos</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Volume, hemoconcentração e transfusão avaliados</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Protamina/reversão e TCA pós documentados</span><input type="checkbox"><input type="checkbox"></label>
+                        <label><span>Débito urinário e balanço revisados</span><input type="checkbox"><input type="checkbox"></label>
+                    </div>
+                </article>
+            </section>
+
+            <section class="checklist-template-notes">
+                <label>
+                    <span>Intercorrências técnicas</span>
+                    <textarea rows="4" placeholder="Descrever intercorrências, ações tomadas e pendências."></textarea>
+                </label>
+                <label>
+                    <span>Observações finais</span>
+                    <textarea rows="4" placeholder="Registrar pendências, comunicação com equipe e pontos para relatório."></textarea>
+                </label>
+            </section>
+
+            <section class="checklist-template-signatures">
+                <label>
+                    <span>Assinatura perfusionista CEC</span>
+                    <input type="text">
+                </label>
+                <label>
+                    <span>Assinatura perfusionista check</span>
+                    <input type="text">
+                </label>
+                <label>
+                    <span>Assinatura responsável final</span>
+                    <input type="text">
+                </label>
+            </section>
+
+            <p class="checklist-template-disclaimer">
+                Modelo de apoio operacional e educacional. Adaptar ao protocolo institucional, à equipe assistencial e à realidade do serviço.
+            </p>
+        </section>
+    </main>
+
+    <script src="src/js/checklist-template.js"></script>
+</body>
+</html>

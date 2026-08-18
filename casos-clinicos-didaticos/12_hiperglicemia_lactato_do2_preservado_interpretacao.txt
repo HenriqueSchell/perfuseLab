@@ -1,0 +1,30 @@
+CASO 12 - HIPERGLICEMIA E LACTATO COM iDO2 PRESERVADO
+
+OBJETIVO DIDATICO
+Mostrar que lactato e glicose podem piorar mesmo quando a oferta de oxigenio global esta adequada.
+
+RESUMO DOS RESULTADOS
+- BSA: 1,76 m2.
+- iDO2 calculado: 347,95 -> 344,89 -> 338,34 -> 330,99 mL/min/m2.
+- Tempo abaixo de 280: 0,0 min.
+- O2ER: 19,0% -> 19,7% -> 20,7% -> 20,8%.
+- Lactato: 1,6 -> 2,7 mmol/L.
+- Glicose: 178 -> 215 -> 242 -> 260 mg/dL.
+- Risco exibido: MODERADO.
+
+INTERPRETACAO
+1. O iDO2 permanece acima de 330 mL/min/m2 em todos os tempos.
+2. A O2ER fica baixa, sem sinal de extracao compensatoria importante.
+3. O lactato final entra em faixa de atencao e sobe 1,69 vez em relacao ao basal.
+4. A glicose fica acima de 180 mg/dL a partir de 30 minutos, gerando alertas repetidos.
+5. O alerta informativo de "marcadores metabolicos discordantes" aparece porque a SvO2 final esta preservada, mas o lactato esta alterado.
+
+PONTO DE APRENDIZAGEM
+Nem todo lactato elevado durante CEC significa baixo iDO2. Hiperglicemia, resposta adrenergica, temperatura, fluxo regional, tempo cirurgico, drogas e depuracao podem participar.
+
+PERGUNTAS PARA ESTUDO
+- Que achados tornam baixa oferta global menos provavel neste caso?
+- Por que o framework nao chama isso de hipoxia tecidual?
+- Qual a diferenca entre alerta metabolico e diagnostico clinico?
+
+Material simulado para estudo.

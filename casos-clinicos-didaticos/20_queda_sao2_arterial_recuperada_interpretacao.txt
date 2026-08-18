@@ -1,0 +1,32 @@
+CASO 20 - QUEDA DE SaO2 ARTERIAL RECUPERADA
+
+OBJETIVO DIDATICO
+Treinar a percepcao de que saturacao arterial baixa reduz o conteudo arterial de oxigenio e pode derrubar o iDO2, mesmo com fluxo razoavel.
+
+RESUMO DOS RESULTADOS
+- BSA: 1,88 m2.
+- iDO2 calculado: 338,38 -> 274,15 -> 258,87 -> 313,95 mL/min/m2.
+- Tempo abaixo de 280: 44,2 min.
+- AUC abaixo de 280: 534,3 (mL/min/m2) x min.
+- SaO2: 98 -> 92 -> 89 -> 98%.
+- PaO2: 180 -> 70 -> 60 -> 150 mmHg.
+- SvO2: 75 -> 70 -> 68 -> 72%.
+- Lactato: 1,2 -> 1,9 mmol/L.
+- Risco exibido: MODERADO.
+
+INTERPRETACAO
+1. O ponto inicial tem oxigenacao adequada e iDO2 acima de 280.
+2. Aos 30 e 60 minutos, a SaO2 arterial cai, com PaO2 baixa, reduzindo o conteudo arterial.
+3. O iDO2 fica limitrofe, especialmente aos 60 minutos.
+4. A SvO2 tambem fica limitrofe, mas se recupera no final junto com SaO2 e iDO2.
+5. O lactato nao ultrapassa 2 mmol/L, mas sobe de forma proporcional.
+
+PONTO DE APRENDIZAGEM
+Na formula do iDO2, o oxigenio ligado a hemoglobina pesa muito mais que o oxigenio dissolvido. Portanto, saturacao arterial e hemoglobina mudam muito a oferta.
+
+PERGUNTAS PARA ESTUDO
+- Qual variavel mais explica a queda do iDO2: fluxo, Hb, SaO2 ou PaO2?
+- Por que a recuperacao final reduz a gravidade, mas nao apaga o tempo abaixo do alvo?
+- Que problemas de oxigenador/gas poderiam ser simulados aqui?
+
+Material simulado para estudo.

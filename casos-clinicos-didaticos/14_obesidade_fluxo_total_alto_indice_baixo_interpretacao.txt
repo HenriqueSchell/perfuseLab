@@ -1,0 +1,32 @@
+CASO 14 - OBESIDADE: FLUXO TOTAL ALTO, INDICE BAIXO
+
+OBJETIVO DIDATICO
+Ensinar que fluxo total em L/min pode parecer alto, mas ficar insuficiente quando indexado pela superficie corporal.
+
+RESUMO DOS RESULTADOS
+- BSA: 2,36 m2.
+- IC: 2,12 -> 2,03 -> 1,99 -> 2,20 L/min/m2.
+- iDO2 calculado: 287,08 -> 257,74 -> 239,08 -> 267,27 mL/min/m2.
+- Tempo abaixo de 280: 82,8 min.
+- AUC abaixo de 280: 2005,8 (mL/min/m2) x min.
+- O2ER: 27,9% -> 31,8% -> 35,1% -> 30,7%.
+- SvO2: 72 -> 70 -> 66 -> 68%.
+- Lactato: 1,4 -> 2,2 mmol/L.
+- Risco exibido: ALTO.
+
+INTERPRETACAO
+1. O paciente tem BSA elevada; por isso 4,7 a 5,2 L/min nao garantem IC adequado.
+2. Aos 60 minutos, o iDO2 cai para 239,08 mL/min/m2, abaixo de 90% do alvo GDP, gerando alerta alto.
+3. A O2ER sobe para faixa limitrofe e a relacao DO2/VO2 cai, sugerindo maior extracao.
+4. Gap PCO2, SvO2 limitrofe, glicose final elevada e lactato em atencao reforcam o padrao de estresse perfusional.
+5. A melhora parcial no final nao apaga o tempo acumulado abaixo do alvo.
+
+PONTO DE APRENDIZAGEM
+Em pacientes grandes, "fluxo bonito" no console pode enganar. Sempre converta para IC e iDO2.
+
+PERGUNTAS PARA ESTUDO
+- Qual foi o pior tempo e por que?
+- Por que o AUC abaixo de 280 e util aqui?
+- O que mudou no final: fluxo, hemoglobina, saturacao ou todos?
+
+Material simulado para estudo.

@@ -1,0 +1,30 @@
+CASO 16 - GAP PCO2 ALTO COM SvO2 PRESERVADA
+
+OBJETIVO DIDATICO
+Treinar a leitura de marcadores metabolicos discordantes: iDO2 e SvO2 bons, mas gap PCO2 e lactato chamando atencao.
+
+RESUMO DOS RESULTADOS
+- BSA: 2,05 m2.
+- iDO2 calculado: 321,39 -> 310,17 -> 306,09 -> 306,19 mL/min/m2.
+- Tempo abaixo de 280: 0,0 min.
+- SvO2: 76 -> 75 -> 74 -> 74%.
+- Gap PCO2: 5 -> 7 -> 9 -> 10 mmHg.
+- Lactato: 1,4 -> 2,1 mmol/L.
+- Risco exibido: MODERADO.
+
+INTERPRETACAO
+1. A oferta global de oxigenio permanece acima do alvo GDP.
+2. A SvO2 se mantem preservada; isoladamente, ela poderia sugerir conforto global.
+3. O gap PCO2 sobe de forma progressiva e ultrapassa 6 mmHg a partir de 30 minutos.
+4. O lactato final entra em faixa de atencao.
+5. O PerfuseLab mostra alerta informativo de marcadores discordantes, mas nao transforma isso em diagnostico de hipoxia oculta.
+
+PONTO DE APRENDIZAGEM
+SvO2 normal nao encerra a interpretacao. Gap PCO2, lactato, pressao, temperatura e tendencia temporal ajudam a perceber problemas que a media global pode esconder.
+
+PERGUNTAS PARA ESTUDO
+- Por que o risco nao e ALTO?
+- Qual marcador piorou mais claramente?
+- Que outros sinais poderiam sugerir hipoperfusao regional?
+
+Material simulado para estudo.

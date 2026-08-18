@@ -1,0 +1,32 @@
+CASO 19 - ACIDOSE METABOLICA COM LACTATO CRITICO
+
+OBJETIVO DIDATICO
+Mostrar um caso em que o iDO2 global esta preservado, mas a evolucao metabolica se torna grave.
+
+RESUMO DOS RESULTADOS
+- BSA: 1,97 m2.
+- iDO2 calculado: 362,70 -> 340,37 -> 321,94 -> 314,65 mL/min/m2.
+- Tempo abaixo de 280: 0,0 min.
+- Lactato: 1,8 -> 2,6 -> 3,8 -> 4,6 mmol/L.
+- pH: 7,38 -> 7,32 -> 7,26 -> 7,21.
+- HCO3: 23 -> 20 -> 18 -> 16 mmol/L.
+- Gap PCO2 final: 7 mmHg.
+- Glicose final: 220 mg/dL.
+- Risco exibido: ALTO.
+
+INTERPRETACAO
+1. O iDO2 permanece acima do alvo GDP, portanto a causa nao e baixo iDO2 global evidente.
+2. O lactato final acima de 4 mmol/L gera alerta alto.
+3. A analise acido-base final aponta acidose metabolica.
+4. Gap PCO2 aumentado e glicose elevada reforcam o padrao de estresse metabolico.
+5. O alerta de marcadores discordantes lembra que SvO2 preservada nao exclui problema metabolico ou regional.
+
+PONTO DE APRENDIZAGEM
+Lactato critico com iDO2 adequado exige ampliar a investigacao: fluxo regional, temperatura, anemia previa, choque, inflamacao, drogas, glicemia, tempo cirurgico e depuracao hepatica.
+
+PERGUNTAS PARA ESTUDO
+- O que torna esse caso ALTO?
+- Por que iDO2 adequado nao encerra a analise?
+- Como pH, HCO3 e lactato contam a mesma historia?
+
+Material simulado para estudo.

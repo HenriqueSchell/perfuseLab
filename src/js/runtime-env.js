@@ -1,0 +1,3 @@
+window.PERFUSELAB_RUNTIME_CONFIG = window.PERFUSELAB_RUNTIME_CONFIG || {
+    apiBaseUrl: ''
+}

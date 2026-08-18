@@ -1,0 +1,35 @@
+CASO 27 - NEONATO: HEMODILUICAO PROFUNDA COM BAIXO iDO2
+
+OBJETIVO DIDATICO
+Mostrar um neonato pequeno em que a queda de Hb e Hct domina a oferta de oxigenio.
+
+RESUMO DOS RESULTADOS
+- Paciente simulado: neonato de aproximadamente 3 dias.
+- No CSV, idade = 0,01 ano por limitacao do campo numerico.
+- Peso/altura: 2,8 kg, 48 cm.
+- BSA: 0,19 m2.
+- iDO2 calculado: 419,33 -> 305,70 -> 246,63 -> 228,54 mL/min/m2.
+- Tempo abaixo de 280: 31,3 min.
+- AUC abaixo de 280: 1036,8 (mL/min/m2) x min.
+- Hb: 12,0 -> 7,2 g/dL.
+- O2ER: 21,9% -> 43,8%.
+- SvO2: 70 -> 58%.
+- Lactato: 1,8 -> 3,6 mmol/L.
+- Risco exibido: ALTO.
+
+INTERPRETACAO
+1. A queda de Hb reduz muito o conteudo arterial, mesmo com saturacao razoavel.
+2. O iDO2 cai abaixo do alvo a partir de 40 minutos.
+3. A O2ER final passa de 40%, e a relacao DO2/VO2 fica critica.
+4. SvO2 final de 58% e gap PCO2 alto reforcam baixa reserva.
+5. A acidose metabolica final e o lactato em elevacao completam o padrao de risco alto.
+
+LIMITACAO NEONATAL
+Em neonatos, metas de Hct/Hb podem ser diferentes das usadas no app. O alerta Hb < 7,5 g/dL nao deve ser usado como regra neonatal isolada.
+
+PERGUNTAS PARA ESTUDO
+- Por que o iDO2 caiu mesmo com SaO2 preservada?
+- Qual marcador mostrou aumento de extracao?
+- Como o pequeno BSA muda a leitura do fluxo total?
+
+Material simulado para estudo.

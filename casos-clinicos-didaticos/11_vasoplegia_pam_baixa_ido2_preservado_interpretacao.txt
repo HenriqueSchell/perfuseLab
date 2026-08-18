@@ -1,0 +1,31 @@
+CASO 11 - VASOPLEGIA/PAM BAIXA COM iDO2 PRESERVADO
+
+OBJETIVO DIDATICO
+Treinar a leitura de um caso em que a oferta global de oxigenio esta adequada, mas a pressao arterial media fica baixa durante toda a CEC.
+
+RESUMO DOS RESULTADOS
+- BSA: 2,05 m2.
+- iDO2 calculado: 354,64 -> 344,19 -> 333,10 -> 329,27 mL/min/m2.
+- Tempo abaixo de 280: 0,0 min.
+- IC: 2,44 -> 2,49 -> 2,54 -> 2,54 L/min/m2.
+- O2ER: 19,2% -> 20,3% -> 21,6% -> 21,3%.
+- Lactato: 1,3 -> 1,6 mmol/L.
+- PAM: 57 -> 55 -> 56 -> 58 mmHg.
+- Risco exibido: MODERADO.
+
+INTERPRETACAO
+1. O iDO2 permanece confortavelmente acima do alvo GDP fixo de 280 mL/min/m2.
+2. A extracao de oxigenio e a relacao DO2/VO2 permanecem tranquilas, sugerindo equilibrio global entre oferta e consumo.
+3. O principal achado nao e oferta de oxigenio, e sim a PAM persistentemente abaixo de 60 mmHg.
+4. O lactato sobe discretamente, mas ainda fica abaixo de 2 mmol/L; o alerta de elevacao ocorre pela tendencia relativa.
+5. Este caso ensina que iDO2 adequado nao garante automaticamente perfusao regional adequada. Pressao, autorregulacao, vasoplegia, temperatura, anestesia e contexto cirurgico continuam importantes.
+
+PONTO DE APRENDIZAGEM
+Separe duas perguntas: "tenho oxigenio global suficiente?" e "essa pressao e adequada para este paciente?". O framework alerta a PAM baixa, mas nao decide sozinho qual PAM deve ser perseguida.
+
+PERGUNTAS PARA ESTUDO
+- Por que a classificacao nao e BAIXA se o iDO2 esta bom?
+- Que dados adicionais ajudariam a interpretar melhor a PAM baixa?
+- Em quais pacientes a autorregulacao pode exigir pressao maior?
+
+Material simulado para estudo.

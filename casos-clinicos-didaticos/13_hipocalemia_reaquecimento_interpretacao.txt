@@ -1,0 +1,30 @@
+CASO 13 - HIPOCALEMIA NO REAQUECIMENTO
+
+OBJETIVO DIDATICO
+Treinar a leitura de tendencia eletrolitica, especialmente queda do potassio durante reaquecimento, com oxigenacao global preservada.
+
+RESUMO DOS RESULTADOS
+- BSA: 1,93 m2.
+- iDO2 calculado: 376,27 -> 355,03 -> 343,57 -> 339,20 mL/min/m2.
+- Tempo abaixo de 280: 0,0 min.
+- Temperatura: 32,0 -> 36,5 graus C.
+- Potassio: 4,2 -> 3,7 -> 3,2 -> 3,0 mmol/L.
+- Lactato: 1,2 -> 1,7 mmol/L.
+- Risco exibido: MODERADO.
+
+INTERPRETACAO
+1. O iDO2 esta adequado durante toda a serie.
+2. A extracao de oxigenio fica baixa a moderada e a SvO2 se mantem favoravel.
+3. O achado didatico principal e a queda progressiva do potassio, com alertas aos 60 e 90 minutos.
+4. O lactato sobe proporcionalmente, mas permanece abaixo de 2 mmol/L.
+5. A classificacao MODERADA vem da combinacao de potassio reduzido, lactato em elevacao e tempo de CEC moderado.
+
+PONTO DE APRENDIZAGEM
+Ao reaquecer, nao olhe apenas iDO2 e lactato. Eletrolitos, ritmo, hemoconcentracao/hemodiluicao e estrategia de cardioplegia tambem importam.
+
+PERGUNTAS PARA ESTUDO
+- Por que a queda de potassio importa mesmo com iDO2 excelente?
+- O que voce compararia: potassio arterial, venoso ou laboratorio central?
+- Quais dados do ato anestesico/cirurgico poderiam explicar essa tendencia?
+
+Material simulado para estudo.

@@ -1,0 +1,34 @@
+CASO 30 - NEONATO: HIPOCALEMIA NO REAQUECIMENTO
+
+OBJETIVO DIDATICO
+Treinar a leitura de eletrolitos e glicose em um neonato com oferta global preservada durante reaquecimento.
+
+RESUMO DOS RESULTADOS
+- Paciente simulado: neonato de aproximadamente 18 dias.
+- No CSV, idade = 0,05 ano por limitacao do campo numerico.
+- Peso/altura: 3,4 kg, 51 cm.
+- BSA: 0,22 m2.
+- Temperatura: 28,0 -> 36,0 graus C.
+- iDO2 calculado: 526,46 -> 503,77 -> 495,14 -> 472,79 mL/min/m2.
+- Tempo abaixo de 280: 0,0 min.
+- Potassio: 3,8 -> 3,4 -> 3,1 -> 2,9 mmol/L.
+- Glicose final: 210 mg/dL.
+- Lactato: 1,4 -> 2,1 mmol/L.
+- Risco exibido: MODERADO.
+
+INTERPRETACAO
+1. O iDO2 permanece muito acima do alvo fixo.
+2. A O2ER permanece baixa, sugerindo boa reserva global.
+3. O potassio cai progressivamente e gera alertas a partir de 20 minutos.
+4. O lactato final entra em faixa de atencao e a glicose final passa de 180 mg/dL.
+5. O caso ensina que uma tabela neonatal nao deve ser lida apenas pelo iDO2.
+
+LIMITACAO NEONATAL
+O alerta de PAM < 60 mmHg aparece por regra geral do app, mas PAM neonatal deve ser contextualizada. Use o caso para estudar tendencia, nao para definir meta.
+
+PERGUNTAS PARA ESTUDO
+- Qual marcador piorou apesar do iDO2 alto?
+- Por que reaquecimento pode exigir atencao a eletrolitos?
+- Quais regras do app parecem adultas demais para este caso?
+
+Material simulado para estudo.
