@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/dashboard-plan.css">
     <link rel="shortcut icon" href="medias/icon.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -33,6 +34,7 @@
     </header>
     <hr class="text-slate-400 mt-5">
 
+    <section id="plannedDashboard" class="planned-dashboard" hidden aria-labelledby="plannedTitle"><div class="planned-heading"><div><p class="planned-eyebrow" id="plannedPhase">PRÉ-CEC · AGUARDANDO INÍCIO</p><h2 id="plannedTitle">Seu plano está pronto.</h2><p id="plannedIdentity"></p></div><div class="planned-actions"><button type="button" id="startPlannedCec">Registrar início da CEC →</button><a href="planejamento.html" id="editPlanning">Revisar planejamento</a></div></div><div id="plannedMetrics" class="planned-metrics"></div><details><summary>Dados e hipóteses do planejamento</summary><dl id="plannedDetails"></dl></details><p id="plannedEmpty">Aguardando a primeira medição para exibir a monitorização e os gráficos.</p></section>
     <main class="justify-center max-w-7xl m-auto mb-10">
         <!--Cards Iniciais-->
         <div id="cards-iniciais" class="w-[90%] m-auto mt-5 grid grid-cols-2 md:grid-cols-6 gap-5">
@@ -77,7 +79,7 @@
             <div class="border-2 border-slate-800 rounded-3xl flex flex-col items-center justify-center py-5">
                 <h2 class="text-2xl text-slate-400">IC</h2>
                     <p id="campoIC" class="text-3xl text-slate-100 py-2"></p>
-                    <p class="text-xl text-slate-600">L/min/m²</p> 
+                    <p class="text-xl text-slate-600">L/min/m²</p>
                      <button id="classificacaoIC" class="w-[70%] text-white bg-emerald-600 rounded-lg py-1 px-2 mt-4"></button>
             </div>
 
@@ -114,14 +116,14 @@
                         <input class="rounded-lg w-[30%]" type="number" name="hb" id="hb">
                         <p id="campoHbExame" class="text-2xl text-slate-100 hidden"></p>
                     </div>
-                    
+
                     <!--Hct-->
                     <div class="flex justify-between px-3">
                         <p class="text-slate-600  text-2xl">Hematócrito</p>
                         <input class="rounded-lg w-[30%]" type="number" name="hctAtt" id="hctAtt">
                         <p id="campoHctExame" class="text-2xl text-slate-100 hidden"></p>
                     </div>
-                    
+
                     <!--Lactato-->
                     <div class="lactate-row flex justify-between items-center gap-2 px-3">
                         <p class="text-slate-600  text-2xl">Lactato</p>
@@ -142,10 +144,15 @@
                             <p id="campoSao2" class="text-2xl text-slate-100 hidden"></p>
                         </div>
 
+                    <div class="flex justify-between px-3">
+                                <p class="text-slate-600 text-2xl">Temperatura</p>
+                                <input class="rounded-lg w-[30%]" type="number" step="0.1" name="temperaturaAtt" id="temperaturaAtt">
+                                <p id="campoTemperaturaAtt" class="text-2xl text-slate-100 hidden"></p>
+                            </div>
                     <button id="btnVerMais" class="text-lg text-slate-100">Ver Mais</button>
-                    
+
                     <div id="maisExames" class="hidden">
-                        
+
                         <div class="flex flex-col gap-10">
                              <!--pH-->
                             <div class="flex justify-between px-3">
@@ -195,12 +202,8 @@
                                 <p class="text-slate-600  text-2xl">Ca<span class="text-base align-super">2+</span></p>
                                 <input class="rounded-lg w-[30%]" type="number" name="ca2" id="ca2">
                                 <p id="campoCa" class="text-2xl text-slate-100 hidden"></p>
-                            </div> 
-                            <div class="flex justify-between px-3">
-                                <p class="text-slate-600 text-2xl">Temperatura</p>
-                                <input class="rounded-lg w-[30%]" type="number" step="0.1" name="temperaturaAtt" id="temperaturaAtt">
-                                <p id="campoTemperaturaAtt" class="text-2xl text-slate-100 hidden"></p>
                             </div>
+
                             <div class="flex justify-between px-3">
                                 <p class="text-slate-600 text-2xl">PAM</p>
                                 <input class="rounded-lg w-[30%]" type="number" name="pamAtt" id="pamAtt">
@@ -530,6 +533,9 @@
 
 <script src="src/js/runtime-env.js"></script>
 <script src="src/js/config.js"></script>
+<dialog id="startDialog" class="plan-dialog" aria-labelledby="startTitle"><h2 id="startTitle">Primeiro registro da CEC</h2><p>Informe as medições reais para iniciar o acompanhamento.</p><form id="startForm"><div class="fields"><div class="full"><label for="cecStartTime">Horário de início da CEC *</label><input id="cecStartTime" type="datetime-local" required></div><div><label for="sampleMinute">Tempo da coleta (min de CEC) *</label><input id="sampleMinute" type="number" min="0" max="1440" step="1" value="0" required></div><div><label for="measuredFlow">Fluxo medido (L/min) *</label><input id="measuredFlow" type="number" min="0.5" max="15" step="0.01" required placeholder="—"></div><div><label for="measuredHb">Hb medida (g/dL) *</label><input id="measuredHb" type="number" min="3" max="22" step="0.1" required placeholder="—"></div><div><label for="measuredHct">Hematócrito medido (%) *</label><input id="measuredHct" type="number" min="9" max="66" step="0.1" required placeholder="—"></div><div><label for="measuredSao2">SaO₂ medida (%) *</label><input id="measuredSao2" type="number" min="50" max="100" step="0.1" required placeholder="—"></div><div><label for="measuredPao2">PaO₂ medida (mmHg) *</label><input id="measuredPao2" type="number" min="20" max="600" step="1" required placeholder="—"></div><div><label for="measuredLactate">Lactato medido (mmol/L) *</label><input id="measuredLactate" type="number" min="0.1" max="30" step="0.01" required placeholder="—"></div><div><label for="measuredTemperature">Temperatura do paciente (°C) *</label><input id="measuredTemperature" type="number" min="18" max="40" step="0.1" required placeholder="—"></div><div><label for="measuredPam">PAM medida (mmHg) *</label><input id="measuredPam" type="number" min="20" max="150" step="1" required placeholder="—"></div></div><div class="actions"><button type="button" class="secondary" id="cancelStart">Voltar ao dashboard</button><button type="submit" class="primary">Salvar medição e abrir dashboard →</button></div><p id="startStatus" class="status error" role="status"></p></form></dialog>
+<script src="src/js/local-case.js"></script>
+<script src="src/js/dashboard-plan.js"></script>
 <script src="src/js/dashboard.js"></script>
 </body>
 </html>

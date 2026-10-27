@@ -20,6 +20,7 @@ async function main() {
 
     await Promise.all([
         copiarArquivo(path.join(root, 'index.html'), path.join(dist, 'index.html')),
+        copiarArquivo(path.join(root, 'planejamento.html'), path.join(dist, 'planejamento.html')),
         copiarArquivo(path.join(root, 'dashboard.html'), path.join(dist, 'dashboard.html')),
         copiarArquivo(path.join(root, 'cases.html'), path.join(dist, 'cases.html')),
         copiarArquivo(path.join(root, 'checklist-modelo.html'), path.join(dist, 'checklist-modelo.html')),

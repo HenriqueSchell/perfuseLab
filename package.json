@@ -12,7 +12,7 @@
     "build:frontend": "node tools/build-frontend.js",
     "check": "npm run check:server && npm run check:dashboard && npm run build:frontend",
     "check:server": "node --check server/index.js && node --check server/config/database.js && node --check server/config/cors.js && node --check server/middleware/auth.js && node --check server/middleware/errorHandler.js && node --check server/models/PerfusionCase.js && node --check server/routes/auth.js && node --check server/routes/cases.js",
-    "check:dashboard": "node --check src/js/cases.js && node --check src/js/checklist-template.js && node tools/validate-dashboard.js"
+    "check:dashboard": "node --check src/js/index.js && node --check src/js/pre-cec.js && node --check src/js/local-case.js && node --check src/js/dashboard-plan.js && node --check src/js/cases.js && node --check src/js/checklist-template.js && node tools/validate-dashboard.js"
   },
   "engines": {
     "node": ">=20"

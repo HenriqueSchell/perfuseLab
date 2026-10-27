@@ -583,6 +583,11 @@ a:focus-visible {
 
 #card-monitorizacao input,
 #card-monitorizacao select {
+    color: #102b37;
+    -webkit-text-fill-color: #102b37;
+    background: #f8fafc;
+    caret-color: #087d79;
+    font-weight: 600;
     min-height: 38px;
     border: 1px solid transparent;
     border-radius: 0.65rem;
@@ -592,14 +597,22 @@ a:focus-visible {
 
 #card-monitorizacao .lactate-row > .flex {
     display: grid !important;
-    grid-template-columns: minmax(0, 1fr) minmax(82px, 0.7fr);
+    grid-template-columns: minmax(70px, 1fr) 82px;
+    min-width: 152px;
+}
+
+#card-monitorizacao .lactate-row {
+    grid-template-columns: minmax(0, 1fr) minmax(152px, 48%);
 }
 
 #card-monitorizacao .lactate-row input {
+    width: 100%;
+    min-width: 0;
     border-radius: 0.65rem 0 0 0.65rem;
 }
 
 #card-monitorizacao .lactate-row select {
+    width: 100%;
     border-radius: 0 0.65rem 0.65rem 0;
 }
 

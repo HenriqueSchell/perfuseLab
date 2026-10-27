@@ -1,0 +1,888 @@
+{
+  "data": "2026-10-25",
+  "fontes": [
+    {
+      "arquivo": ".env.example",
+      "tipo": "Texto/código/configuração",
+      "bytes": 368,
+      "linhas": 16,
+      "sha256": "dc7d3fdca5d81bf596a6615648f947daf2094eb616f92b2f5c25c5eb9590272b"
+    },
+    {
+      "arquivo": ".gitignore",
+      "tipo": "Texto/código/configuração",
+      "bytes": 127,
+      "linhas": 10,
+      "sha256": "789feb9c0abc5ea9f15f51e888033fa02a36dce225846bc842bf29202080a667"
+    },
+    {
+      "arquivo": ".vscode/settings.json",
+      "tipo": "Texto/código/configuração",
+      "bytes": 42,
+      "linhas": 3,
+      "sha256": "d7c4c5969a13be89c26b96373e811c72455b9bcc938c3e2ee1de236c55773289"
+    },
+    {
+      "arquivo": "cases.html",
+      "tipo": "Texto/código/configuração",
+      "bytes": 5429,
+      "linhas": 111,
+      "sha256": "8fcbdfd8ba69346615790cf6c4a1c0e09ac3c2c04bcec39e1cf99f25f649af4c"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/01_cec_estavel.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 539,
+      "linhas": 5,
+      "sha256": "bb330d6452e2f18375f5b6555306b1e83a9f8a7b79b08e390ff88d6c3068975f"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/01_cec_estavel_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1935,
+      "linhas": 35,
+      "sha256": "6ff901c2de8b91ec37832998d64b011dcf118e5d09c2857987809f9fc4bc54a5"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/02_hemodiluicao_baixo_ido2.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 535,
+      "linhas": 5,
+      "sha256": "833104aa20424abe0c44210614b7a07237453cbc3c47badafaa08745535db596"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/02_hemodiluicao_baixo_ido2_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1866,
+      "linhas": 36,
+      "sha256": "b92a5cd357d79bef79d788f190f9d41322ad9790828860d08cd207a81d3f5790"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/03_recuperacao_com_ajuste_de_fluxo.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 537,
+      "linhas": 5,
+      "sha256": "d16dab77ac6ca24ce18479eb52329559b25bade27e4f8725d6197a6bd4462748"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/03_recuperacao_com_ajuste_de_fluxo_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1717,
+      "linhas": 36,
+      "sha256": "05dc928fd789452f50e0690ff1ccfe25f4d9b86089896721da5d23ca3b535513"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/04_lactato_crescente_ido2_preservado.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 533,
+      "linhas": 5,
+      "sha256": "6404fe68c98905332d6765027128902602b7403e96a30c6158f95d12d2dc1806"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/04_lactato_crescente_ido2_preservado_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1759,
+      "linhas": 37,
+      "sha256": "36c14be24545375deac77453326c9baa3b79e00ae2fe0f8d81a79b31a58f30cf"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/05_extracao_elevada_svo2_baixa.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 539,
+      "linhas": 5,
+      "sha256": "602c33adbbad187b738e33565cc9c9bd21a4d554b15892336924e613be08a1ce"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/05_extracao_elevada_svo2_baixa_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1634,
+      "linhas": 39,
+      "sha256": "16b67e2d83b811152a58e66eef35357f27eaf185bf4bd91af42fb4f10ffc5488"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/06_acidose_respiratoria.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 534,
+      "linhas": 5,
+      "sha256": "54debbf6a9527ce8f95fb06129cc28b810a4306b707fdd0ffaa859a2bd8044ea"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/06_acidose_respiratoria_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1694,
+      "linhas": 37,
+      "sha256": "e49bd33c2f8d870d5bac9429d7132676acac5685f4c57850842644cedd5550a0"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/07_hiperoxia_com_oferta_adequada.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 541,
+      "linhas": 5,
+      "sha256": "b33a8677166b23bf9bc164d28339adefd885a8bbc38c147d63e6434ac1e27a1b"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/07_hiperoxia_com_oferta_adequada_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1683,
+      "linhas": 35,
+      "sha256": "22756235159f20bcdca4b3ef2b1d45c266496469207f42293fa72fd58c3faa53"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/08_cec_prolongada_anemia_lactato.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 633,
+      "linhas": 6,
+      "sha256": "b7be6b9a3ee03ff8749f5c5872ae6677af771140f0cc68bc7714ad262963d930"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/08_cec_prolongada_anemia_lactato_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1830,
+      "linhas": 39,
+      "sha256": "80d443178a7663f1e0af36350c0708a25a59a83c9bf4cb2f3724d34972cab1f3"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/09_hipotermia_e_reaquecimento.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 637,
+      "linhas": 6,
+      "sha256": "27f0ca9e74f17205bf73273a620745549c77970c23dabde761695ddda4214e9b"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/09_hipotermia_e_reaquecimento_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1705,
+      "linhas": 37,
+      "sha256": "bfb710268afe1a0caf2c1dc06edfafd4096c4484e8581c7945f3ee9146c88f4a"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/10_reoperacao_valvar_coerente.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 559,
+      "linhas": 5,
+      "sha256": "cd89f5c0a53191d35dcb7b419313060fe6f50687e1540006f52bac515c7e29ee"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/10_reoperacao_valvar_coerente_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 2162,
+      "linhas": 41,
+      "sha256": "087e4caa5b6f42ec61350d389c62a348e279428663cc260b5b3edeb7693b3c31"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/11_vasoplegia_pam_baixa_ido2_preservado.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 540,
+      "linhas": 5,
+      "sha256": "b33a0808a7a9049371caea312ba1f8abce56f4106c8a2bc7141b8f169e810cb7"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/11_vasoplegia_pam_baixa_ido2_preservado_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1645,
+      "linhas": 31,
+      "sha256": "6dcdf5147b34efe00bdd1e119979d8e8ea295c7ad8f5c36b0289466fedd7dde1"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/12_hiperglicemia_lactato_do2_preservado.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 535,
+      "linhas": 5,
+      "sha256": "6e75a5e3b132c700fb6ecb409302f9bbb3c926f2f746b89cbccde451e126a463"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/12_hiperglicemia_lactato_do2_preservado_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1387,
+      "linhas": 30,
+      "sha256": "5ca1b3559737c3b8082d6867cfc9d608f028e297c25c59851a6b87c269c8ebdc"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/13_hipocalemia_reaquecimento.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 539,
+      "linhas": 5,
+      "sha256": "ccfa7446719595db49ce0ec9d2b778e1983ac76fb495403071ea2c394b1d5ef3"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/13_hipocalemia_reaquecimento_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1355,
+      "linhas": 30,
+      "sha256": "4ecaec4845d966d1fef46505e323d80934a889b98bc0725511ee566500d4fb50"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/14_obesidade_fluxo_total_alto_indice_baixo.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 542,
+      "linhas": 5,
+      "sha256": "adadbfc09c0b16cb768f2b93588e7f4eebdb9f89c7afcfd6a21025b684d47feb"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/14_obesidade_fluxo_total_alto_indice_baixo_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1364,
+      "linhas": 32,
+      "sha256": "0d48610ef78e9f6883e7d1c7866a1f9fc3f2a94dbcc9e512466cae23c9be5369"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/15_ido2_informado_sem_sao2.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 547,
+      "linhas": 5,
+      "sha256": "d91fc136a1ff739d53e490320192c0c4e8a103e7650d8df628c371c9918576f0"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/15_ido2_informado_sem_sao2_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1397,
+      "linhas": 31,
+      "sha256": "6fa626fb535135e410f689c84aeb5377f027ee8b88387e647cd39b660c8929dd"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/16_gap_pco2_alto_svo2_preservada.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 539,
+      "linhas": 5,
+      "sha256": "bf7e8245c63605373e02c1263399149860797a77adcd7bbb320a1411e9c14fbe"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/16_gap_pco2_alto_svo2_preservada_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1259,
+      "linhas": 30,
+      "sha256": "b45e6cf74043a2790df52629549891b9377e805cf9756f6d6902cc33ca8722fc"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/17_hipercalemia_pos_cardioplegia_limite_do_framework.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 535,
+      "linhas": 5,
+      "sha256": "74e0c7bc36b7cfae53edf926a2c8716c68285777eb27aeaf43b5e9229d877d92"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/17_hipercalemia_pos_cardioplegia_limite_do_framework_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1372,
+      "linhas": 30,
+      "sha256": "b711f624d5d8b0b0425ee5512b801c4c76ed5b2d93caf1f8fb782aa5bdefc657"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/18_hiponatremia_hemodiluicao.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 534,
+      "linhas": 5,
+      "sha256": "3f15e6a971cbe517033b6f68652cd3338267c5d0c1977bf47ab72dca66b1dfa5"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/18_hiponatremia_hemodiluicao_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1427,
+      "linhas": 31,
+      "sha256": "06a6b1310d01da57b3f21d3763462b11729714527aafd304ba2cfe38015008ca"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/19_acidose_metabolica_lactato_critico.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 540,
+      "linhas": 5,
+      "sha256": "ef621c1156c79159abed4d45c5b793a46c17869b2dfc28796e6ca724cfeac22f"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/19_acidose_metabolica_lactato_critico_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1326,
+      "linhas": 32,
+      "sha256": "20ed129fb2132697a3b4092665936d9dac50215c14cb20838c4fef03bba3906d"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/20_queda_sao2_arterial_recuperada.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 536,
+      "linhas": 5,
+      "sha256": "7d25290b506f0e142884f500dfe9e8dd1fea6d0bc5597f796ff8fe63c312c4d5"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/20_queda_sao2_arterial_recuperada_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1412,
+      "linhas": 32,
+      "sha256": "fae1cdafef6aa6f8b1c55579816da7c7e5ec07a99c6ba2fe78a2de053015b1ed"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/21_pediatrico_cec_estavel.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 533,
+      "linhas": 5,
+      "sha256": "e280b5658ebfa64f66540b8f1429eaf38648e2771cde92e48d35e1f838d3e25e"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/21_pediatrico_cec_estavel_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1265,
+      "linhas": 31,
+      "sha256": "caef5368803699c8d758968e170105391fe527587efce56602738936334fb57a"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/22_pediatrico_hemodiluicao_baixo_ido2.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 538,
+      "linhas": 5,
+      "sha256": "4175a74e98fae9fe52341b104bd0602efb7d9a39c5c51dab24a3be9d1c771492"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/22_pediatrico_hemodiluicao_baixo_ido2_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1377,
+      "linhas": 33,
+      "sha256": "56779ba543ddb5b1786ad061942b6a01d61b957e6f07b8424014b34e9f2e3fb7"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/23_pediatrico_lactato_critico_ido2_preservado.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 536,
+      "linhas": 5,
+      "sha256": "9fcd46967b50db96b9877b521d576cfb7df9eeb26c9bb7f48fd57222ed429ab6"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/23_pediatrico_lactato_critico_ido2_preservado_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1317,
+      "linhas": 32,
+      "sha256": "1bd7ddc003a8956e36709935fe5796539e84debf00b8870a1b1299b98eaf3559"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/24_pediatrico_queda_sao2_oxigenador.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 532,
+      "linhas": 5,
+      "sha256": "bea698d65964b0b8db6a7c4b69868d4e8cd3aae3d3c73cf15958d85fc3b0190f"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/24_pediatrico_queda_sao2_oxigenador_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1286,
+      "linhas": 32,
+      "sha256": "3c7a6cbf63bd476d8f4fff9a094417be11b944d0806688e339f980f225fd1df0"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/25_pediatrico_pam_baixa_gap_pco2.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 535,
+      "linhas": 5,
+      "sha256": "813d8861e86aab042820f17fdbb118d464bc638f789a7eca0899478bfceb3cb2"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/25_pediatrico_pam_baixa_gap_pco2_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1247,
+      "linhas": 31,
+      "sha256": "c8f155eceed8a1ad3dd24264e1201f38057053897acdc5ec25d0d8460309514c"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/26_neonato_cec_estavel_hb_alta.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 554,
+      "linhas": 5,
+      "sha256": "9424ab67b1b19cdb7503f888a7f8627c7497ab6b5f8d9d88f60d22118a98b180"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/26_neonato_cec_estavel_hb_alta_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1354,
+      "linhas": 32,
+      "sha256": "6ed12eb9280a618804a86a1db3ab8fe24514e6a423b66426bb8fe53cce2358da"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/27_neonato_hemodiluicao_profunda_baixo_ido2.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 546,
+      "linhas": 5,
+      "sha256": "5e5bfa0bef29f99613ce6c3dae34819e355bf6b6f0323d6113d0b2993a8a10e1"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/27_neonato_hemodiluicao_profunda_baixo_ido2_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1366,
+      "linhas": 35,
+      "sha256": "2ae3d1d9e67e9f103d5d34b1a83d4ed51540da4a7bbef244ebccd112e393f1d4"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/28_neonato_lactato_critico_ido2_preservado.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 558,
+      "linhas": 5,
+      "sha256": "7aef1b25aa2e0f6a3b67b0bca68d7a20c222403a97f76c796b8dfe86ad7f2f0c"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/28_neonato_lactato_critico_ido2_preservado_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1350,
+      "linhas": 34,
+      "sha256": "13cd3836dc38bb2da5a5ed12da8096d241edec5d84d54828b0472fd7d805fb2a"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/29_neonato_hipoxemia_fluxo_baixo_recuperado.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 546,
+      "linhas": 5,
+      "sha256": "97fc4f376ffa84bbb23d103170b8dafc56d14a1545caf46a2ed1340945832e11"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/29_neonato_hipoxemia_fluxo_baixo_recuperado_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1438,
+      "linhas": 34,
+      "sha256": "8b074f0a4aa66fb0aee45198956de33961f11e80256b6efc45efbbdb0068cdf7"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/30_neonato_hipocalemia_reaquecimento.csv",
+      "tipo": "Texto/código/configuração",
+      "bytes": 555,
+      "linhas": 5,
+      "sha256": "2a5d7a0fc91f9ce66db6bd169696bb44fb67af86ef813b6ed9791051946d6d28"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/30_neonato_hipocalemia_reaquecimento_interpretacao.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1411,
+      "linhas": 34,
+      "sha256": "c9f4ced91bb6a64a8bb93ee116513d51d99a4c8399d85d6915854b1a878216e0"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/LEIA-ME.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 3649,
+      "linhas": 71,
+      "sha256": "ee49ac2d1fd3e403a3fa89bf0a23d37f97c598e5c57e70576800b61d51d6e8c5"
+    },
+    {
+      "arquivo": "casos-clinicos-didaticos/manual_interpretacao_cec_perfuselab.docx",
+      "tipo": "DOCX: texto extraído",
+      "bytes": 46326,
+      "linhas": 440,
+      "sha256": "0599b8fd7769e2b8a16ca77f00f5788613a8d0d3da605f3fdde21304bc8efd66"
+    },
+    {
+      "arquivo": "casos-completos-cirurgicos/01_revascularizacao_miocardio_eletiva.json",
+      "tipo": "Texto/código/configuração",
+      "bytes": 6299,
+      "linhas": 284,
+      "sha256": "5cfd35c57eb5cb9c6dd18892571552f199a17ee905ee752b1155ec1e2b29c626"
+    },
+    {
+      "arquivo": "casos-completos-cirurgicos/02_troca_valvar_aortica_estenose.json",
+      "tipo": "Texto/código/configuração",
+      "bytes": 6319,
+      "linhas": 284,
+      "sha256": "77c33ad15fab8df291a275c77970cf86863cc14e4d12213d89e0b39ae2c75be7"
+    },
+    {
+      "arquivo": "casos-completos-cirurgicos/03_retroca_mitral_reoperacao.json",
+      "tipo": "Texto/código/configuração",
+      "bytes": 6992,
+      "linhas": 317,
+      "sha256": "e9e8783ed71441a8e738fc5f74af7d9d040b9bc77ed305d639a131b451d55a7d"
+    },
+    {
+      "arquivo": "casos-completos-cirurgicos/04_bentall_aorta_ascendente.json",
+      "tipo": "Texto/código/configuração",
+      "bytes": 7029,
+      "linhas": 316,
+      "sha256": "dc51460564ddf2a953b42e8564e382843d6c337b8d641c0ef0d2f82072212545"
+    },
+    {
+      "arquivo": "casos-completos-cirurgicos/05_disseccao_aguda_aorta_hipotermia.json",
+      "tipo": "Texto/código/configuração",
+      "bytes": 7752,
+      "linhas": 351,
+      "sha256": "1d4a4c779f3167fceb465dfe1863f997dcd9208f726de6240795e1304d9a119f"
+    },
+    {
+      "arquivo": "casos-completos-cirurgicos/06_crm_troca_aortica_obesidade_diabetes.json",
+      "tipo": "Texto/código/configuração",
+      "bytes": 6940,
+      "linhas": 317,
+      "sha256": "dcd7d6755aafc332b1eac0d725d19e97d7eec9fc22290bb92cc639bf3789174e"
+    },
+    {
+      "arquivo": "casos-completos-cirurgicos/07_endocardite_dupla_troca_valvar.json",
+      "tipo": "Texto/código/configuração",
+      "bytes": 7015,
+      "linhas": 317,
+      "sha256": "1b7c82873da837e1c3e1f57c4b7b7fe498d8fcc4c664d045e087f6cab8c9fab8"
+    },
+    {
+      "arquivo": "casos-completos-cirurgicos/08_crm_emergencia_iam.json",
+      "tipo": "Texto/código/configuração",
+      "bytes": 6405,
+      "linhas": 284,
+      "sha256": "ca69362ee545ce5d8f3d1eac090efcf84eefcaa5e5977ffff3cb9a5f5bbd1b18"
+    },
+    {
+      "arquivo": "casos-completos-cirurgicos/09_correcao_tetralogia_fallot_pediatrico.json",
+      "tipo": "Texto/código/configuração",
+      "bytes": 6407,
+      "linhas": 284,
+      "sha256": "6dd653ef64196ac7b2fef438dd3b1cceb2a5ce9a489d888a145f1508dcb0c3ed"
+    },
+    {
+      "arquivo": "casos-completos-cirurgicos/10_switch_arterial_neonatal.json",
+      "tipo": "Texto/código/configuração",
+      "bytes": 6984,
+      "linhas": 316,
+      "sha256": "049dc665eb6bf95323cbf68c0b877ff1eff336a0378161643938f8acb937171f"
+    },
+    {
+      "arquivo": "casos-completos-cirurgicos/LEIA-ME.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1719,
+      "linhas": 24,
+      "sha256": "436179c71f0cf02d6bccce1982a754db274b2f7f78fdeb386398c1450e73fe58"
+    },
+    {
+      "arquivo": "checklist-modelo.html",
+      "tipo": "Texto/código/configuração",
+      "bytes": 14004,
+      "linhas": 231,
+      "sha256": "c74ac2a748f951baa2e6e3a82f6f77578baeaba3f5373a73a34181937e535f35"
+    },
+    {
+      "arquivo": "dashboard.html",
+      "tipo": "Texto/código/configuração",
+      "bytes": 33593,
+      "linhas": 535,
+      "sha256": "6c797446f0f8da803dcd0a6f94b48cf323e14eb8a7e16751706399a9f5838fea"
+    },
+    {
+      "arquivo": "docs/mongodb.md",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1304,
+      "linhas": 71,
+      "sha256": "1b35d7a3983026dcff62a1e4c9850a60816c5249a6224fd9950b7f6732c0ccd3"
+    },
+    {
+      "arquivo": "docs/producao.md",
+      "tipo": "Texto/código/configuração",
+      "bytes": 3973,
+      "linhas": 142,
+      "sha256": "ef932cef7a4bee22bafdd5d513a2ee1e29f9b568cb369dab66e11efe3499deb7"
+    },
+    {
+      "arquivo": "entrada-paciente-valvular.json",
+      "tipo": "Texto/código/configuração",
+      "bytes": 4591,
+      "linhas": 171,
+      "sha256": "640baa4c0dd4d97a1fb6e1cdb41576f9b7f1bb9ef83a033e88451daf270d2365"
+    },
+    {
+      "arquivo": "index.html",
+      "tipo": "Texto/código/configuração",
+      "bytes": 12887,
+      "linhas": 188,
+      "sha256": "e2424604a3bbe0f239ba672fdf1ff6ca759f3793cdb8219870c99a2354425557"
+    },
+    {
+      "arquivo": "informacoes.html",
+      "tipo": "Texto/código/configuração",
+      "bytes": 8615,
+      "linhas": 179,
+      "sha256": "9b3dda1c53117c9e4b4de4a820ae08febd90922b09d00eec7dd953c9db9a8e33"
+    },
+    {
+      "arquivo": "justificativa-score.docx",
+      "tipo": "DOCX: texto extraído",
+      "bytes": 9040,
+      "linhas": 90,
+      "sha256": "082c75842c71287442a2e491de36446c592624cbd225c3ec2bcffeb872e68b1b"
+    },
+    {
+      "arquivo": "netlify.toml",
+      "tipo": "Texto/código/configuração",
+      "bytes": 67,
+      "linhas": 3,
+      "sha256": "6d325d4d9fd3159ab88cb482dc4c09c0b02f2a6566e81cd2ffdd004ad809c546"
+    },
+    {
+      "arquivo": "package-lock.json",
+      "tipo": "Texto/código/configuração",
+      "bytes": 40354,
+      "linhas": 1106,
+      "sha256": "2cd802f7e9edc9f0508996fee78aa52bac52f89ed032c8d32ea7c4e8a1ccd24d"
+    },
+    {
+      "arquivo": "package.json",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1197,
+      "linhas": 26,
+      "sha256": "759702511ccce21085b19543808d387c6f01a2dc543fd2ddaa9d7feec64a8d36"
+    },
+    {
+      "arquivo": "perfuselab-report/package.json",
+      "tipo": "Texto/código/configuração",
+      "bytes": 461,
+      "linhas": 19,
+      "sha256": "7e8c75d44094b08b962b8876cca25c189f62574b23d78cbf1798a4f08afaa5db"
+    },
+    {
+      "arquivo": "perfuselab-report/README.md",
+      "tipo": "Texto/código/configuração",
+      "bytes": 2131,
+      "linhas": 71,
+      "sha256": "574a5d308612ee207512c148e581197bf3572a229137653abedf221bf3a0b63d"
+    },
+    {
+      "arquivo": "perfuselab-report/server/index.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 447,
+      "linhas": 17,
+      "sha256": "605ed5aafba94379c447c34ae7c8581caa267faad564bc8192fb228990744a95"
+    },
+    {
+      "arquivo": "perfuselab-report/server/routes/report.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 634,
+      "linhas": 21,
+      "sha256": "b5c3b28d08dc91add95c891bf25f6839f101a6109ea851efac5bf1c95c1671c7"
+    },
+    {
+      "arquivo": "perfuselab-report/src/css/style.css",
+      "tipo": "Texto/código/configuração",
+      "bytes": 935,
+      "linhas": 64,
+      "sha256": "0e889322639849317c66671a89ab34c072666623d959cbf1ec33ae5523342921"
+    },
+    {
+      "arquivo": "perfuselab-report/src/dashboard.html",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1271,
+      "linhas": 33,
+      "sha256": "92d8df8730e3d9106287cfb46a1f821fa9e0522b3d99b76641b53e58927889ab"
+    },
+    {
+      "arquivo": "perfuselab-report/src/data/exames.json",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1008,
+      "linhas": 39,
+      "sha256": "45c900412a83aa651177ef9d7ad282475d89d6ad976dd8ac54f1f7e048738c78"
+    },
+    {
+      "arquivo": "perfuselab-report/src/js/charts.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1521,
+      "linhas": 46,
+      "sha256": "67e4819d824f88c77e0cacdc5fe2cb024006343f0cd7aed960b395db51428924"
+    },
+    {
+      "arquivo": "perfuselab-report/src/js/dashboard.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 2028,
+      "linhas": 51,
+      "sha256": "ac0191f1f89f6cc9d58fc139c07dd9c6334889ae9bcc96816910dee533a8f3f4"
+    },
+    {
+      "arquivo": "perfuselab-report/src/js/reportGenerator.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 2638,
+      "linhas": 88,
+      "sha256": "692348dd02f96c7d2575512ef53956665bce5c0d1ee75b5444e248b58064bc3a"
+    },
+    {
+      "arquivo": "perfuselab-report/src/report.html",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1274,
+      "linhas": 33,
+      "sha256": "96eac55f8cfd23c684afc715c30f7a64e94946181966c13fabc9acf359873f50"
+    },
+    {
+      "arquivo": "promptCEC.txt",
+      "tipo": "Texto/código/configuração",
+      "bytes": 6607,
+      "linhas": 10,
+      "sha256": "89d8117798c52c51362806e64e1c391de13bea9151095d351f4245ffaacec19f"
+    },
+    {
+      "arquivo": "render.yaml",
+      "tipo": "Texto/código/configuração",
+      "bytes": 617,
+      "linhas": 25,
+      "sha256": "37d9b069b2bb9445dfd4b7574ccfcd6f1b8a0dff4ae2850fb387f62ca83d1746"
+    },
+    {
+      "arquivo": "resultado-analise-framework.md",
+      "tipo": "Texto/código/configuração",
+      "bytes": 3364,
+      "linhas": 61,
+      "sha256": "4eb648e76f8d89dd5ddb2dc841180828f9221d6a49558a9348903d209dca8038"
+    },
+    {
+      "arquivo": "server/config/cors.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1451,
+      "linhas": 59,
+      "sha256": "6689d81aa681a76a30cf9ca4cc88bb0e3221b2cbfbb304f0d4e97a45d1043a2f"
+    },
+    {
+      "arquivo": "server/config/database.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1104,
+      "linhas": 40,
+      "sha256": "441f6d0fdc1914b9d17a83d283067445f831850d982ddfd5ea06c197aae17552"
+    },
+    {
+      "arquivo": "server/index.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 2219,
+      "linhas": 71,
+      "sha256": "c036a593297a59ca7047998d5fe76b089b1e74e8ecf4cef0000b5d2284835eac"
+    },
+    {
+      "arquivo": "server/middleware/auth.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 3969,
+      "linhas": 146,
+      "sha256": "01753af7d0c081ed741acd293d3d4e21afcbe92e4d78c4f779c365baf20f2c61"
+    },
+    {
+      "arquivo": "server/middleware/errorHandler.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 610,
+      "linhas": 22,
+      "sha256": "a35e08a841f84fd1a2d539dd45b3701c5845b7b242c5f6ca59accd5f938efed6"
+    },
+    {
+      "arquivo": "server/models/PerfusionCase.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 2219,
+      "linhas": 88,
+      "sha256": "97308053d6594502848a360936e3a332d5c991fdf13a7e225215d660cd768db8"
+    },
+    {
+      "arquivo": "server/routes/auth.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1029,
+      "linhas": 43,
+      "sha256": "d90269c7bfd4764b9de150102ee68bf851ef274ec4ec18c43f52bed9bcdd576e"
+    },
+    {
+      "arquivo": "server/routes/cases.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 4677,
+      "linhas": 142,
+      "sha256": "90b95d9687ccf60b72e036890ab7fad6abde09a68ce5b3264b0244bb9b5f0b43"
+    },
+    {
+      "arquivo": "src/css/style.css",
+      "tipo": "Texto/código/configuração",
+      "bytes": 59390,
+      "linhas": 2794,
+      "sha256": "a66b2880224b7602a48ca0768f9fa85c9c3b4c2561f0d58f1fd1729c10e74adf"
+    },
+    {
+      "arquivo": "src/js/cases.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 22597,
+      "linhas": 437,
+      "sha256": "0b27937e5361dea6833bf870b0543166436a0f2ee14caf9aaa92225918ae03c1"
+    },
+    {
+      "arquivo": "src/js/checklist-template.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 962,
+      "linhas": 26,
+      "sha256": "4b0329a055a78f13999f17bed12d4b5ac8fd9bbc18b2bd80f5fed5a8daa4870a"
+    },
+    {
+      "arquivo": "src/js/config.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 6787,
+      "linhas": 190,
+      "sha256": "89f8adb7aee55fddc35874189fa2edcb9e458debcd83546095e802ff5801c85e"
+    },
+    {
+      "arquivo": "src/js/dashboard.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 106878,
+      "linhas": 2087,
+      "sha256": "2bbb6be4df0a87017d45c65090a751d2ea8c88568419ffa55491f640cbfece39"
+    },
+    {
+      "arquivo": "src/js/index.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 15524,
+      "linhas": 326,
+      "sha256": "ce89dd427fa4f230e980ea02070efdd07cdf8344c8893ff968d2cded570ae0a4"
+    },
+    {
+      "arquivo": "src/js/runtime-env.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 97,
+      "linhas": 3,
+      "sha256": "6cf2d2145dc01b93b62fd0f3415106698a84a232770cb97e746111d3463ac527"
+    },
+    {
+      "arquivo": "tools/auditar-documentacao.cjs",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1965,
+      "linhas": 29,
+      "sha256": "cf5763f7e0e4d707ba8b4054a8080ca107b46238bf58af607ce28482376235bc"
+    },
+    {
+      "arquivo": "tools/build-frontend.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 1726,
+      "linhas": 43,
+      "sha256": "f5ac89a94df6f1a83750771d62dd9c0852205f5825db91c1c7fdc93471927ade"
+    },
+    {
+      "arquivo": "tools/build_manual_interpretacao_cec.py",
+      "tipo": "Texto/código/configuração",
+      "bytes": 26377,
+      "linhas": 562,
+      "sha256": "a57e549945830f0f6a3a5f80d01908c45b589adba80a171ad0d5237e9391c618"
+    },
+    {
+      "arquivo": "tools/completar-dossie.py",
+      "tipo": "Texto/código/configuração",
+      "bytes": 11480,
+      "linhas": 149,
+      "sha256": "233de33580723becf2d7b334fc7e6af93d4883d7c2da4454c8f5c84cb5ec70bb"
+    },
+    {
+      "arquivo": "tools/dev-frontend.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 2383,
+      "linhas": 63,
+      "sha256": "5000497ec7032311d109ba1f814ea9dbc4496e96ce4b24b85cff8d069b615863"
+    },
+    {
+      "arquivo": "tools/generate-casos-completos.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 52626,
+      "linhas": 967,
+      "sha256": "324fa4c21345ec86ab96d8b591bb587ca39788f1d819ac4440fa268fa8484e08"
+    },
+    {
+      "arquivo": "tools/validate-dashboard.js",
+      "tipo": "Texto/código/configuração",
+      "bytes": 3280,
+      "linhas": 94,
+      "sha256": "5e680af776c0a28bd6d8f64f9d7a2f606ac9f83fe8dad6979ee5bf4f66b8a3e4"
+    }
+  ],
+  "binarios": [
+    "docs/checklist-unicamp-preview.png",
+    "docs/layout-screenshots/dashboard-mobile.png",
+    "docs/layout-screenshots/dashboard-modal-mobile.png",
+    "docs/layout-screenshots/dashboard-notebook.png",
+    "medias/Captura de tela 2026-03-18 160016.png",
+    "medias/Captura de tela 2026-03-18 160023.png",
+    "medias/deatails-header-desktop.png",
+    "medias/deatails-header-mobile.png",
+    "medias/header-desktop.png",
+    "medias/header-mobile.png",
+    "medias/icon.png",
+    "medias/main-image-desktop.png",
+    "medias/main-image-mobile.png"
+  ]
+}

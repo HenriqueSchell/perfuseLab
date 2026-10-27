@@ -1,188 +1,23 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="medias/icon.png" type="image/x-icon">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="src/css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
-    <title>PerfuseLab</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#102b37"><meta name="description" content="Conheça o PerfuseLab: planejamento pré-CEC, acompanhamento da perfusão e análise de casos em um só lugar.">
+<title>PerfuseLab · Da preparação à análise da perfusão</title>
+<link rel="icon" href="medias/icon.png"><link rel="stylesheet" href="src/css/pre-cec.css"><link rel="stylesheet" href="src/css/introducao.css">
 </head>
-<body class="landing-page bg-[#262626ea]">
-    <div class="h-full w-full opacity-50 bg-black absolute z-10 hidden"></div>
-    <!--Header-->
-    <header class="h-[400px] md:h-[500px] bg-[url('/medias/header-mobile.png')] md:bg-[url('/medias/header-desktop.png')] bg-cover flex flex-col ">
-        <h1 class="text-4xl md:text-5xl text-[#F2071B] text-center pt-20">Perfuse<span class="text-[#FFFFFF]">Lab</span></h1>
-        <p class="text-lg font-semibold text-center pt-8 text-[#D9D9D9]">Plataforma de apoio à decisão e ficha técnica perfusional em CEC</p>
-        <img class="pt-8 md:hidden" src="medias/deatails-header-mobile.png" alt="heart detail image">
-        <img class="pt-8 hidden md:flex" src="medias/deatails-header-desktop.png" alt="heart detail image">
-    </header>
-
-    <!--Main-->
-    <main id="main" class="bg-[#EEF6FF] pb-10 flex flex-col items-center gap-12">
-        <div class="flex flex-col">
-            <h1 class="text-[#F2071B] text-xl md:text-3xl text-center pt-5 font-semibold">Bem vindo-a Perfusionista!</h1>
-            <p class="text-base text-black max-w-[80%] font-semibold text-center m-auto pt-8">Esta é uma plataforma de análise, apoio à decisão e registro técnico perfusional em circulação extracorpórea, com foco em monitorização fisiológica, checklist, relatório e documentação do caso.</p>
-        </div>
-        <!--Cards-->
-
-        <div class="flex flex-col gap-10 items-center justify-center">
-            <!--Card1-->
-            <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl shadow-sm shadow-gray-700">
-                <div class="flex gap-5 justify-center text-xl font-medium">
-                    <i class="ri-microscope-line text-2xl text-blue-900"></i>
-                    <h1 class="text-[#0F3D4C]">Análise Clínica em Tempo Real</h1>
-                </div>
-                <p class="w-[80%] pt-3 text-[#374151] text-center">Monitoramento de parâmetros críticos durante a CEC com interpretação automatizada baseada em fisiologia.</p>
-            </div>
-            <!--Card2-->
-            <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl shadow-sm shadow-gray-700">
-                <div class="flex gap-5 justify-center text-xl font-medium">
-                    <i class="ri-test-tube-fill text-2xl text-[#03A64A]"></i>
-                    <h1 class="text-[#0F3D4C]">Apoio à Decisão em CEC</h1>
-                </div>
-                <p class="w-[80%]  pt-3 text-[#374151] text-center">Identificação de padrões clínicos e geração de alertas para auxiliar condutas durante a circulação extracorpórea.</p>
-            </div>
-            <!--Card3-->
-            <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl shadow-sm shadow-gray-700">
-                <div class="flex gap-5 justify-center text-xl font-medium">
-                    <i class="ri-lungs-line text-2xl text-orange-600"></i>
-                    <h1 class="text-[#0F3D4C]">Proteção Renal Baseada em DO₂</h1>
-                </div>
-                <p class="w-[80%] pt-3 text-[#374151] text-center">Avaliação contínua da oferta de oxigênio e risco de lesão renal com base em parâmetros hemodinâmicos e laboratoriais.</p>
-            </div>
-            <!--Card4-->
-            <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl shadow-sm shadow-gray-700">
-                <div class="flex gap-5 justify-center text-xl font-medium">
-                    <i class="ri-drop-fill text-2xl text-red-600"></i>
-                    <h1 class="text-[#0F3D4C]">Protocolo PBM (Pacient Blood Menagement)</h1>
-                </div>
-                <p class="w-[80%] pt-3 text-[#374151] text-center">Estratégia baseada em evidências para otimizar a hemoglobina, reduzir perdas sanguíneas e evitar transfusões desnecessárias, com foco na manutenção da oferta de oxigênio (DO₂) e melhores desfechos clínicos.</p>
-            </div>
-            <!--Card5-->
-            <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl shadow-sm shadow-gray-700">
-                <div class="flex gap-5 justify-center text-xl font-medium">
-                    <i class="ri-bar-chart-fill text-2xl text-[#FFCC00]"></i>
-                    <h1 class="text-[#0F3D4C]">Análise de Tendência</h1>
-                </div>
-                <p class="w-[80%] pt-3 text-[#374151] text-center">Visualização da evolução dos parâmetros ao longo do tempo para identificação precoce de deterioração clínica.</p>
-            </div>
-            <!--Card6-->
-            <div class="w-[85%] md:w-[65%] bg-[#E5E7EB] flex flex-col items-center p-3 rounded-2xl shadow-sm shadow-gray-700">
-                <div class="flex gap-5 justify-center text-xl font-medium">
-                    <i class="ri-file-warning-line text-2xl text-red-500"></i>
-                    <h1 class="text-[#0F3D4C]">Alertas Clínicos Automatizados</h1>
-                </div>
-                <p class="w-[80%] pt-3 text-[#374151] text-center">Geração de alertas baseados em regras fisiológicas e limites críticos definidos para suporte à tomada de decisão.</p>
-            </div>
-        </div>
-
-        <!--Button-->
-        <div class="landing-actions flex flex-col md:flex-row gap-4 items-center">
-            <button id="btnMain" class="landing-action-button py-3 px-5 rounded-full bg-[#03A64A] text-white hover:scale-105 transition-all duration-500 border-none">Iniciar Análise Manual</button>
-            <label for="arquivoDados" class="landing-action-button py-3 px-5 rounded-full bg-blue-700 text-white hover:scale-105 transition-all duration-500 cursor-pointer">Entrar com arquivo</label>
-            <a href="cases.html" class="landing-action-button py-3 px-5 rounded-full bg-slate-800 text-white hover:scale-105 transition-all duration-500 border-none">Acesso perfusionista</a>
-            <input id="arquivoDados" type="file" accept=".csv,.json,text/csv,application/json" class="hidden">
-        </div>
-        <div class="w-[85%] md:w-[65%] bg-white border border-blue-200 rounded-2xl p-4 text-center">
-            <p class="text-[#374151]">Importe um arquivo CSV ou JSON com os dados do paciente e a monitorização.</p>
-            <div class="landing-model-actions">
-                <button id="btnModeloArquivo" class="text-blue-700 underline font-semibold">Baixar modelo CSV</button>
-                <a href="checklist-modelo.html" class="text-slate-700 underline font-semibold">Modelo checklist</a>
-            </div>
-            <p class="mt-2 text-sm text-[#64748b]">Use o modelo CSV para entrada de dados e o modelo checklist para impressão operacional.</p>
-            <p id="statusArquivo" class="mt-2 text-sm font-semibold hidden"></p>
-        </div>
-    </main>
-
-    <!--Modal-->
-    <aside id="modal" class="bg-white w-full hidden pb-10 m-auto">
-        <h1 class="text-lg text-center text-white p-8 bg-[#F2071B] md:text-2xl">Muito Bem! Vamos começar!</h1>
-        <p class="p-3 text-center md:text-xl text-[#374151]">Para iniciar a simulação informe os dados necessários.</p>
-
-        <!--Card 1-->
-        <div class="flex flex-col m-auto pb-8 pt-3 justify-center items-center mt-5 bg-[#E8E8E8] w-[80%] md:w-[50%] rounded-2xl shadow-sm shadow-gray-700">
-            <div class="flex justify-center items-center gap-2 pb-2">
-                <i class="ri-user-fill text-lg"></i>
-                <h2>Dados do paciente</h2>
-            </div>
-            <div class="flex flex-col gap-2 text-xl">
-                <input class="rounded-2xl pl-2" type="text" name="procedimento" id="procedimento" placeholder="Tipo de cirurgia/procedimento...">
-                <input class="rounded-2xl pl-2" type="text" name="sexo" id="sexo" placeholder="Sexo...">
-                <p id="errorSex" class="errorSex text-sm text-red-500 font-semibold hidden">Erro! o sexo do paciente deve ser masculino ou feminino!</p>
-                <input class="rounded-2xl pl-2" type="text" name="idade" id="idade" placeholder="Idade...">
-                <input class="rounded-2xl pl-2" type="text" name="peso" id="peso" placeholder="Peso...">
-                <input class="rounded-2xl pl-2" type="text" name="altura" id="altura" placeholder="Altura...">
-            </div>
-        </div>
-
-        <!--Card 2-->
-        <div class="flex flex-col m-auto pb-8 pt-3 justify-center items-center mt-5 bg-[#E8E8E8] w-[80%] rounded-2xl shadow-sm shadow-gray-700 md:w-[50%]">
-            <div class="flex justify-center items-center gap-2 pb-2">
-                <i class="ri-drop-fill"></i>
-                <h2>Dados Hematológicos</h2>
-            </div>
-            <div class="flex flex-col gap-2 text-xl">
-                <input class="rounded-2xl pl-2" type="text" name="hemoglobina" id="hemoglobina" placeholder="Hemoglobina...">
-                <input class="rounded-2xl pl-2" type="text" name="hematocrito" id="hematocrito" placeholder="Hematócrito...">
-            </div>
-        </div>
-
-        <!--Card 3-->
-        <div class="flex flex-col m-auto pb-8 pt-3 justify-center items-center mt-5 bg-[#E8E8E8] w-[80%] rounded-2xl shadow-sm shadow-gray-700 md:w-[50%]">
-            <div class="flex justify-center items-center gap-2 pb-2">
-                <i class="ri-bar-chart-2-fill"></i>
-                <h2>Dados da Perfusão</h2>
-            </div>
-            <div class="flex flex-col gap-2 text-xl">
-                <input class="rounded-2xl pl-2" type="text" name="fluxo" id="fluxo" placeholder="Fluxo...">
-                <input class="rounded-2xl pl-2" type="text" name="temperatura" id="temperatura" placeholder="Temperatura...">
-                <input class="rounded-2xl pl-2" type="text" name="pam" id="pam" placeholder="Pressão Arterial Média...">
-            </div>
-        </div>
-
-        <!--Card 4-->
-        <div class="flex flex-col m-auto pb-8 pt-3 justify-center items-center mt-5 bg-[#E8E8E8] w-[80%] rounded-2xl shadow-sm shadow-gray-700 md:w-[50%]">
-            <div class="flex justify-center items-center gap-2 pb-2">
-                <i class="ri-test-tube-fill"></i>
-                <h2>Dados Metabólicos</h2>
-            </div>
-            <div class="flex flex-col gap-2 text-xl">
-                <div class="flex">
-                    <input class="rounded-l-2xl pl-2 w-[62%]" type="text" name="lactato" id="lactato" placeholder="Lactato...">
-                    <select id="unidadeLactatoInicial" class="rounded-r-2xl w-[38%] bg-white text-base">
-                        <option value="mmol/L">mmol/L</option>
-                        <option value="mg/dL">mg/dL</option>
-                    </select>
-                </div>
-                <input class="rounded-2xl pl-2" type="text" name="sao2" id="sao2" placeholder="Saturação de oxigênio...">
-            </div>
-        </div>
-
-        <!--Button-->
-        <div class="text-center pt-5 flex gap-5 justify-center">
-            <button id="btnClose" class="py-3 px-5 rounded-full bg-[#3C4C59] text-white hover:scale-105 transition-all duration-500 border-none w-[40%] md:w-[20%]">Voltar</button>
-            <button id="btnModal" class="py-3 px-5 rounded-full bg-[#03A64A] text-white hover:scale-105 transition-all duration-500 border-none w-[40%] md:w-[20%]">Iniciar Análise</button>
-        </div>
-    </aside>
-
-
-
-
-    <footer class="bg-[#262626] w-full h-[200px] flex flex-col items-center">
-        <p class="text-white pt-5 pb-10 w-[80%]">Os dados apresentados são simulados e destinam-se exclusivamente a fins educacionais, não substituindo o julgamento clínico ou a prática profissional.</p>
-        <p class="text-white text-center">Desenvolvido por Henrique Schell</p>
-        <div class="text-white pt-2 text-3xl">
-            <a href="https://www.instagram.com/_schell01_" target="_blank"><i class="ri-instagram-line cursor-pointer hover:text-[#03A64A] transition-all"></i></a>
-            <a href="https://github.com/HenriqueSchell" target="_blank"><i class="ri-github-fill cursor-pointer hover:text-[#03A64A] transition-all"></i></a>
-        </div>
-
-
-    </footer>
-
-    <script src="src/js/index.js"></script>
-
-
-</body>
-</html>
+<body class="intro-page">
+<header class="hero"><div class="hero-image" id="parallax" aria-hidden="true"></div><div class="wrap">
+<nav class="topbar" aria-label="Navegação principal"><a href="index.html" class="brand" aria-label="PerfuseLab início"><i class="brand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12h5l3-7 4 14 3-7h5"/></svg></i><div>Perfuse<span>Lab</span></div></a><div class="toplinks"><a href="#conheca">O projeto</a><a href="informacoes.html">Informações ↗</a><a href="cases.html">Casos salvos</a></div></nav>
+<div class="intro-hero"><div class="hero-copy"><div class="eyebrow">Planejamento · Monitorização · Conhecimento</div><h1>Cada etapa da perfusão.<br><em>Uma visão integrada.</em></h1><p>Prepare o caso antes da CEC, acompanhe os dados durante a perfusão e reúna os resultados para análise e estudo.</p><div class="intro-actions"><a href="planejamento.html" class="primary" id="begin">Preparar um caso <span aria-hidden="true">→</span></a><a href="#conheca" class="intro-link">Conhecer o PerfuseLab ↓</a></div><div class="hero-foot"><span>Planejamento pré-CEC</span><span>Análise de dados</span><span>Relatórios</span></div></div>
+<aside class="journey" aria-label="Etapas do acompanhamento"><div class="eyebrow">Do primeiro dado à visão do caso</div><div class="journey-row"><b>01</b><div><strong>Antes da CEC</strong><span>Dados básicos, fluxo e meta térmica</span></div><i></i></div><div class="journey-row"><b>02</b><div><strong>Durante a perfusão</strong><span>Medições e indicadores no dashboard</span></div></div><div class="journey-row"><b>03</b><div><strong>Depois, uma visão completa</strong><span>Histórico, gráficos e relatórios</span></div></div><a href="informacoes.html">Explore as fórmulas e referências ↗</a></aside></div>
+</div></header>
+<main class="wrap intro-main" id="conheca">
+<section class="intro-about" aria-labelledby="aboutTitle"><div><div class="eyebrow">Conheça o PerfuseLab</div><h2 id="aboutTitle">Organize o caso.<br>Conecte as informações.</h2></div><p>O PerfuseLab é um projeto de apoio ao estudo e à organização de dados de perfusão. Reúne planejamento, cálculos e visualizações para facilitar a leitura das variáveis de circulação extracorpórea ao longo do caso.</p></section>
+<section class="feature-grid" aria-label="Funcionalidades"><article class="feature"><span class="feature-number">01 / PREPARAR</span><h3>Comece antes da CEC.</h3><p>Organize os dados do paciente, explore o fluxo de referência e registre a temperatura planejada com a equipe. Salve um rascunho e deixe o plano pronto.</p><a href="planejamento.html">Abrir planejamento →</a></article><article class="feature"><span class="feature-number">02 / ACOMPANHAR</span><h3>Veja os dados em contexto.</h3><p>Registre as medições reais e acompanhe oferta de oxigênio, fluxo, lactato e outros indicadores, com gráficos e histórico de monitorização.</p><a href="planejamento.html#importar">Importar uma monitorização →</a></article><article class="feature"><span class="feature-number">03 / ESTUDAR</span><h3>Transforme registros em estudo.</h3><p>Consulte casos salvos, organize o checklist e reúna as informações em relatórios simples ou completos para revisão.</p><a href="cases.html">Consultar casos →</a></article></section>
+<section class="knowledge" aria-labelledby="knowledgeTitle"><div><div class="eyebrow">Transparência em cada cálculo</div><h2 id="knowledgeTitle">Entenda o que está por trás dos números.</h2><p>Consulte as fórmulas, os critérios de interpretação e as referências científicas em uma área dedicada.</p></div><a href="informacoes.html" class="secondary">Explorar informações ↗</a></section>
+<section class="intro-bottom" aria-labelledby="readyTitle"><div><div class="eyebrow">Tudo começa com a preparação</div><h2 id="readyTitle">Pronto para organizar seu próximo caso?</h2></div><a href="planejamento.html" class="primary">Iniciar planejamento →</a></section>
+<footer class="footer"><span>PerfuseLab · Da preparação à análise da perfusão</span><nav aria-label="Links complementares"><a href="planejamento.html">Planejamento</a><a href="checklist-modelo.html">Checklist</a><a href="informacoes.html">Informações</a></nav></footer>
+</main>
+<script src="src/js/introducao.js"></script>
+</body></html>

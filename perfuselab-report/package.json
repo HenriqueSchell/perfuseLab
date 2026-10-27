@@ -1,0 +1,19 @@
+{
+  "name": "perfuselab-report",
+  "version": "1.0.0",
+  "description": "Projeto para geração de relatórios de exames e visualização de dados do paciente.",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "body-parser": "^1.19.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "author": "Seu Nome",
+  "license": "MIT"
+}

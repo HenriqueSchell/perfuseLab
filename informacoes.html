@@ -1,34 +1,19 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="src/css/style.css">
-    <link rel="shortcut icon" href="medias/icon.png" type="image/x-icon">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>PerfuseLab - Informações técnicas</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#102b37">
+<title>PerfuseLab · Informações técnicas</title>
+<link rel="icon" href="medias/icon.png">
+<link rel="stylesheet" href="src/css/pre-cec.css">
 </head>
-<body class="info-page bg-slate-950 text-slate-200">
-    <header class="info-header">
-        <div>
-            <a href="index.html" class="cases-logo">Perfuse<span>Lab</span></a>
-            <p>Fórmulas, limites e observações técnicas fora do relatório impresso.</p>
-        </div>
-        <nav class="cases-nav" aria-label="Navegação das informações técnicas">
-            <a href="dashboard.html">Dashboard</a>
-            <a href="cases.html">Casos salvos</a>
-            <a href="checklist-modelo.html">Modelo checklist</a>
-        </nav>
-    </header>
-
-    <main class="info-shell">
-        <section class="info-hero">
-            <p class="cases-eyebrow">Consulta técnica</p>
-            <h1>Informações para interpretar os relatórios</h1>
-            <p>Esta página concentra fórmulas, correções e limites usados pelo PerfuseLab. O relatório impresso fica mais limpo, e os detalhes técnicos ficam aqui para estudo e conferência.</p>
-        </section>
-
-        <section class="info-card">
+<body class="info-page">
+<header class="hero"><div class="hero-image" id="parallax" aria-hidden="true"></div><div class="wrap">
+ <nav class="topbar" aria-label="Navegação principal"><a href="index.html" class="brand" aria-label="PerfuseLab início"><i class="brand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12h5l3-7 4 14 3-7h5"/></svg></i><div>Perfuse<span>Lab</span></div></a><div class="toplinks"><a href="planejamento.html">Planejamento</a><a href="informacoes.html">Informações ↗</a><a href="cases.html">Casos salvos</a><span class="pill"><i></i> Pré-CEC</span></div></nav>
+ <div class="hero-copy"><div class="eyebrow">Conhecimento para cada etapa</div><h1>Entenda os dados.<br><em>Conheça os limites.</em></h1><p>Fórmulas, referências científicas e critérios de interpretação do planejamento e da monitorização.</p></div></div></header>
+<main class="wrap workspace"><nav class="utility-nav" aria-label="Consulta técnica"><a href="planejamento.html">← Preparar caso</a><a href="#planejamento">Planejamento</a><a href="#evidencias">Referências científicas</a><a href="dashboard.html">Dashboard</a><a href="checklist-modelo.html">Checklist</a></nav><section class="info-card" id="planejamento"><div class="eyebrow">Antes da CEC</div><h2>Como o planejamento funciona</h2><p>A entrada é destinada ao planejamento de adultos em CEC convencional. Primeiro informe os dados básicos, escolha o fluxo e registre a temperatura definida pela equipe. O plano permanece aguardando a CEC. A análise começa com uma medição real registrada separadamente, com o horário de início e o minuto de coleta.</p><div class="info-grid"><article><h3>Fluxo de referência e GDP</h3><p>O índice inicial de 2,4 L/min/m² é editável. A diretriz descreve uso habitual de 2,2–2,8 L/min/m², mas essa faixa não define um fluxo ideal individual. Em obesidade, a indexação pela SC requer avaliação específica. A estimativa GDP exige Hb, SaO₂ e PaO₂ esperadas; não utiliza automaticamente a Hb pré-operatória devido à possível hemodiluição.</p><p>Os botões de fluxo arredondam para cima a 0,01 L/min. O planejamento permite metas de iDO₂ de 280 ou 300 mL/min/m². Essa escolha não altera o alvo fixo de 280 usado no dashboard atual. Valores previstos não são medições.</p></article><article><h3>Temperatura planejada</h3><p>O fluxo isoladamente não permite calcular uma temperatura ideal individual. A temperatura informada é a meta do paciente definida pela equipe, não a temperatura da água do permutador ou da saída arterial do oxigenador. Resfriar não reduz automaticamente a meta de iDO₂ nesta calculadora.</p><p>A demanda metabólica varia com temperatura, anestesia e condições individuais. A evidência GDP em normotermia não valida a extrapolação para todas as temperaturas. Ao reaquecer, reavalie oferta de O₂. Não se deve usar resfriamento para justificar um déficit de fluxo. Pediatria, parada circulatória e hipotermia profunda estão fora do escopo da nova entrada.</p></article></div></section>
+<section class="info-card" id="armazenamento"><h2>Dados, rascunhos e armazenamento</h2><p>O rascunho e o plano ficam no armazenamento local deste navegador, sem criptografia aplicada pelo aplicativo. Use um identificador de caso e evite nomes completos. Limpar o rascunho remove somente o planejamento; não apaga casos já registrados. Em computador compartilhado, os dados locais podem ser acessíveis a outros usuários.</p><p>Preparar o plano não envia dados à API. A ação “Iniciar CEC e abrir dashboard” registra o horário de início e disponibiliza todos os módulos. O registro de tempo zero usa os valores do plano, identificado como planejamento; campos ausentes permanecem não informados. Novos exames são inseridos diretamente na monitorização. O salvamento de casos no banco continua sendo uma ação separada no dashboard. A exportação do plano em JSON é um registro do planejamento; não é um arquivo de monitorização para o importador CSV/JSON.</p></section>
+<section class="info-card"><h2>Interpretação do motor atual</h2><p>As regras são apoio educacional e precisam de validação clínica antes de uso assistencial. Um alerta alto classifica o risco como alto; sem alertas altos, dois ou mais moderados classificam como moderado. Regras dependentes podem contar separadamente. A classificação não representa probabilidade validada de desfecho.</p><p>O iVO₂ é informado, não estimado automaticamente por Fick. Sem PaO₂ no histórico, o motor omite a parcela dissolvida do CaO₂. SaO₂ não é inferida da PaO₂. O importador pode estimar hematócrito como Hb × 3 quando ausente; isso é uma aproximação. Áreas e durações entre amostras pressupõem interpolação, não medição contínua.</p><p>A tabela térmica histórica do dashboard (25 °C: 110; 28 °C: 152; 30 °C: 180; 33 °C: 223; 35 °C: 252; 37 °C: 280 mL/min/m²) é uma regra local, sem validação clínica estabelecida nesta revisão. Não é utilizada para inverter fluxo em temperatura no planejamento.</p></section><section class="info-card">
             <h2>Relatórios disponíveis</h2>
             <div class="info-grid">
                 <article>
@@ -44,7 +29,7 @@
 
         <section class="info-card">
             <h2>Correção FiO₂/PaO₂</h2>
-            <p>Quando a PaO₂ está acima de 150 mmHg, o PerfuseLab pode calcular uma FiO₂ corrigida pelo método de Hamilton como métrica de desempenho do oxigenador.</p>
+            <p>Quando a PaO₂ está acima de 150 mmHg, o PerfuseLab pode calcular uma FiO₂ corrigida (rotulada “Hamilton” no código) como indicador exploratório; a atribuição do método não foi validada nesta revisão.</p>
             <div class="info-formula">
                 FiO₂corr = FiO₂ - PaO₂ / (Pb - 47) + 0,21
             </div>
@@ -80,8 +65,8 @@
                         </tr>
                         <tr>
                             <td>Conteúdo arterial de O₂</td>
-                            <td>CaO₂ = Hb × 1,36 × SaO₂ + PaO₂ × 0,003</td>
-                            <td>Estima oxigênio transportado no sangue arterial.</td>
+                            <td>CaO₂ = Hb × 1,36 × (SaO₂ / 100) + PaO₂ × 0,003</td>
+                            <td>CaO₂ em mL/dL; Hb em g/dL, SaO₂ em %, PaO₂ em mmHg.</td>
                         </tr>
                         <tr>
                             <td>iDO₂</td>
@@ -123,7 +108,7 @@
                         <tr>
                             <td>iDO₂</td>
                             <td>Alvo GDP: 280 mL/min/m²</td>
-                            <td>Abaixo de 90% do alvo gera alerta alto.</td>
+                            <td>Alertas: &lt;252 alto; 252 a &lt;280 moderado. O cartão visual usa &lt;260 como crítico. Critérios distintos no motor atual.</td>
                         </tr>
                         <tr>
                             <td>Hemoglobina</td>
@@ -142,7 +127,7 @@
                         </tr>
                         <tr>
                             <td>IC</td>
-                            <td>Adequado se ≥ 2,4 L/min/m²</td>
+                            <td>Referência visual: ≥ 2,4 L/min/m²</td>
                             <td>Depende da superfície corporal e do fluxo.</td>
                         </tr>
                         <tr>
@@ -174,6 +159,10 @@
                 <li>Alertas do sistema indicam pontos para revisão, não ordens automáticas de conduta.</li>
             </ul>
         </section>
-    </main>
-</body>
-</html>
+<details class="sources" id="evidencias" open><summary>Ciência por trás do planejamento <span class="badge-outline">Fontes primárias</span></summary><div class="sources-content">
+ <div class="source"><strong>01 · Diretriz EACTS/EACTAIC/EBCP 2024</strong><p>Publicada em 2025. Integra fluxo, SC, temperatura e oferta de O₂. Discute referência GDP de 280–300 mL/min/m² em CEC normotérmica; não fornece uma inversão universal de fluxo para temperatura.</p><a href="https://pubmed.ncbi.nlm.nih.gov/39949326/" target="_blank" rel="noopener noreferrer">PubMed · PMID 39949326 ↗</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11826095/" target="_blank" rel="noopener noreferrer">Texto integral ↗</a></div>
+ <div class="source"><strong>02 · Ranucci et al., 2018</strong><p>Ensaio randomizado de GDP com iDO₂ ≥280 mL/min/m². A evidência da estratégia não valida este aplicativo nem transforma a estimativa em um fluxo ideal individual.</p><a href="https://pubmed.ncbi.nlm.nih.gov/29778331/" target="_blank" rel="noopener noreferrer">PubMed · PMID 29778331 ↗</a></div>
+ <div class="source"><strong>03 · STS/SCA/AmSECT, 2015</strong><p>Diretriz de manejo térmico em CEC adulta. Recomenda controlar a temperatura na saída arterial do oxigenador para evitar hipertermia cerebral. Essa temperatura é diferente da meta do paciente informada aqui.</p><a href="https://www.sts.org/sites/default/files/documents/Guidelines_CPB%20Temperature%20Management.pdf" target="_blank" rel="noopener noreferrer">Diretriz oficial · STS ↗</a></div>
+ <div class="source"><strong>04 · Temperatura, hematócrito e oxigenação cerebral</strong><p>Estudo em humanos mostra interação entre temperatura e hemodiluição na oferta cerebral. A fisiologia regional não pode ser resumida a uma temperatura ótima derivada de um único fluxo.</p><a href="https://pubmed.ncbi.nlm.nih.gov/8787461/" target="_blank" rel="noopener noreferrer">PubMed · PMID 8787461 ↗</a></div>
+ <div class="formula"><strong>Fórmulas usadas</strong><br>SC = √(peso × altura / 3600) · Q referência = SC × IC<br>CaO₂ = 1,36 × Hb × (SaO₂ / 100) + 0,003 × PaO₂<br>Q para meta GDP = meta de iDO₂ × SC / (10 × CaO₂)<br>iDO₂ previsto = 10 × (Q escolhido / SC) × CaO₂<p class="small-note">Coeficientes de O₂ preservados do motor atual do PerfuseLab. SC em m²; peso em kg; altura em cm; Q em L/min. O cálculo pressupõe o fluxo efetivamente entregue ao paciente. Não considera shunts, limites de cânulas, drenagem ou desempenho do circuito. Mosteller: <a href="https://pubmed.ncbi.nlm.nih.gov/3657876/" target="_blank" rel="noopener noreferrer">PMID 3657876</a>. Revisão bibliográfica: 25/10/2026.</p></div>
+ </div></details><footer class="footer">PerfuseLab · Informações técnicas · Revisão em 25/10/2026</footer></main></body></html>

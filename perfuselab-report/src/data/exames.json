@@ -1,0 +1,39 @@
+[
+    {
+        "data": [
+            {
+                "dataExame": "2023-01-15",
+                "hemoglobina": 14.5,
+                "hematocrito": 45,
+                "lactato": 1.2,
+                "ido2": 250,
+                "ic": 3.5,
+                "sao2": 98,
+                "tempoCec": 120,
+                "fluxo": 5.0
+            },
+            {
+                "dataExame": "2023-02-20",
+                "hemoglobina": 15.0,
+                "hematocrito": 46,
+                "lactato": 1.0,
+                "ido2": 260,
+                "ic": 3.7,
+                "sao2": 97,
+                "tempoCec": 130,
+                "fluxo": 5.5
+            },
+            {
+                "dataExame": "2023-03-10",
+                "hemoglobina": 13.8,
+                "hematocrito": 44,
+                "lactato": 1.5,
+                "ido2": 240,
+                "ic": 3.3,
+                "sao2": 99,
+                "tempoCec": 110,
+                "fluxo": 4.8
+            }
+        ]
+    }
+]

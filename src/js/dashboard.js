@@ -178,6 +178,7 @@ function resetarExames(camposExames){
 }
 
 function classificarHemoglobina(valor, elemento){
+    if(!Number.isFinite(valor)){ elemento.classList.remove('bg-red-500','bg-amber-600','bg-amber-400','bg-emerald-600'); elemento.textContent='Não informado'; return }
     elemento.classList.remove('bg-red-500','bg-amber-600','bg-emerald-600')
     if(valor < LIMIARES.hb.atencao){
         elemento.classList.add('bg-amber-600')
@@ -192,6 +193,7 @@ function classificarHemoglobina(valor, elemento){
 }
 
 function classificarHematocrito(valor, elemento){
+    if(!Number.isFinite(valor)){ elemento.classList.remove('bg-red-500','bg-amber-600','bg-amber-400','bg-emerald-600'); elemento.textContent='Não informado'; return }
     elemento.classList.remove('bg-red-500','bg-amber-600','bg-emerald-600')
     if(valor < LIMIARES.hct.critico){
         elemento.classList.add('bg-red-500')
@@ -206,6 +208,7 @@ function classificarHematocrito(valor, elemento){
 }
 
 function classificarLactato(valor, elemento){
+    if(!Number.isFinite(valor)){ elemento.classList.remove('bg-red-500','bg-amber-600','bg-amber-400','bg-emerald-600'); elemento.textContent='Não informado'; return }
     elemento.classList.remove('bg-red-500','bg-amber-400','bg-emerald-600')
     if(valor > LIMIARES.lactato.critico){
         elemento.classList.add('bg-red-500')
@@ -340,7 +343,7 @@ function classificarScore(valor, elemento){
 function AtualizarTabela(exame, tabela, ido2, IC){
     let linhaTempo = document.getElementById('linhaTempo')
     let dadoTempo = document.createElement('td')
-    dadoTempo.textContent = exame.tempo
+    dadoTempo.textContent = exame.origem === 'planejamento' ? `${exame.tempo} (plano)` : exame.tempo
 
     let linhaFluxo = document.getElementById('linhaFluxo')
     let dadoFluxo = document.createElement('td')
@@ -365,11 +368,11 @@ function AtualizarTabela(exame, tabela, ido2, IC){
 
     let linhaIdo2 = document.getElementById('linhaIdo2')
     let dadoIdo2 = document.createElement('td')
-    dadoIdo2.textContent = ido2
+    dadoIdo2.textContent = Number.isFinite(ido2) ? ido2 : '—'
 
     let linhaIC = document.getElementById('linhaIC')
     let dadoIC = document.createElement('td')
-    dadoIC.textContent = IC
+    dadoIC.textContent = Number.isFinite(IC) ? IC : '—'
 
     let linhaFonteIdo2 = document.getElementById('linhaFonteIdo2')
     let dadoFonteIdo2 = document.createElement('td')
@@ -478,7 +481,7 @@ function criarGrafico(campo, dados, valorCritico = null){
 
 function completarExame(exame, SC){
     const hb = transformarNumero(exame.hb)
-    const hct = transformarNumero(exame.hct)
+    const hct = transformarNumero(exame.hct) ?? (Number.isFinite(hb) ? calcularHct(hb) : null)
     const lactato = transformarNumero(exame.lactato)
     const fluxo = transformarNumero(exame.fluxo)
     const sao2 = transformarNumero(exame.sao2)
@@ -552,6 +555,7 @@ function completarExame(exame, SC){
 }
 
 function descreverOrigemIdo2(exame){
+    if(exame.origem === 'planejamento') return 'Previsto no plano · registro inicial'
     if(exame.fonteIdo2 === 'calculado'){
         if(exame.consistenciaIdo2 === 'divergente'){
             return `Calculado; informado difere ${formatarMetrica(Math.abs(exame.diferencaIdo2Percentual))}%`
@@ -963,6 +967,10 @@ function analisarAcidoBase(exame){
 }
 
 function montarAnalisePerfusional(paciente, historico, casoClinico, SC){
+    // Após a primeira coleta, as tendências clínicas usam somente medições reais.
+    const medicoes = historico.filter(exame => exame.origem !== 'planejamento')
+    if(medicoes.length) historico = medicoes
+    const somentePlano = historico.every(exame => exame.origem === 'planejamento')
     const alvoGdp = LIMIARES.ido2.alvoGdp
     const pressaoBarometrica = transformarNumero(casoClinico?.operacional?.pressao_barometrica_mmhg) || 760
     const dados = historico
@@ -1096,7 +1104,7 @@ function montarAnalisePerfusional(paciente, historico, casoClinico, SC){
 
     const quantidadeAltos = alertas.filter(alerta => alerta.nivel === 'alto').length
     const quantidadeModerados = alertas.filter(alerta => alerta.nivel === 'moderado').length
-    const risco = quantidadeAltos > 0 ? 'ALTO' : quantidadeModerados >= 2 ? 'MODERADO' : 'BAIXO'
+    const risco = somentePlano ? 'PLANEJAMENTO' : quantidadeAltos > 0 ? 'ALTO' : quantidadeModerados >= 2 ? 'MODERADO' : 'BAIXO'
 
     return {
         dados,
@@ -1139,9 +1147,9 @@ function renderizarAnalisePerfusional(analise){
     const metricas = document.getElementById('metricasPerfusionais')
     const alertas = document.getElementById('alertasPerfusionais')
     const qualidade = document.getElementById('qualidadeDados')
-    const coresRisco = { BAIXO: 'bg-emerald-600', MODERADO: 'bg-amber-500', ALTO: 'bg-red-600' }
+    const coresRisco = { BAIXO: 'bg-emerald-600', MODERADO: 'bg-amber-500', ALTO: 'bg-red-600', PLANEJAMENTO: 'bg-slate-600' }
 
-    riscoGlobal.textContent = `Risco integrado: ${analise.risco}`
+    riscoGlobal.textContent = analise.risco === 'PLANEJAMENTO' ? 'Análise inicial: valores do plano' : `Risco integrado: ${analise.risco}`
     riscoGlobal.className = `self-start rounded-lg px-4 py-2 text-white font-semibold ${coresRisco[analise.risco]}`
     resumo.innerHTML = ''
     analise.resumo.forEach(item => {
@@ -1242,6 +1250,9 @@ function obterProcedimentoCaso(paciente = {}, casoClinico = {}, dadosChecklist =
 }
 
 function criarChaveCaso(paciente, casoClinico = {}){
+    if(casoClinico?.metadados?.origem === 'entrada_pre_cec' && casoClinico.metadados.id_caso){
+        return `perfuselab-checklist:${casoClinico.metadados.id_caso}`
+    }
     const origem = obterProcedimentoCaso(paciente, casoClinico) || casoClinico?.metadados?.arquivo || 'caso-local'
     const partes = [
         'perfuselab-checklist',
@@ -1609,6 +1620,8 @@ async function salvarCasoNoBanco(snapshot){
 document.addEventListener('DOMContentLoaded', () => {
     let paciente = JSON.parse(localStorage.getItem('paciente'))
     const casoClinico = JSON.parse(localStorage.getItem('casoClinicoImportado') || '{}')
+    // A entrada pelo plano inicia a CEC e mantém todos os módulos disponíveis.
+    if(window.renderPlannedDashboard?.(paciente, casoClinico)) return
 
     //Validar se eiste a variável
     if(!paciente){
@@ -1624,7 +1637,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let sao2 = transformarNumero(paciente.sao2)
     let hemoglobina = transformarNumero(paciente.hemoglobina)
     let fluxo = transformarNumero(paciente.fluxo)
-    let hct = transformarNumero(paciente.hematocrito)
+    let hct = transformarNumero(paciente.hematocrito) ?? (Number.isFinite(hemoglobina) ? calcularHct(hemoglobina) : null)
     let lactato = transformarNumero(paciente.lactato)
 
     //Resgatar e imprimir os dados
@@ -1684,15 +1697,15 @@ document.addEventListener('DOMContentLoaded', () => {
     //Conteúdo cards
 
     //Hemoglobina
-    campoHb.textContent = hemoglobina
+    campoHb.textContent = Number.isFinite(hemoglobina) ? hemoglobina : '—'
     classificarHemoglobina(hemoglobina, classificacaoHb)
     
     //Hematócrito
-    campoHct.textContent = hct
+    campoHct.textContent = Number.isFinite(hct) ? hct : '—'
     classificarHematocrito(hct, classificacaoHct)
 
     //Lactato
-    campoLactato.textContent = lactato
+    campoLactato.textContent = Number.isFinite(lactato) ? lactato : '—'
     classificarLactato(lactato, classificacaoLactato)
 
     //Superfície Corporal
@@ -1703,14 +1716,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Oferta de oxigênio iDO²
     let ido2 = ofertaOxigenio(hemoglobina, sao2, fluxo, SC)
-    campoido2.textContent = ido2
+    campoido2.textContent = Number.isFinite(ido2) ? ido2.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2}) : '—'
     classificarOfertaOxigenio(ido2, classificacaoido2)
     
     
 
     //Índice cardíaco
     let IC = indiceCardiaco(fluxo, SC)
-    campoIC.textContent = IC
+    campoIC.textContent = Number.isFinite(IC) ? IC : '—'
     classificarIC(IC, classificacaoIC)
     
 
@@ -1836,11 +1849,11 @@ document.addEventListener('DOMContentLoaded', () => {
     ido2 = exameMaisRecente.ido2
     IC = exameMaisRecente.IC
     atualizarResumoFluxoIndice(fluxo, SC)
-    campoHb.textContent = hemoglobina
-    campoHct.textContent = hct
-    campoLactato.textContent = lactato
-    campoido2.textContent = ido2
-    campoIC.textContent = IC
+    campoHb.textContent = Number.isFinite(hemoglobina) ? hemoglobina : '—'
+    campoHct.textContent = Number.isFinite(hct) ? hct : '—'
+    campoLactato.textContent = Number.isFinite(lactato) ? lactato : '—'
+    campoido2.textContent = Number.isFinite(ido2) ? ido2.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2}) : '—'
+    campoIC.textContent = Number.isFinite(IC) ? IC : '—'
     classificarHemoglobina(hemoglobina, classificacaoHb)
     classificarHematocrito(hct, classificacaoHct)
     classificarLactato(lactato, classificacaoLactato)
@@ -1931,9 +1944,9 @@ document.addEventListener('DOMContentLoaded', () => {
             hct = Number(hctAtt.value)
             hemoglobina = calcularHb(hct)
         }
-        campoHb.textContent = hemoglobina
+        campoHb.textContent = Number.isFinite(hemoglobina) ? hemoglobina : '—'
         classificarHemoglobina(hemoglobina, classificacaoHb)
-        campoHct.textContent = hct
+        campoHct.textContent = Number.isFinite(hct) ? hct : '—'
         classificarHematocrito(hct, classificacaoHct)
 
         //Lactato
@@ -1941,19 +1954,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if(lactatoConvertido !== null){
             lactato = lactatoConvertido
         }
-        campoLactato.textContent = lactato
+        campoLactato.textContent = Number.isFinite(lactato) ? lactato : '—'
         classificarLactato(lactato, classificacaoLactato)
 
         //IC
         fluxo = Number(fluxoInput.value)
         IC = indiceCardiaco(fluxo, SC)
-        campoIC.textContent = IC
+        campoIC.textContent = Number.isFinite(IC) ? IC : '—'
         classificarIC(IC, classificacaoIC)
 
         //iDO²
         sao2 = Number(sao2Att.value)
         ido2 = ofertaOxigenio(hemoglobina, sao2, fluxo, SC, transformarNumero(pao2.value))
-        campoido2.textContent = ido2
+        campoido2.textContent = Number.isFinite(ido2) ? ido2.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2}) : '—'
         classificarOfertaOxigenio(ido2, classificacaoido2)
 
         const examesObrigatorios = [tempo, fluxoInput, sao2Att]
